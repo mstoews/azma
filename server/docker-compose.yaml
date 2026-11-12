@@ -1,0 +1,28 @@
+# Local stack: postgres + CMS (site and API on http://localhost:8080).
+#   docker compose -f server/docker-compose.yaml up -d --build
+#   docker compose -f server/docker-compose.yaml exec cms ./seed -data seed-data/site-data.json -uploads seed-data/uploads
+#   docker compose -f server/docker-compose.yaml exec cms ./admin create -email you@example.com
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: cms
+      POSTGRES_PASSWORD: cms
+      POSTGRES_DB: cms
+    ports: ["55440:5432"]
+    volumes: [cms-pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cms -d cms"]
+      interval: 2s
+      retries: 30
+  cms:
+    build: { context: .., dockerfile: server/Dockerfile }
+    environment:
+      DB_SOURCE: postgresql://cms:cms@db:5432/cms?sslmode=disable
+      ENVIRONMENT: development
+    ports: ["8080:8080"]
+    volumes: [cms-media:/app/media]
+    depends_on: { db: { condition: service_healthy } }
+volumes:
+  cms-pgdata:
+  cms-media:

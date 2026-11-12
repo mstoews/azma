@@ -1,3 +1,6 @@
+@if (isAdmin()) {
+  <router-outlet />
+} @else {
 <div class="preloader hide-no-js">
   <div class="preloader-style preloader-style-1"></div>
 </div>
@@ -27,21 +30,21 @@
                 @if (isHome()) {
                   <h1 class="site-logo site-branding">
                     <a routerLink="/" class="custom-logo-link" rel="home" aria-current="page">
-                      <img width="60" height="21" [src]="logo" class="custom-logo" [alt]="siteName" decoding="async" />
+                      <img width="60" height="21" [src]="settings().logo" class="custom-logo" [alt]="settings().siteName" decoding="async" />
                     </a>
-                    <span class="screen-reader-text">{{ siteName }}</span>
-                    <span class="site-title">{{ siteName }}</span>
+                    <span class="screen-reader-text">{{ settings().siteName }}</span>
+                    <span class="site-title">{{ settings().siteName }}</span>
                   </h1>
                 } @else {
                   <div class="site-logo site-branding">
                     <a routerLink="/" class="custom-logo-link" rel="home">
-                      <img width="60" height="21" [src]="logo" class="custom-logo" [alt]="siteName" decoding="async" />
+                      <img width="60" height="21" [src]="settings().logo" class="custom-logo" [alt]="settings().siteName" decoding="async" />
                     </a>
-                    <span class="screen-reader-text">{{ siteName }}</span>
-                    <h1 class="site-title">{{ siteName }}</h1>
+                    <span class="screen-reader-text">{{ settings().siteName }}</span>
+                    <h1 class="site-title">{{ settings().siteName }}</h1>
                   </div>
                 }
-                <div class="site-description"><span>{{ tagline }}</span></div>
+                <div class="site-description"><span>{{ settings().tagline }}</span></div>
               </div>
             </div>
             <div class="navbar-item navbar-item-right">
@@ -61,9 +64,9 @@
           <div class="theme-header-content">
             <div class="theme-section-heading">
               <header class="entry-header">
-                <h2 class="entry-title entry-title-large">{{ siteName }}</h2>
+                <h2 class="entry-title entry-title-large">{{ settings().siteName }}</h2>
               </header>
-              <p class="theme-section-description">{{ homeDescription }}</p>
+              <p class="theme-section-description">{{ settings().homeDescription }}</p>
             </div>
           </div>
         }
@@ -89,7 +92,7 @@
         <div id="primary-nav-offcanvas" class="offcanvas-item offcanvas-main-navigation">
           <div class="menu">
             <ul>
-              @for (item of nav; track item.pageId) {
+              @for (item of nav(); track $index) {
                 <li class="page_item page-item-{{ item.pageId }}"
                     [class.current_page_item]="state().kind === 'page' && state().id === item.pageId">
                   @if (item.link) {
@@ -113,7 +116,7 @@
             <div class="column column-9">
               <div class="footer-credits">
                 <div class="footer-copyright">
-                  Copyright &copy; {{ year }} <a routerLink="/" [title]="siteName"><span>{{ siteName }}. </span></a>
+                  Copyright &copy; {{ year }} <a routerLink="/" [title]="settings().siteName"><span>{{ settings().siteName }}. </span></a>
                 </div>
               </div>
             </div>
@@ -130,3 +133,4 @@
     </footer>
   </div>
 </div>
+}

@@ -1,0 +1,15 @@
+# Files NOT sent to Cloud Build. Secrets and local data must never be uploaded.
+.git
+.gitignore
+.gcloudignore
+.angular/
+.vscode/
+.claude/
+node_modules/
+dist/
+**/app.env
+**/*.env
+!server/app.env.example
+server/media/
+server/.devdb/
+server/bin/

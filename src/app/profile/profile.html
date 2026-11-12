@@ -5,8 +5,8 @@
         <div id="primary" class="content-area">
           <main id="site-content" class="cobber-no-comment" role="main">
             <div class="article-wraper">
-              <article id="post-{{ p.id }}"
-                       class="post-{{ p.id }} post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+              <article id="post-{{ cssId(p) }}"
+                       class="post-{{ cssId(p) }} post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
                 <header class="entry-header">
                   <div class="entry-meta"></div>
                   <h1 class="entry-title entry-title-large">{{ p.title }}</h1>

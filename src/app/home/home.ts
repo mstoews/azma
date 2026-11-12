@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
+import { SiteContentService } from '../content.service';
 import { PageStateService } from '../page-state';
-import { HOME_HEADER_IMAGE, PROFILES, SITE_NAME, SITE_TAGLINE } from '../site-data';
+import { cssId } from '../site-data';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,17 @@ import { HOME_HEADER_IMAGE, PROFILES, SITE_NAME, SITE_TAGLINE } from '../site-da
   templateUrl: './home.html',
 })
 export class Home {
-  protected readonly profiles = PROFILES;
+  private readonly content = inject(SiteContentService);
+  protected readonly profiles = this.content.profiles;
+  protected readonly cssId = cssId;
 
   constructor() {
-    inject(PageStateService).state.set({ kind: 'home', image: HOME_HEADER_IMAGE, imageAlt: '' });
-    inject(Title).setTitle(`${SITE_NAME} – ${SITE_TAGLINE}`);
+    const pageState = inject(PageStateService);
+    const title = inject(Title);
+    effect(() => {
+      const s = this.content.settings();
+      pageState.state.set({ kind: 'home', image: s.homeHeaderImage, imageAlt: '' });
+      title.setTitle(`${s.siteName} – ${s.tagline}`);
+    });
   }
 }

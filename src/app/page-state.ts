@@ -5,6 +5,8 @@ export type PageKind = 'home' | 'post' | 'page';
 export interface PageState {
   kind: PageKind;
   id?: number;
+  /** Id used in WordPress theme classes (postid-N, page-id-N). */
+  cssId?: number | string;
   /** Image shown in the left aside. */
   image: string;
   imageAlt: string;
