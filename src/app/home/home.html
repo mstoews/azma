@@ -1,0 +1,41 @@
+<div class="archive-main-block">
+  <div id="primary" class="content-area">
+    <main id="site-content" role="main">
+      <div class="article-wraper archive-layout-default">
+        @for (p of profiles; track p.id) {
+          <article id="post-{{ p.id }}"
+                   class="theme-article theme-article-loaded post-{{ p.id }} post type-post status-publish format-standard has-post-thumbnail sticky hentry category-uncategorized">
+            <div class="post-thumbnail">
+              <div class="post-thumbnail-effects">
+                <a [routerLink]="['/profile', p.slug]">
+                  <span class="data-bg data-bg-archive" [style.background-image]="'url(&quot;' + p.thumb + '&quot;)'"></span>
+                </a>
+              </div>
+            </div>
+            <div class="post-content">
+              <div class="entry-meta entry-meta-top"></div>
+              <header class="entry-header">
+                <h2 class="entry-title entry-title-medium">
+                  <a [routerLink]="['/profile', p.slug]" rel="bookmark">{{ p.title }}</a>
+                </h2>
+              </header>
+              <div class="entry-excerpt entry-excerpt-muted">
+                <p>
+                  @for (line of p.excerpt; track $index; let last = $last) {
+                    {{ line }}@if (!last) {<br />}
+                  }
+                </p>
+              </div>
+              <div class="entry-footer">
+                <div class="entry-meta"></div>
+                <div class="entry-read-more">
+                  <a [routerLink]="['/profile', p.slug]" class="theme-button theme-button-border theme-button-small">Read More</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </main>
+  </div>
+</div>

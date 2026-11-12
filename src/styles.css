@@ -1,0 +1,7 @@
+/* Global styles — ported verbatim from the original WordPress (Cobber Pro) theme. */
+@import './styles/fonts.css';
+@import './styles/wp-inline.css';
+@import './styles/theme.css';
+@import './styles/booster.css';
+
+app-root { display: contents; }

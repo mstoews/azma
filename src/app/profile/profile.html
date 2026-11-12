@@ -1,0 +1,31 @@
+@if (profile(); as p) {
+  <div class="singular-main-block">
+    <div class="wrapper">
+      <div class="theme-row">
+        <div id="primary" class="content-area">
+          <main id="site-content" class="cobber-no-comment" role="main">
+            <div class="article-wraper">
+              <article id="post-{{ p.id }}"
+                       class="post-{{ p.id }} post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+                <header class="entry-header">
+                  <div class="entry-meta"></div>
+                  <h1 class="entry-title entry-title-large">{{ p.title }}</h1>
+                </header>
+                <div class="entry-meta"></div>
+                <div class="post-content-wrap">
+                  <div class="post-content">
+                    <div class="entry-content" [innerHTML]="'<div class=&quot;booster-block booster-read-block&quot;></div>' + p.content | trustedHtml"></div>
+                    <div class="entry-footer">
+                      <div class="entry-meta"></div>
+                      <div class="entry-meta"></div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+}

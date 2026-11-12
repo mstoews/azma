@@ -1,0 +1,132 @@
+<div class="preloader hide-no-js">
+  <div class="preloader-style preloader-style-1"></div>
+</div>
+
+<div id="page" class="page-wrapper">
+  <a class="skip-link screen-reader-text" href="#content" (click)="scrollTo('content', $event)">Skip to the content</a>
+
+  <div id="aside-content" class="site-aside-content">
+    <div class="theme-aside-wrapper">
+      <div class="theme-aside-background">
+        @if (isHome()) {
+          <div id="wp-custom-header" class="wp-custom-header">
+            <img [src]="state().image" width="1500" height="1500" alt="" decoding="async" fetchpriority="high" />
+          </div>
+        } @else {
+          <div id="wp-custom-header" class="wp-custom-header wp-custom-header-single">
+            <img [src]="state().image" [alt]="state().imageAlt" [title]="state().imageAlt" />
+          </div>
+        }
+      </div>
+
+      <div class="theme-aside-content">
+        <header id="site-header" class="theme-site-header" role="banner">
+          <div class="header-navbar">
+            <div class="navbar-item navbar-item-left">
+              <div class="header-titles">
+                @if (isHome()) {
+                  <h1 class="site-logo site-branding">
+                    <a routerLink="/" class="custom-logo-link" rel="home" aria-current="page">
+                      <img width="60" height="21" [src]="logo" class="custom-logo" [alt]="siteName" decoding="async" />
+                    </a>
+                    <span class="screen-reader-text">{{ siteName }}</span>
+                    <span class="site-title">{{ siteName }}</span>
+                  </h1>
+                } @else {
+                  <div class="site-logo site-branding">
+                    <a routerLink="/" class="custom-logo-link" rel="home">
+                      <img width="60" height="21" [src]="logo" class="custom-logo" [alt]="siteName" decoding="async" />
+                    </a>
+                    <span class="screen-reader-text">{{ siteName }}</span>
+                    <h1 class="site-title">{{ siteName }}</h1>
+                  </div>
+                }
+                <div class="site-description"><span>{{ tagline }}</span></div>
+              </div>
+            </div>
+            <div class="navbar-item navbar-item-right">
+              <div class="navbar-controls hide-no-js">
+                <button #menuToggle type="button" class="navbar-control navbar-control-offcanvas"
+                        [class.active]="offcanvasOpen()" (click)="openMenu()" aria-label="Open menu">
+                  <span class="navbar-control-trigger" tabindex="-1">
+                    <svg class="svg-icon" aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" d="M1 3v2h18V3zm0 8h18V9H1zm0 6h18v-2H1z" /></svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        @if (isHome()) {
+          <div class="theme-header-content">
+            <div class="theme-section-heading">
+              <header class="entry-header">
+                <h2 class="entry-title entry-title-large">{{ siteName }}</h2>
+              </header>
+              <p class="theme-section-description">{{ homeDescription }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div id="content" class="site-content">
+    <router-outlet />
+
+    <div id="offcanvas-menu" #offcanvas [class.offcanvas-menu-active]="offcanvasOpen()">
+      <div class="offcanvas-wraper">
+        <div class="close-offcanvas-menu">
+          <a class="skip-link-off-canvas" href="javascript:void(0)" (focus)="focusLastMenuItem()"></a>
+          <div class="offcanvas-close theme-close-controller">
+            <button #menuClose type="button" class="button-offcanvas-close" (click)="closeMenu()" aria-label="Close menu">
+              <span class="navbar-control-trigger" tabindex="-1">
+                <svg class="svg-icon" aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><polygon fill="currentColor" fill-rule="evenodd" points="6.852 7.649 .399 1.195 1.445 .149 7.899 6.602 14.352 .149 15.399 1.195 8.945 7.649 15.399 14.102 14.352 15.149 7.899 8.695 1.445 15.149 .399 14.102" /></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div id="primary-nav-offcanvas" class="offcanvas-item offcanvas-main-navigation">
+          <div class="menu">
+            <ul>
+              @for (item of nav; track item.pageId) {
+                <li class="page_item page-item-{{ item.pageId }}"
+                    [class.current_page_item]="state().kind === 'page' && state().id === item.pageId">
+                  @if (item.link) {
+                    <a [routerLink]="item.link">{{ item.label }}</a>
+                  } @else {
+                    <a [href]="item.href">{{ item.label }}</a>
+                  }
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+        <a class="skip-link-offcanvas screen-reader-text" href="javascript:void(0)" (focus)="focusCloseButton()"></a>
+      </div>
+    </div>
+
+    <footer id="site-footer" role="contentinfo">
+      <div class="site-info">
+        <div class="wrapper">
+          <div class="theme-row">
+            <div class="column column-9">
+              <div class="footer-credits">
+                <div class="footer-copyright">
+                  Copyright &copy; {{ year }} <a routerLink="/" [title]="siteName"><span>{{ siteName }}. </span></a>
+                </div>
+              </div>
+            </div>
+            <div class="column column-3 hide-no-js">
+              <a class="to-the-top" href="#site-header" (click)="scrollTo('site-header', $event)">
+                <span class="to-the-top-long">To the Top <span class="arrow" aria-hidden="true">&uarr;</span></span>
+                <span class="to-the-top-short">Up <span class="arrow" aria-hidden="true">&uarr;</span></span>
+              </a>
+            </div>
+          </div>
+          <div class="theme-row"></div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
