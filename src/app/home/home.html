@@ -2,9 +2,9 @@
   <div id="primary" class="content-area">
     <main id="site-content" role="main">
       <div class="article-wraper archive-layout-default">
-        @for (p of profiles; track p.id) {
-          <article id="post-{{ p.id }}"
-                   class="theme-article theme-article-loaded post-{{ p.id }} post type-post status-publish format-standard has-post-thumbnail sticky hentry category-uncategorized">
+        @for (p of profiles(); track p.id) {
+          <article id="post-{{ cssId(p) }}"
+                   class="theme-article theme-article-loaded post-{{ cssId(p) }} post type-post status-publish format-standard has-post-thumbnail sticky hentry category-uncategorized">
             <div class="post-thumbnail">
               <div class="post-thumbnail-effects">
                 <a [routerLink]="['/profile', p.slug]">

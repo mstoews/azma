@@ -1,0 +1,16 @@
+# Builds the site + CMS image and pushes it to Artifact Registry.
+#   gcloud builds submit --config server/cloudbuild.yaml --project web-azma .
+# Deploying is a separate step (see server/deploy.sh) so a build never
+# changes what is live by itself.
+substitutions:
+  _IMAGE: asia-northeast1-docker.pkg.dev/${PROJECT_ID}/azma/cms
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-f", "server/Dockerfile", "-t", "${_IMAGE}:${BUILD_ID}", "-t", "${_IMAGE}:latest", "."]
+images:
+  - ${_IMAGE}:${BUILD_ID}
+  - ${_IMAGE}:latest
+options:
+  logging: CLOUD_LOGGING_ONLY
+  dynamicSubstitutions: true
+timeout: 1200s

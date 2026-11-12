@@ -1,11 +1,11 @@
-@let p = page();
+@if (page(); as p) {
 <div class="singular-main-block">
   <div class="wrapper">
     <div class="theme-row">
       <div id="primary" class="content-area">
         <main id="site-content" class="" role="main">
           <div class="article-wraper">
-            <article id="post-{{ p.id }}" class="post-{{ p.id }} page type-page status-publish has-post-thumbnail hentry">
+            <article id="post-{{ cssId(p) }}" class="post-{{ cssId(p) }} page type-page status-publish has-post-thumbnail hentry">
               <header class="entry-header">
                 <h1 class="entry-title entry-title-large">{{ p.title }}</h1>
               </header>
@@ -21,3 +21,5 @@
     </div>
   </div>
 </div>
+}
+

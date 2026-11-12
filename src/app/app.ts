@@ -1,9 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, HostListener, computed, effect, inject, viewChild } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Component, ElementRef, HostListener, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { SiteContentService } from './content.service';
 import { PageStateService } from './page-state';
-import { HOME_DESCRIPTION, LOGO, NAV, SITE_NAME, SITE_TAGLINE } from './site-data';
+
+const isAdminUrl = (url: string) => /^\/admin(\/|\?|#|$)/.test(url);
 
 const COMMON_BODY = 'wp-custom-logo wp-theme-cobber-pro booster-extension';
 
@@ -16,11 +18,18 @@ export class App {
   private readonly doc = inject(DOCUMENT);
   private readonly pageState = inject(PageStateService);
 
-  protected readonly siteName = SITE_NAME;
-  protected readonly tagline = SITE_TAGLINE;
-  protected readonly homeDescription = HOME_DESCRIPTION;
-  protected readonly logo = LOGO;
-  protected readonly nav = NAV;
+  private readonly content = inject(SiteContentService);
+  private readonly router = inject(Router);
+
+  protected readonly settings = this.content.settings;
+  protected readonly nav = this.content.nav;
+
+  /**
+   * The admin area renders without the theme chrome. Switched on
+   * NavigationStart (not End) so the admin outlet exists before the admin
+   * component is activated into it.
+   */
+  protected readonly isAdmin = signal(isAdminUrl(this.doc.location?.pathname ?? ''));
   protected readonly year = new Date().getFullYear();
 
   protected readonly state = this.pageState.state;
@@ -32,12 +41,13 @@ export class App {
   private readonly offcanvas = viewChild<ElementRef<HTMLElement>>('offcanvas');
 
   private readonly bodyClass = computed(() => {
+    if (this.isAdmin()) return 'cms-admin-body';
     const s = this.state();
     switch (s.kind) {
       case 'post':
-        return `wp-singular post-template-default single single-post postid-${s.id} single-format-standard ${COMMON_BODY} hide-comment-rating site-layout-default`;
+        return `wp-singular post-template-default single single-post postid-${s.cssId} single-format-standard ${COMMON_BODY} hide-comment-rating site-layout-default`;
       case 'page':
-        return `wp-singular page-template-default page page-id-${s.id} ${COMMON_BODY} site-layout-default`;
+        return `wp-singular page-template-default page page-id-${s.cssId} ${COMMON_BODY} site-layout-default`;
       default:
         return `home blog ${COMMON_BODY} hfeed site-layout-default`;
     }
@@ -57,9 +67,13 @@ export class App {
     if (this.doc.readyState === 'complete') markLoaded();
     else this.doc.defaultView?.addEventListener('load', markLoaded, { once: true });
 
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationStart))
+      .subscribe((e) => this.isAdmin.set(isAdminUrl(e.url)));
+
     // Close the menu whenever the route changes.
-    inject(Router)
-      .events.pipe(filter((e) => e instanceof NavigationEnd))
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe(() => this.offcanvasOpen.set(false));
   }
 

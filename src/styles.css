@@ -3,5 +3,6 @@
 @import './styles/wp-inline.css';
 @import './styles/theme.css';
 @import './styles/booster.css';
+@import './styles/admin.css';
 
 app-root { display: contents; }
