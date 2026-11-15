@@ -200,7 +200,7 @@ struct ChangePasswordSheet: View {
                 }
                 if done {
                     Section {
-                        Notice(kind: .success, message: "Password changed. Other devices have been signed out.")
+                        Notice(.success, "Password changed. Other devices have been signed out.")
                     }
                 } else {
                     Section("Current password") {
@@ -239,7 +239,7 @@ struct ChangePasswordSheet: View {
 
     private func change() async {
         guard updated.count >= session.options.minPasswordLength else {
-            errorMessage = "Passwords need at least \(session.options.minPasswordLength) characters."
+            errorMessage = String(localized: "Passwords need at least \(session.options.minPasswordLength) characters.")
             return
         }
         do {

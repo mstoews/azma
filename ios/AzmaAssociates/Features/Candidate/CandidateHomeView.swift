@@ -86,7 +86,7 @@ struct CandidateHomeView: View {
                             .foregroundStyle(Theme.navy)
                     )
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(store.profile.fullName.nilIfBlank ?? session.account?.name ?? "Your profile")
+                    Text(store.profile.fullName.nilIfBlank ?? session.account?.name ?? String(localized: "Your profile"))
                         .font(Theme.cardTitle)
                         .foregroundStyle(Theme.ink)
                     if !store.profile.headline.isEmpty {
@@ -116,7 +116,7 @@ struct CandidateHomeView: View {
 
             if !store.profile.sectors.isEmpty {
                 FlowLayout(spacing: 6) {
-                    ForEach(store.profile.sectors, id: \.self) { Chip(text: $0) }
+                    ForEach(store.profile.sectors, id: \.self) { Chip(text: Format.sector($0)) }
                 }
             }
         }
@@ -263,7 +263,7 @@ struct CandidateHomeView: View {
         switch result {
         case let .success(urls):
             guard let url = urls.first else { return }
-            busyMessage = "Uploading \(url.lastPathComponent)…"
+            busyMessage = String(localized: "Uploading \(url.lastPathComponent)…")
             defer { busyMessage = nil }
             // Files chosen in the document picker live outside the sandbox.
             let scoped = url.startAccessingSecurityScopedResource()

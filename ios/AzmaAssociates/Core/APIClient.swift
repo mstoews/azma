@@ -166,12 +166,12 @@ final class APIClient: Sendable {
             return decoded.error.prefix(1).uppercased() + decoded.error.dropFirst()
         }
         switch status {
-        case 403: return "You do not have access to that."
-        case 404: return "That is no longer available."
-        case 409: return "That conflicts with something that already exists."
-        case 413: return "That file is too large."
-        case 429: return "Too many requests. Please try again shortly."
-        default: return "The server returned an error (\(status))."
+        case 403: return String(localized: "You do not have access to that.")
+        case 404: return String(localized: "That is no longer available.")
+        case 409: return String(localized: "That conflicts with something that already exists.")
+        case 413: return String(localized: "That file is too large.")
+        case 429: return String(localized: "Too many requests. Please try again shortly.")
+        default: return String(localized: "The server returned an error (\(status)).")
         }
     }
 }

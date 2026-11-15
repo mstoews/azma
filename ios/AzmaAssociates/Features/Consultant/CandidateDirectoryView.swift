@@ -95,9 +95,9 @@ private struct CandidateRow: View {
                 }
                 Spacer(minLength: 8)
                 if candidate.profile.submitted {
-                    Chip(text: "Represented", tint: Theme.successTint)
+                    Chip("Represented", tint: Theme.successTint)
                 } else {
-                    Chip(text: "Registered", tint: Theme.secondaryInk)
+                    Chip("Registered", tint: Theme.secondaryInk)
                 }
             }
             FlowLayout(spacing: 6) {
@@ -105,15 +105,15 @@ private struct CandidateRow: View {
                     Chip(text: candidate.profile.currentEmployer, systemImage: "building.2")
                 }
                 if candidate.profile.yearsExperience > 0 {
-                    Chip(text: "\(candidate.profile.yearsExperience) yrs", systemImage: "clock")
+                    Chip("\(candidate.profile.yearsExperience) yrs", systemImage: "clock")
                 }
                 if candidate.resumeCount > 0 {
-                    Chip(text: candidate.resumeCount == 1 ? "1 document" : "\(candidate.resumeCount) documents",
+                    Chip(candidate.resumeCount == 1 ? "1 document" : "\(candidate.resumeCount) documents",
                          systemImage: "doc.text", tint: Theme.navy)
                 }
                 if candidate.applicationCount > 0 {
                     Chip(
-                        text: candidate.applicationCount == 1 ? "1 application" : "\(candidate.applicationCount) applications",
+                        candidate.applicationCount == 1 ? "1 application" : "\(candidate.applicationCount) applications",
                         systemImage: "paperplane"
                     )
                 }
@@ -161,7 +161,7 @@ struct CandidateDetailView: View {
             }
         }
         .brandBackground()
-        .navigationTitle(detail?.profile.fullName.nilIfBlank ?? "Candidate")
+        .navigationTitle(detail?.profile.fullName.nilIfBlank ?? String(localized: "Candidate"))
         .navigationBarTitleDisplayMode(.inline)
         .task { await load() }
         .sheet(item: Binding(
@@ -197,7 +197,7 @@ struct CandidateDetailView: View {
                     .lineSpacing(4)
             }
             FlowLayout(spacing: 6) {
-                ForEach(detail.profile.sectors, id: \.self) { Chip(text: $0) }
+                ForEach(detail.profile.sectors, id: \.self) { Chip(text: Format.sector($0)) }
                 ForEach(detail.profile.desiredRoles, id: \.self) { Chip(text: $0, tint: Theme.gold) }
                 ForEach(detail.profile.languages, id: \.self) { Chip(text: $0, tint: Theme.secondaryInk) }
             }

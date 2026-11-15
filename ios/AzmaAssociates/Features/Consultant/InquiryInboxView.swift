@@ -116,7 +116,7 @@ private struct InquiryCard: View {
                 if !inquiry.phone.isEmpty { Chip(text: inquiry.phone, systemImage: "phone") }
                 if !inquiry.office.isEmpty { Chip(text: Format.office(inquiry.office), systemImage: "building.2") }
                 if inquiry.accountEmail?.isEmpty == false {
-                    Chip(text: "Has an account", systemImage: "person.crop.circle", tint: Theme.successTint)
+                    Chip("Has an account", systemImage: "person.crop.circle", tint: Theme.successTint)
                 }
             }
 

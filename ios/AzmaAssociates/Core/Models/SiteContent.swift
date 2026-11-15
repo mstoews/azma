@@ -20,7 +20,7 @@ struct SiteSettings: Codable, Sendable, Equatable {
 
     static let placeholder = SiteSettings(
         siteName: "AZMA & Associates",
-        tagline: "We are an APAC professional recruitment firm.",
+        tagline: String(localized: "We are an APAC professional recruitment firm."),
         homeDescription: "",
         homeHeaderImage: "",
         logo: ""

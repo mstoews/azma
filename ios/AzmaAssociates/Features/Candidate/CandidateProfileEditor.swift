@@ -52,7 +52,7 @@ struct CandidateProfileEditor: View {
                 }
 
                 Section("Market") {
-                    MultiSelectField(title: "Sectors", options: session.options.sectors, selection: $draft.sectors)
+                    MultiSelectField(title: "Sectors", options: session.options.sectors, selection: $draft.sectors, display: Format.sector)
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Roles you are open to")
                             .font(.footnote)

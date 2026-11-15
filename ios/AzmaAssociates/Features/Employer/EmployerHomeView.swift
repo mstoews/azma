@@ -61,7 +61,7 @@ struct EmployerHomeView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(model.profile.company.nilIfBlank ?? "Your company")
+                    Text(model.profile.company.nilIfBlank ?? String(localized: "Your company"))
                         .font(Theme.cardTitle)
                         .foregroundStyle(Theme.ink)
                     Text([model.profile.contactName, model.profile.contactRole]
@@ -79,7 +79,7 @@ struct EmployerHomeView: View {
                     .font(.subheadline.weight(.semibold))
             }
             if model.profile.company.isEmpty {
-                Notice(kind: .info, message: "Add your company details — they appear on every posting a consultant reviews.")
+                Notice(.info, "Add your company details — they appear on every posting a consultant reviews.")
             }
         }
         .brandCard()

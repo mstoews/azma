@@ -8,6 +8,14 @@ struct ConsultantDeskView: View {
         case candidates = "Candidates"
         case inquiries = "Requests"
         var id: String { rawValue }
+
+        var title: LocalizedStringKey {
+            switch self {
+            case .review: return "Postings"
+            case .candidates: return "Candidates"
+            case .inquiries: return "Requests"
+            }
+        }
     }
 
     @State private var desk: Desk = .review
@@ -16,7 +24,7 @@ struct ConsultantDeskView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 Picker("Desk", selection: $desk) {
-                    ForEach(Desk.allCases) { Text($0.rawValue).tag($0) }
+                    ForEach(Desk.allCases) { Text($0.title).tag($0) }
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal, Theme.gutter)
@@ -175,14 +183,14 @@ private struct ReviewCard: View {
                 VStack(alignment: .trailing, spacing: 6) {
                     Chip(text: job.statusKind.label, tint: job.statusKind == .pending ? Theme.warningTint : Theme.secondaryInk)
                     if job.confidential {
-                        Chip(text: "Confidential", systemImage: "eye.slash", tint: Theme.secondaryInk)
+                        Chip("Confidential", systemImage: "eye.slash", tint: Theme.secondaryInk)
                     }
                 }
             }
 
             FlowLayout(spacing: 6) {
                 if !job.location.isEmpty { Chip(text: job.location, systemImage: "mappin.and.ellipse") }
-                if !job.sector.isEmpty { Chip(text: job.sector) }
+                if !job.sector.isEmpty { Chip(text: Format.sector(job.sector)) }
                 Chip(text: Format.employmentType(job.employmentType))
                 if let salary = Format.salary(min: job.salaryMin, max: job.salaryMax, currency: job.salaryCurrency) {
                     Chip(text: salary, tint: Theme.successTint)
@@ -202,7 +210,7 @@ private struct ReviewCard: View {
                     .lineLimit(4)
             }
             if let note = job.reviewNote, !note.isEmpty {
-                Notice(kind: .info, message: "Last note: \(note)")
+                Notice(.info, "Last note: \(note)")
             }
 
             HStack(spacing: 14) {

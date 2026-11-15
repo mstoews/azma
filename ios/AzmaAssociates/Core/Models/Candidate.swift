@@ -43,7 +43,7 @@ struct CandidateProfile: Codable, Sendable, Equatable, Hashable {
     }
 
     var problem: String? {
-        fullName.trimmed.isEmpty ? "Your name is required." : nil
+        fullName.trimmed.isEmpty ? String(localized: "Your name is required.") : nil
     }
 }
 
@@ -78,28 +78,28 @@ enum ApplicationState: String, Sendable, CaseIterable {
 
     var label: String {
         switch self {
-        case .submitted: return "Submitted"
-        case .under_review: return "Under review"
-        case .shortlisted: return "Shortlisted"
-        case .interviewing: return "Interviewing"
-        case .offer: return "Offer"
-        case .placed: return "Placed"
-        case .rejected: return "Not progressing"
-        case .withdrawn: return "Withdrawn"
+        case .submitted: return String(localized: "Submitted")
+        case .under_review: return String(localized: "Under review")
+        case .shortlisted: return String(localized: "Shortlisted")
+        case .interviewing: return String(localized: "Interviewing")
+        case .offer: return String(localized: "Offer")
+        case .placed: return String(localized: "Placed")
+        case .rejected: return String(localized: "Not progressing")
+        case .withdrawn: return String(localized: "Withdrawn")
         }
     }
 
     /// Said from the candidate's side.
     var candidateExplanation: String {
         switch self {
-        case .submitted: return "With the consultant handling this search."
-        case .under_review: return "The client is reviewing your application."
-        case .shortlisted: return "You have been presented to the client."
-        case .interviewing: return "Interviews are under way."
-        case .offer: return "An offer is on the table."
-        case .placed: return "Placed — congratulations."
-        case .rejected: return "The client is not taking this one forward."
-        case .withdrawn: return "You withdrew this application."
+        case .submitted: return String(localized: "With the consultant handling this search.")
+        case .under_review: return String(localized: "The client is reviewing your application.")
+        case .shortlisted: return String(localized: "You have been presented to the client.")
+        case .interviewing: return String(localized: "Interviews are under way.")
+        case .offer: return String(localized: "An offer is on the table.")
+        case .placed: return String(localized: "Placed — congratulations.")
+        case .rejected: return String(localized: "The client is not taking this one forward.")
+        case .withdrawn: return String(localized: "You withdrew this application.")
         }
     }
 
@@ -134,7 +134,7 @@ struct Applicant: Codable, Sendable, Identifiable, Hashable {
     let presented: Bool
 
     var state: ApplicationState { ApplicationState(rawValue: status) ?? .submitted }
-    var displayName: String { presented && !name.isEmpty ? name : "Candidate #\(id)" }
+    var displayName: String { presented && !name.isEmpty ? name : String(localized: "Candidate #\(id)") }
 }
 
 struct ApplicantsResponse: Codable, Sendable {

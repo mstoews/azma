@@ -23,17 +23,17 @@ enum InquiryKind: String, Codable, Sendable, CaseIterable {
 
     var label: String {
         switch self {
-        case .hiring: return "I am hiring"
-        case .career: return "My career"
-        case .general: return "Something else"
+        case .hiring: return String(localized: "I am hiring")
+        case .career: return String(localized: "My career")
+        case .general: return String(localized: "Something else")
         }
     }
 
     var prompt: String {
         switch self {
-        case .hiring: return "Tell us about the position, the team and when you need someone in the seat."
-        case .career: return "Tell us what you are looking for next, and what would make a move worthwhile."
-        case .general: return "How can we help?"
+        case .hiring: return String(localized: "Tell us about the position, the team and when you need someone in the seat.")
+        case .career: return String(localized: "Tell us what you are looking for next, and what would make a move worthwhile.")
+        case .general: return String(localized: "How can we help?")
         }
     }
 }
@@ -48,9 +48,9 @@ struct InquiryInput: Codable, Sendable, Equatable {
     var message: String = ""
 
     var problem: String? {
-        if name.trimmed.isEmpty { return "Your name is required." }
-        if !email.isValidEmail { return "A valid email address is required." }
-        if message.trimmed.isEmpty { return "Please tell us what you would like to discuss." }
+        if name.trimmed.isEmpty { return String(localized: "Your name is required.") }
+        if !email.isValidEmail { return String(localized: "A valid email address is required.") }
+        if message.trimmed.isEmpty { return String(localized: "Please tell us what you would like to discuss.") }
         return nil
     }
 }
@@ -65,9 +65,9 @@ enum InquiryStatus: String, Sendable, CaseIterable {
 
     var label: String {
         switch self {
-        case .new: return "New"
-        case .in_progress: return "In progress"
-        case .closed: return "Closed"
+        case .new: return String(localized: "New")
+        case .in_progress: return String(localized: "In progress")
+        case .closed: return String(localized: "Closed")
         }
     }
 }

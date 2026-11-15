@@ -108,7 +108,7 @@ extension AppSession {
     func message(for error: Error) async -> String {
         if let apiError = error as? APIError {
             if apiError == .unauthorized { await sessionExpired() }
-            return apiError.errorDescription ?? "Something went wrong."
+            return apiError.errorDescription ?? String(localized: "Something went wrong.")
         }
         return error.localizedDescription
     }

@@ -45,6 +45,42 @@ Talking to the Go server directly on :8080 works for everything except the
 site's photographs, which the Angular build serves — unless the server is
 started with `STATIC_DIR` pointing at the repo's `public/` folder.
 
+## Languages
+
+The app ships in English and Japanese. iOS picks the phone's language, and
+people can change it for this app alone under Settings → AZMA → Language.
+All UI text lives in `AzmaAssociates/Resources/Localizable.xcstrings`; English
+is the source language, so the keys are the English text.
+
+- In SwiftUI, a literal passed to `Text`, `Button`, `Label` and the app's own
+  components (`SectionHeader`, `FieldRow`, `EmptyStateView`, `Chip("…")`,
+  `Notice(.info, "…")`) is localized automatically.
+- Text built in plain Swift (model labels, validation and error messages) uses
+  `String(localized: "…")`.
+- Data shows as sent: use `Chip(text:)`, `Notice(kind:message:)` and
+  `Text(verbatim:)` for it. Server values such as statuses, sectors and
+  employment types are stored as codes or English names and translated for
+  display (`JobStatus.label`, `Format.sector`, `Format.employmentType`).
+
+Xcode adds new strings to the catalog when it builds. From the command line:
+
+```sh
+xcodebuild -scheme AzmaAssociates -sdk iphonesimulator -derivedDataPath build build
+xcrun xcstringstool sync AzmaAssociates/Resources/Localizable.xcstrings \
+  $(find build -path '*arm64/*.stringsdata' | sed 's/^/--stringsdata /')
+```
+
+Then translate the new entries in Xcode, or hand them to a translator with
+`xcodebuild -exportLocalizations` / `-importLocalizations`. To check a screen
+in Japanese without changing the simulator's language:
+
+```sh
+xcrun simctl launch booted com.azmaassociates.mobile -AppleLanguages "(ja)" -AppleLocale ja_JP
+```
+
+Content from the CMS (pages, consultant profiles) and error messages written
+by the server are still English only.
+
 ## Tests
 
 ```sh

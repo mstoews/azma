@@ -12,7 +12,7 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 28) {
                     hero
                     if site.loadFailed {
-                        Notice(kind: .warning, message: "The firm's pages could not be loaded. Pull to refresh once you are back online.")
+                        Notice(.warning, "The firm's pages could not be loaded. Pull to refresh once you are back online.")
                             .padding(.horizontal, Theme.gutter)
                     }
                     paths
@@ -161,8 +161,8 @@ enum HomeDestination: Hashable { case candidate, employer }
 
 private struct PathCard: View {
     let icon: String
-    let title: String
-    let message: String
+    let title: LocalizedStringKey
+    let message: LocalizedStringKey
 
     var body: some View {
         HStack(alignment: .top, spacing: 14) {
@@ -228,7 +228,7 @@ struct ConsultantCard: View {
 }
 
 private struct OfficeCard: View {
-    let city: String
+    let city: LocalizedStringKey
     let lines: [String]
     let licence: String
 
@@ -237,8 +237,9 @@ private struct OfficeCard: View {
             Text(city)
                 .font(Theme.cardTitle)
                 .foregroundStyle(Theme.ink)
+            // Postal addresses stay as written.
             ForEach(lines, id: \.self) { line in
-                Text(line)
+                Text(verbatim: line)
                     .font(.caption)
                     .foregroundStyle(Theme.secondaryInk)
             }

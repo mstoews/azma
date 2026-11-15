@@ -57,7 +57,7 @@ struct RootView: View {
         }
     }
 
-    private var roleTabTitle: String {
+    private var roleTabTitle: LocalizedStringKey {
         switch session.role {
         case .candidate: return "My career"
         case .employer: return "Hiring"

@@ -15,8 +15,8 @@ struct EmployerProfile: Codable, Sendable, Equatable {
     var about: String = ""
 
     var problem: String? {
-        if company.trimmed.isEmpty { return "Your company name is required." }
-        if contactName.trimmed.isEmpty { return "A contact name is required." }
+        if company.trimmed.isEmpty { return String(localized: "Your company name is required.") }
+        if contactName.trimmed.isEmpty { return String(localized: "A contact name is required.") }
         return nil
     }
 }

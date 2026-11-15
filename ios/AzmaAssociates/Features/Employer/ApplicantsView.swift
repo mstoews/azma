@@ -185,7 +185,7 @@ private struct ApplicantCard: View {
                         .textSelection(.enabled)
                 }
             } else {
-                Notice(kind: .info, message: "A consultant is assessing this candidate. Their name and resume follow when we present them.")
+                Notice(.info, "A consultant is assessing this candidate. Their name and resume follow when we present them.")
             }
 
             HStack(spacing: 14) {

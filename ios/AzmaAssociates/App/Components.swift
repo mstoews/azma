@@ -2,9 +2,9 @@ import SwiftUI
 
 /// A heading with the gold rule the web site uses under its section titles.
 struct SectionHeader: View {
-    let title: String
-    var subtitle: String?
-    var action: (title: String, handler: () -> Void)?
+    let title: LocalizedStringKey
+    var subtitle: LocalizedStringKey?
+    var action: (title: LocalizedStringKey, handler: () -> Void)?
 
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
@@ -34,13 +34,27 @@ struct SectionHeader: View {
 
 /// A small rounded label: sector, location, status.
 struct Chip: View {
-    let text: String
+    let text: Text
     var systemImage: String?
     var tint: Color = Theme.navy
 
+    /// Fixed wording from the app, looked up in the string catalog.
+    init(_ key: LocalizedStringKey, systemImage: String? = nil, tint: Color = Theme.navy) {
+        self.text = Text(key)
+        self.systemImage = systemImage
+        self.tint = tint
+    }
+
+    /// Data (a location, a sector) or text that is already localized.
+    init(text: String, systemImage: String? = nil, tint: Color = Theme.navy) {
+        self.text = Text(verbatim: text)
+        self.systemImage = systemImage
+        self.tint = tint
+    }
+
     var body: some View {
         Label {
-            Text(text)
+            text
         } icon: {
             if let systemImage { Image(systemName: systemImage) }
         }
@@ -194,10 +208,31 @@ struct RichText: View {
 /// What a list shows when it has nothing in it yet.
 struct EmptyStateView: View {
     let icon: String
-    let title: String
-    let message: String
-    var actionTitle: String?
+    let title: LocalizedStringKey
+    let message: Text
+    var actionTitle: LocalizedStringKey?
     var action: (() -> Void)?
+
+    init(icon: String, title: LocalizedStringKey, message: LocalizedStringKey,
+         actionTitle: LocalizedStringKey? = nil, action: (() -> Void)? = nil) {
+        self.init(icon: icon, title: title, message: Text(message), actionTitle: actionTitle, action: action)
+    }
+
+    /// `detail` is shown as given: an error from the server, or text that is
+    /// already localized.
+    init(icon: String, title: LocalizedStringKey, detail: String,
+         actionTitle: LocalizedStringKey? = nil, action: (() -> Void)? = nil) {
+        self.init(icon: icon, title: title, message: Text(verbatim: detail), actionTitle: actionTitle, action: action)
+    }
+
+    private init(icon: String, title: LocalizedStringKey, message: Text,
+                 actionTitle: LocalizedStringKey?, action: (() -> Void)?) {
+        self.icon = icon
+        self.title = title
+        self.message = message
+        self.actionTitle = actionTitle
+        self.action = action
+    }
 
     var body: some View {
         VStack(spacing: 12) {
@@ -207,7 +242,7 @@ struct EmptyStateView: View {
             Text(title)
                 .font(Theme.cardTitle)
                 .foregroundStyle(Theme.ink)
-            Text(message)
+            message
                 .font(.subheadline)
                 .foregroundStyle(Theme.secondaryInk)
                 .multilineTextAlignment(.center)
@@ -229,7 +264,19 @@ struct Notice: View {
     enum Kind { case info, success, warning, error }
 
     let kind: Kind
-    let message: String
+    let message: Text
+
+    /// Fixed wording from the app, looked up in the string catalog.
+    init(_ kind: Kind, _ key: LocalizedStringKey) {
+        self.kind = kind
+        self.message = Text(key)
+    }
+
+    /// An error from the server or text that is already localized.
+    init(kind: Kind, message: String) {
+        self.kind = kind
+        self.message = Text(verbatim: message)
+    }
 
     private var tint: Color {
         switch kind {
@@ -252,7 +299,7 @@ struct Notice: View {
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             Image(systemName: icon).foregroundStyle(tint)
-            Text(message)
+            message
                 .font(.footnote)
                 .foregroundStyle(Theme.ink)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -291,19 +338,20 @@ struct AsyncButton<Label: View>: View {
 
 /// A labelled row in a form, with the label above the control.
 struct FieldRow<Content: View>: View {
-    let title: String
-    var hint: String?
+    let title: LocalizedStringKey
+    var hint: Text?
     @ViewBuilder var content: () -> Content
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title.uppercased())
+            Text(title)
+                .textCase(.uppercase)
                 .font(.caption2.weight(.semibold))
                 .tracking(0.6)
                 .foregroundStyle(Theme.secondaryInk)
             content()
             if let hint {
-                Text(hint)
+                hint
                     .font(.caption)
                     .foregroundStyle(Theme.secondaryInk)
             }
