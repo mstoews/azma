@@ -34,11 +34,11 @@ targets:
         SWIFT_STRICT_CONCURRENCY: complete
         CODE_SIGN_STYLE: Automatic
       configs:
-        # The API the app talks to. Debug points at `npm start`, which proxies
-        # /api and /media to the Go server on :8080 and also serves the site's
-        # images; Release points at Cloud Run.
+        # The API the app talks to. Both configurations point at the production
+        # Cloud Run service; for a local server, override azma.apiBaseURL at
+        # launch (see README).
         Debug:
-          AZMA_API_BASE_URL: http:/$()/localhost:4200
+          AZMA_API_BASE_URL: https:/$()/azma-cms-555559211982.asia-northeast1.run.app
         Release:
           AZMA_API_BASE_URL: https:/$()/azma-cms-555559211982.asia-northeast1.run.app
 
