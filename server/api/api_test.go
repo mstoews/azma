@@ -12,6 +12,8 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -34,6 +36,27 @@ func TestSlugifyMatchesFrontEnd(t *testing.T) {
 		if got := Slugify(in); got != want {
 			t.Errorf("Slugify(%q) = %q, want %q", in, got, want)
 		}
+	}
+}
+
+// The boundary follows the constant, so changing MinPasswordLength cannot
+// quietly leave the check or its message behind.
+func TestPasswordProblem(t *testing.T) {
+	if msg := PasswordProblem(strings.Repeat("a", MinPasswordLength)); msg != "" {
+		t.Errorf("a password of exactly %d characters was refused: %s", MinPasswordLength, msg)
+	}
+	short := strings.Repeat("a", MinPasswordLength-1)
+	msg := PasswordProblem(short)
+	if msg == "" {
+		t.Errorf("a password of %d characters was accepted", len(short))
+	}
+	if !strings.Contains(msg, strconv.Itoa(MinPasswordLength)) {
+		t.Errorf("the message should name the minimum, got %q", msg)
+	}
+	// bcrypt ignores anything past 72 bytes, so longer is refused rather than
+	// silently truncated.
+	if PasswordProblem(strings.Repeat("a", 73)) == "" {
+		t.Error("a 73-byte password was accepted")
 	}
 }
 
@@ -127,7 +150,7 @@ func TestAPIFlow(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, err := store.CreateUser(ctx, db.CreateUserParams{Email: "Admin@Example.com", Name: "Admin", PasswordHash: hash}); err != nil {
+	if _, err := store.CreateUser(ctx, db.CreateUserParams{Email: "Admin@Example.com", Name: "Admin", PasswordHash: hash, Role: "admin"}); err != nil {
 		t.Fatal(err)
 	}
 

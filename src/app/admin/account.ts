@@ -16,7 +16,7 @@ import { NoticeService } from './shared/notice.service';
       <h2>Change password</h2>
       <label class="cms-field"><span class="cms-label">Current password</span>
         <input type="password" name="cur" autocomplete="current-password" [(ngModel)]="cur" /></label>
-      <label class="cms-field"><span class="cms-label">New password (at least 12 characters)</span>
+      <label class="cms-field"><span class="cms-label">New password (at least 6 characters)</span>
         <input type="password" name="next" autocomplete="new-password" [(ngModel)]="next" /></label>
       <label class="cms-field"><span class="cms-label">Confirm new password</span>
         <input type="password" name="confirm" autocomplete="new-password" [(ngModel)]="confirm" /></label>

@@ -1,0 +1,783 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06DEC7FCFC953A97910C7872 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B57E322673538B8FC8D6B3 /* APIClient.swift */; };
+		0D64700DB7FF8D82AF8B96A0 /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8D50DE175BE7E5E9F31E92 /* ValidationTests.swift */; };
+		15D4B8C8D466678066DE1374 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EA7C8257E1146165235801 /* RootView.swift */; };
+		19F770CA57689B5D79EFD259 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11CEE7688EAEDC156F39B9D /* Assets.xcassets */; };
+		1EFB24D3D48CE4BBB118A56B /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0DA15A2869F26A3224D17 /* SignInView.swift */; };
+		1FEFA2C7C5B9A04E26705A5B /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECC2B517D74FEBA21D5385 /* APIClientTests.swift */; };
+		259FB333B9F478583AAE6B6F /* CandidateHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA6C3324BD9BB1A32A3DDC9 /* CandidateHomeView.swift */; };
+		27EF686638B1D031E6BDD568 /* PageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FB174AA51310D73892AEE0 /* PageDetailView.swift */; };
+		30433D42B5D101C6E37E26ED /* JobDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79957ECFB46B51CBB365AD09 /* JobDetailView.swift */; };
+		308464F5CC8DAB994EA94C45 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C578F63892CFCCB8767B3 /* Session.swift */; };
+		3C25E602DE2CE187A1DFA010 /* CandidateProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BAAA5CDD5AE2F1CB27542 /* CandidateProfileEditor.swift */; };
+		3CC7D6B83B92C2E8DB663A76 /* Inquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E85C64A9885C70B3C2D6298 /* Inquiry.swift */; };
+		4049A95F2CE504E3DED18138 /* AzmaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53750D3561B0A57971E50EB4 /* AzmaApp.swift */; };
+		41F40233EA836D963E23DE42 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A3101998A9E678789D7E7 /* Theme.swift */; };
+		421DFFBEB64B50503ECF2E20 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76C790C83784DA283C2B26D /* ContactView.swift */; };
+		58E802C32F98C34E95B53286 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CCE571CC1A57B4CDFE5B4 /* Candidate.swift */; };
+		5BEFF4CFA493AD0F62945DE6 /* InquiryInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7675A4508675A836A21707B0 /* InquiryInboxView.swift */; };
+		5C418E0D1EE2158B2D034E4D /* AzmaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD77D23E89DEE3DA8DDAE1B /* AzmaUITests.swift */; };
+		62F8EC81F251F2C6DC02E068 /* SiteContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2C6DEE6E252A10DC684293 /* SiteContent.swift */; };
+		6408EC9429AB453252E1D514 /* EmployerProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057A8AFD8D395B8E4997195E /* EmployerProfileEditor.swift */; };
+		6A5247D96F2C370083E2A3F3 /* FormControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2657EFA4242ECAC22E814A02 /* FormControls.swift */; };
+		6C66AC3C71BF3FEC020C4757 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9603246AE86E27CB8177C8 /* Account.swift */; };
+		768129D25255B94D213A7339 /* JoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D23F1C77D18A97BF9F8E392 /* JoinView.swift */; };
+		85065EADE0BE9B08DFD04341 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2E812D97BA240FED27FF32 /* APIError.swift */; };
+		8CFA53FD7E6F6635E3512530 /* JobEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91737CAD25A1D4A518FC74B /* JobEditorView.swift */; };
+		9335E255D9C73C3506D0C93C /* JobBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66811C514E83E856FF2976EF /* JobBoardView.swift */; };
+		9937C7E308EF4201D2B6AD05 /* ApplicantsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A628038102E6DCEE9DE397 /* ApplicantsView.swift */; };
+		9ADAE7257566326801DEE5CA /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFF13D3B4AE34D3431BF7E /* AppConfig.swift */; };
+		9C70386F88DFA6DA1A259E3E /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9037C7BA80177AFBBC199A0 /* Endpoints.swift */; };
+		A0B60BE02991B25A83957B35 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3679807F8625F55D5846EC9A /* Keychain.swift */; };
+		AC478602668CFDCEA6C2C34E /* HTMLContentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9929AE818F4BA1E3132361 /* HTMLContentTests.swift */; };
+		ACBDD8F1F99F68172ADA91CF /* HTMLContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CABD2A1C566C28B9B418D30 /* HTMLContent.swift */; };
+		AD6C26D74BABE7A77B66854C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE83BE848EF54DA5A5C68BFE /* HomeView.swift */; };
+		B547F0AD86CAAC5275E8A129 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F8F88849C99320E1BF9416 /* Components.swift */; };
+		B86152484578A43720820817 /* DocumentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A0F93150389534F1F38F03 /* DocumentPreview.swift */; };
+		BA83B0EB22CF66C92BAE063A /* Employer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4020E1CA913BEF802041ECA5 /* Employer.swift */; };
+		CBBB193383CEFD0C59A17509 /* SiteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DCF9A14FDD7C0C74D4433E /* SiteStore.swift */; };
+		D2EBD9D5FDC3E9A2804C45E6 /* CandidateDirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D262A5CE30810444390647EE /* CandidateDirectoryView.swift */; };
+		D906200A5C8E4A9DCF991276 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9669D0A9D8FFC97F2ECEFD /* Formatting.swift */; };
+		DB5053BE729792C83C99B57A /* ConsultantDeskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A75CC08F9032003FD1E0B /* ConsultantDeskView.swift */; };
+		DB88C687E22F4BE5DAC418CE /* CandidateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0D138DED81D07CD6E91ADB /* CandidateStore.swift */; };
+		E6ACA5B3B34BE3CB1DC5A8D7 /* EmployerHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C09861ED97B1C0C0CDACE72 /* EmployerHomeView.swift */; };
+		E7F817BD0784E8EA853D2DEB /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700AE948E65B567EDCBECE7E /* AccountView.swift */; };
+		E99F07FFAD5BAE4B26087996 /* FormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70729B31169D99510DCC9346 /* FormattingTests.swift */; };
+		F437A6B67D4066DDFD892220 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4E2D874C544ED674318E6B /* Job.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		192BA900388F77BA41F93680 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EDC0CD7DC783EA8C59B67884 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B10229582B2192744865A9A9;
+			remoteInfo = AzmaAssociates;
+		};
+		DF566212CF4C578CE922D33F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EDC0CD7DC783EA8C59B67884 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B10229582B2192744865A9A9;
+			remoteInfo = AzmaAssociates;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		057A8AFD8D395B8E4997195E /* EmployerProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerProfileEditor.swift; sourceTree = "<group>"; };
+		1E85C64A9885C70B3C2D6298 /* Inquiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inquiry.swift; sourceTree = "<group>"; };
+		2657EFA4242ECAC22E814A02 /* FormControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormControls.swift; sourceTree = "<group>"; };
+		29AFF13D3B4AE34D3431BF7E /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		2AECC2B517D74FEBA21D5385 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
+		2CABD2A1C566C28B9B418D30 /* HTMLContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContent.swift; sourceTree = "<group>"; };
+		2FA6C3324BD9BB1A32A3DDC9 /* CandidateHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateHomeView.swift; sourceTree = "<group>"; };
+		3679807F8625F55D5846EC9A /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		387A75CC08F9032003FD1E0B /* ConsultantDeskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultantDeskView.swift; sourceTree = "<group>"; };
+		3DD77D23E89DEE3DA8DDAE1B /* AzmaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzmaUITests.swift; sourceTree = "<group>"; };
+		4020E1CA913BEF802041ECA5 /* Employer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employer.swift; sourceTree = "<group>"; };
+		4A196DF5008F9C6FFEF01FFB /* AzmaAssociates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AzmaAssociates.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A9929AE818F4BA1E3132361 /* HTMLContentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContentTests.swift; sourceTree = "<group>"; };
+		5229077AFA50CF36F084915F /* AzmaAssociatesUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AzmaAssociatesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		53750D3561B0A57971E50EB4 /* AzmaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzmaApp.swift; sourceTree = "<group>"; };
+		5B5A3101998A9E678789D7E7 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		5F2E812D97BA240FED27FF32 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		64E1DE7C8821BD281EE5593F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		66811C514E83E856FF2976EF /* JobBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobBoardView.swift; sourceTree = "<group>"; };
+		6A9603246AE86E27CB8177C8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		700AE948E65B567EDCBECE7E /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		70729B31169D99510DCC9346 /* FormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingTests.swift; sourceTree = "<group>"; };
+		7675A4508675A836A21707B0 /* InquiryInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryInboxView.swift; sourceTree = "<group>"; };
+		76FB174AA51310D73892AEE0 /* PageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailView.swift; sourceTree = "<group>"; };
+		79957ECFB46B51CBB365AD09 /* JobDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailView.swift; sourceTree = "<group>"; };
+		8B9669D0A9D8FFC97F2ECEFD /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		8F0D138DED81D07CD6E91ADB /* CandidateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateStore.swift; sourceTree = "<group>"; };
+		926BAAA5CDD5AE2F1CB27542 /* CandidateProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateProfileEditor.swift; sourceTree = "<group>"; };
+		9C09861ED97B1C0C0CDACE72 /* EmployerHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerHomeView.swift; sourceTree = "<group>"; };
+		9D23F1C77D18A97BF9F8E392 /* JoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinView.swift; sourceTree = "<group>"; };
+		A8A0F93150389534F1F38F03 /* DocumentPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreview.swift; sourceTree = "<group>"; };
+		B2B57E322673538B8FC8D6B3 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		B32C578F63892CFCCB8767B3 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		B76C790C83784DA283C2B26D /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
+		C0E7F0184B8692EBF2CC4329 /* AzmaAssociatesTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AzmaAssociatesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C11CEE7688EAEDC156F39B9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C5F0DA15A2869F26A3224D17 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		C8F8F88849C99320E1BF9416 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		C9037C7BA80177AFBBC199A0 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		D0EA7C8257E1146165235801 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		D262A5CE30810444390647EE /* CandidateDirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDirectoryView.swift; sourceTree = "<group>"; };
+		D91737CAD25A1D4A518FC74B /* JobEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobEditorView.swift; sourceTree = "<group>"; };
+		DE83BE848EF54DA5A5C68BFE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DE8D50DE175BE7E5E9F31E92 /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
+		DF2C6DEE6E252A10DC684293 /* SiteContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteContent.swift; sourceTree = "<group>"; };
+		DF4E2D874C544ED674318E6B /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		E7DCF9A14FDD7C0C74D4433E /* SiteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteStore.swift; sourceTree = "<group>"; };
+		E8A628038102E6DCEE9DE397 /* ApplicantsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantsView.swift; sourceTree = "<group>"; };
+		FB1CCE571CC1A57B4CDFE5B4 /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0D03AECB504645D540593D33 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6A9603246AE86E27CB8177C8 /* Account.swift */,
+				FB1CCE571CC1A57B4CDFE5B4 /* Candidate.swift */,
+				4020E1CA913BEF802041ECA5 /* Employer.swift */,
+				1E85C64A9885C70B3C2D6298 /* Inquiry.swift */,
+				DF4E2D874C544ED674318E6B /* Job.swift */,
+				DF2C6DEE6E252A10DC684293 /* SiteContent.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19BCDD2A0B36FED355E79AA7 /* Jobs */ = {
+			isa = PBXGroup;
+			children = (
+				66811C514E83E856FF2976EF /* JobBoardView.swift */,
+				79957ECFB46B51CBB365AD09 /* JobDetailView.swift */,
+			);
+			path = Jobs;
+			sourceTree = "<group>";
+		};
+		21B96ED5CEEBF892E978384A /* Employer */ = {
+			isa = PBXGroup;
+			children = (
+				E8A628038102E6DCEE9DE397 /* ApplicantsView.swift */,
+				9C09861ED97B1C0C0CDACE72 /* EmployerHomeView.swift */,
+				057A8AFD8D395B8E4997195E /* EmployerProfileEditor.swift */,
+				D91737CAD25A1D4A518FC74B /* JobEditorView.swift */,
+			);
+			path = Employer;
+			sourceTree = "<group>";
+		};
+		3BCB01388BB16A9D4C4C4A52 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				53750D3561B0A57971E50EB4 /* AzmaApp.swift */,
+				C8F8F88849C99320E1BF9416 /* Components.swift */,
+				A8A0F93150389534F1F38F03 /* DocumentPreview.swift */,
+				2657EFA4242ECAC22E814A02 /* FormControls.swift */,
+				D0EA7C8257E1146165235801 /* RootView.swift */,
+				5B5A3101998A9E678789D7E7 /* Theme.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3D9B59780532B4E0336EF8ED /* AzmaAssociates */ = {
+			isa = PBXGroup;
+			children = (
+				3BCB01388BB16A9D4C4C4A52 /* App */,
+				7CC8FA2BD199FAFA76A1A19C /* Core */,
+				F888E91B834021C20D2EEE4E /* Features */,
+				AC1E103AAC231EFE6A5A94C7 /* Resources */,
+				64E1DE7C8821BD281EE5593F /* Info.plist */,
+			);
+			path = AzmaAssociates;
+			sourceTree = "<group>";
+		};
+		7CC8FA2BD199FAFA76A1A19C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				0D03AECB504645D540593D33 /* Models */,
+				B2B57E322673538B8FC8D6B3 /* APIClient.swift */,
+				5F2E812D97BA240FED27FF32 /* APIError.swift */,
+				29AFF13D3B4AE34D3431BF7E /* AppConfig.swift */,
+				8F0D138DED81D07CD6E91ADB /* CandidateStore.swift */,
+				C9037C7BA80177AFBBC199A0 /* Endpoints.swift */,
+				8B9669D0A9D8FFC97F2ECEFD /* Formatting.swift */,
+				2CABD2A1C566C28B9B418D30 /* HTMLContent.swift */,
+				3679807F8625F55D5846EC9A /* Keychain.swift */,
+				B32C578F63892CFCCB8767B3 /* Session.swift */,
+				E7DCF9A14FDD7C0C74D4433E /* SiteStore.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		8A4776817B7E0D8429F2005B /* Consultant */ = {
+			isa = PBXGroup;
+			children = (
+				D262A5CE30810444390647EE /* CandidateDirectoryView.swift */,
+				387A75CC08F9032003FD1E0B /* ConsultantDeskView.swift */,
+				7675A4508675A836A21707B0 /* InquiryInboxView.swift */,
+			);
+			path = Consultant;
+			sourceTree = "<group>";
+		};
+		93F3F85E680B73BA05A95344 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DE83BE848EF54DA5A5C68BFE /* HomeView.swift */,
+				76FB174AA51310D73892AEE0 /* PageDetailView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		95A419A604DAA34D924CED32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A196DF5008F9C6FFEF01FFB /* AzmaAssociates.app */,
+				C0E7F0184B8692EBF2CC4329 /* AzmaAssociatesTests.xctest */,
+				5229077AFA50CF36F084915F /* AzmaAssociatesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC1E103AAC231EFE6A5A94C7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C11CEE7688EAEDC156F39B9D /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B94D2194BAB09E2797532378 /* AzmaAssociatesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3DD77D23E89DEE3DA8DDAE1B /* AzmaUITests.swift */,
+			);
+			path = AzmaAssociatesUITests;
+			sourceTree = "<group>";
+		};
+		C256DB8A837628CBC4520276 /* AzmaAssociatesTests */ = {
+			isa = PBXGroup;
+			children = (
+				2AECC2B517D74FEBA21D5385 /* APIClientTests.swift */,
+				70729B31169D99510DCC9346 /* FormattingTests.swift */,
+				4A9929AE818F4BA1E3132361 /* HTMLContentTests.swift */,
+				DE8D50DE175BE7E5E9F31E92 /* ValidationTests.swift */,
+			);
+			path = AzmaAssociatesTests;
+			sourceTree = "<group>";
+		};
+		C2E98F6ADBAF3CC05D8D4B42 = {
+			isa = PBXGroup;
+			children = (
+				3D9B59780532B4E0336EF8ED /* AzmaAssociates */,
+				C256DB8A837628CBC4520276 /* AzmaAssociatesTests */,
+				B94D2194BAB09E2797532378 /* AzmaAssociatesUITests */,
+				95A419A604DAA34D924CED32 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C39AA43FECC6EC12009F6023 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				B76C790C83784DA283C2B26D /* ContactView.swift */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		D87A66E68DE642ED28D897D2 /* Candidate */ = {
+			isa = PBXGroup;
+			children = (
+				2FA6C3324BD9BB1A32A3DDC9 /* CandidateHomeView.swift */,
+				926BAAA5CDD5AE2F1CB27542 /* CandidateProfileEditor.swift */,
+			);
+			path = Candidate;
+			sourceTree = "<group>";
+		};
+		F5ADF7F012534CA11E0C49E6 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				700AE948E65B567EDCBECE7E /* AccountView.swift */,
+				9D23F1C77D18A97BF9F8E392 /* JoinView.swift */,
+				C5F0DA15A2869F26A3224D17 /* SignInView.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		F888E91B834021C20D2EEE4E /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				F5ADF7F012534CA11E0C49E6 /* Account */,
+				D87A66E68DE642ED28D897D2 /* Candidate */,
+				8A4776817B7E0D8429F2005B /* Consultant */,
+				C39AA43FECC6EC12009F6023 /* Contact */,
+				21B96ED5CEEBF892E978384A /* Employer */,
+				93F3F85E680B73BA05A95344 /* Home */,
+				19BCDD2A0B36FED355E79AA7 /* Jobs */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3DA8D9F24A2E3DF55F24129B /* AzmaAssociatesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7050C53E2E90CC017921CFA /* Build configuration list for PBXNativeTarget "AzmaAssociatesUITests" */;
+			buildPhases = (
+				5FCB11457F5186FFBA5F6984 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9EEAEC442BAA2F937410D985 /* PBXTargetDependency */,
+			);
+			name = AzmaAssociatesUITests;
+			packageProductDependencies = (
+			);
+			productName = AzmaAssociatesUITests;
+			productReference = 5229077AFA50CF36F084915F /* AzmaAssociatesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B10229582B2192744865A9A9 /* AzmaAssociates */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7C4B3D8235508F9F7324AB8 /* Build configuration list for PBXNativeTarget "AzmaAssociates" */;
+			buildPhases = (
+				FEDFDFF315596419AC01E8C0 /* Sources */,
+				F73622FAACACB1FDB1B3DFC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AzmaAssociates;
+			packageProductDependencies = (
+			);
+			productName = AzmaAssociates;
+			productReference = 4A196DF5008F9C6FFEF01FFB /* AzmaAssociates.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FF86E0FF473A734F216D2BBA /* AzmaAssociatesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F1C631A4816535F2B666270 /* Build configuration list for PBXNativeTarget "AzmaAssociatesTests" */;
+			buildPhases = (
+				B15F5EA64D524CB068D6BFAD /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF2E7E778EEFFDE506776665 /* PBXTargetDependency */,
+			);
+			name = AzmaAssociatesTests;
+			packageProductDependencies = (
+			);
+			productName = AzmaAssociatesTests;
+			productReference = C0E7F0184B8692EBF2CC4329 /* AzmaAssociatesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EDC0CD7DC783EA8C59B67884 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					3DA8D9F24A2E3DF55F24129B = {
+						TestTargetID = B10229582B2192744865A9A9;
+					};
+					B10229582B2192744865A9A9 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A03BA9951C66843EABAA8733 /* Build configuration list for PBXProject "AzmaAssociates" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = C2E98F6ADBAF3CC05D8D4B42;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 95A419A604DAA34D924CED32 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B10229582B2192744865A9A9 /* AzmaAssociates */,
+				FF86E0FF473A734F216D2BBA /* AzmaAssociatesTests */,
+				3DA8D9F24A2E3DF55F24129B /* AzmaAssociatesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F73622FAACACB1FDB1B3DFC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19F770CA57689B5D79EFD259 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5FCB11457F5186FFBA5F6984 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C418E0D1EE2158B2D034E4D /* AzmaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B15F5EA64D524CB068D6BFAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FEFA2C7C5B9A04E26705A5B /* APIClientTests.swift in Sources */,
+				E99F07FFAD5BAE4B26087996 /* FormattingTests.swift in Sources */,
+				AC478602668CFDCEA6C2C34E /* HTMLContentTests.swift in Sources */,
+				0D64700DB7FF8D82AF8B96A0 /* ValidationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FEDFDFF315596419AC01E8C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06DEC7FCFC953A97910C7872 /* APIClient.swift in Sources */,
+				85065EADE0BE9B08DFD04341 /* APIError.swift in Sources */,
+				6C66AC3C71BF3FEC020C4757 /* Account.swift in Sources */,
+				E7F817BD0784E8EA853D2DEB /* AccountView.swift in Sources */,
+				9ADAE7257566326801DEE5CA /* AppConfig.swift in Sources */,
+				9937C7E308EF4201D2B6AD05 /* ApplicantsView.swift in Sources */,
+				4049A95F2CE504E3DED18138 /* AzmaApp.swift in Sources */,
+				58E802C32F98C34E95B53286 /* Candidate.swift in Sources */,
+				D2EBD9D5FDC3E9A2804C45E6 /* CandidateDirectoryView.swift in Sources */,
+				259FB333B9F478583AAE6B6F /* CandidateHomeView.swift in Sources */,
+				3C25E602DE2CE187A1DFA010 /* CandidateProfileEditor.swift in Sources */,
+				DB88C687E22F4BE5DAC418CE /* CandidateStore.swift in Sources */,
+				B547F0AD86CAAC5275E8A129 /* Components.swift in Sources */,
+				DB5053BE729792C83C99B57A /* ConsultantDeskView.swift in Sources */,
+				421DFFBEB64B50503ECF2E20 /* ContactView.swift in Sources */,
+				B86152484578A43720820817 /* DocumentPreview.swift in Sources */,
+				BA83B0EB22CF66C92BAE063A /* Employer.swift in Sources */,
+				E6ACA5B3B34BE3CB1DC5A8D7 /* EmployerHomeView.swift in Sources */,
+				6408EC9429AB453252E1D514 /* EmployerProfileEditor.swift in Sources */,
+				9C70386F88DFA6DA1A259E3E /* Endpoints.swift in Sources */,
+				6A5247D96F2C370083E2A3F3 /* FormControls.swift in Sources */,
+				D906200A5C8E4A9DCF991276 /* Formatting.swift in Sources */,
+				ACBDD8F1F99F68172ADA91CF /* HTMLContent.swift in Sources */,
+				AD6C26D74BABE7A77B66854C /* HomeView.swift in Sources */,
+				3CC7D6B83B92C2E8DB663A76 /* Inquiry.swift in Sources */,
+				5BEFF4CFA493AD0F62945DE6 /* InquiryInboxView.swift in Sources */,
+				F437A6B67D4066DDFD892220 /* Job.swift in Sources */,
+				9335E255D9C73C3506D0C93C /* JobBoardView.swift in Sources */,
+				30433D42B5D101C6E37E26ED /* JobDetailView.swift in Sources */,
+				8CFA53FD7E6F6635E3512530 /* JobEditorView.swift in Sources */,
+				768129D25255B94D213A7339 /* JoinView.swift in Sources */,
+				A0B60BE02991B25A83957B35 /* Keychain.swift in Sources */,
+				27EF686638B1D031E6BDD568 /* PageDetailView.swift in Sources */,
+				15D4B8C8D466678066DE1374 /* RootView.swift in Sources */,
+				308464F5CC8DAB994EA94C45 /* Session.swift in Sources */,
+				1EFB24D3D48CE4BBB118A56B /* SignInView.swift in Sources */,
+				62F8EC81F251F2C6DC02E068 /* SiteContent.swift in Sources */,
+				CBBB193383CEFD0C59A17509 /* SiteStore.swift in Sources */,
+				41F40233EA836D963E23DE42 /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9EEAEC442BAA2F937410D985 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B10229582B2192744865A9A9 /* AzmaAssociates */;
+			targetProxy = 192BA900388F77BA41F93680 /* PBXContainerItemProxy */;
+		};
+		EF2E7E778EEFFDE506776665 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B10229582B2192744865A9A9 /* AzmaAssociates */;
+			targetProxy = DF566212CF4C578CE922D33F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2E813F7404F390AA387114F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.azmaassociates.mobile.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AzmaAssociates;
+			};
+			name = Release;
+		};
+		50280081F098DB55DC789ED8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		73F5CC6A228C97E6F79E5494 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				AZMA_API_BASE_URL = "https:/$()/azma-cms-555559211982.asia-northeast1.run.app";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BJMVJFPS92;
+				INFOPLIST_FILE = AzmaAssociates/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AZMA;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.azmaassociates.mobile;
+				PRODUCT_MODULE_NAME = AZMA;
+				SDKROOT = iphoneos;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		896F1CE79AB82115D9D57F02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.azmaassociates.mobile.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AzmaAssociates.app/AzmaAssociates";
+			};
+			name = Debug;
+		};
+		8C1C07DFA4A8AF459F0F9E07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.azmaassociates.mobile.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AzmaAssociates;
+			};
+			name = Debug;
+		};
+		8CF2DFCDF9742CD84CBD46DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		9ADD392F6CEB2C9514C55571 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.azmaassociates.mobile.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AzmaAssociates.app/AzmaAssociates";
+			};
+			name = Release;
+		};
+		C0ED4973BB27EC4742AA8E21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				AZMA_API_BASE_URL = "http:/$()/localhost:4200";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BJMVJFPS92;
+				INFOPLIST_FILE = AzmaAssociates/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AZMA;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.azmaassociates.mobile;
+				PRODUCT_MODULE_NAME = AZMA;
+				SDKROOT = iphoneos;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8F1C631A4816535F2B666270 /* Build configuration list for PBXNativeTarget "AzmaAssociatesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				896F1CE79AB82115D9D57F02 /* Debug */,
+				9ADD392F6CEB2C9514C55571 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A03BA9951C66843EABAA8733 /* Build configuration list for PBXProject "AzmaAssociates" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50280081F098DB55DC789ED8 /* Debug */,
+				8CF2DFCDF9742CD84CBD46DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F7050C53E2E90CC017921CFA /* Build configuration list for PBXNativeTarget "AzmaAssociatesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C1C07DFA4A8AF459F0F9E07 /* Debug */,
+				2E813F7404F390AA387114F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F7C4B3D8235508F9F7324AB8 /* Build configuration list for PBXNativeTarget "AzmaAssociates" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0ED4973BB27EC4742AA8E21 /* Debug */,
+				73F5CC6A228C97E6F79E5494 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EDC0CD7DC783EA8C59B67884 /* Project object */;
+}

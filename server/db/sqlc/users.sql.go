@@ -23,8 +23,8 @@ func (q *Queries) CountActiveAdmins(ctx context.Context) (int64, error) {
 }
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users (email, name, password_hash)
-VALUES ($1, $2, $3)
+INSERT INTO users (email, name, password_hash, role)
+VALUES ($1, $2, $3, $4)
 RETURNING id, email, name, password_hash, role, disabled, failed_logins, locked_until, last_login_at, created_at, updated_at
 `
 
@@ -32,10 +32,16 @@ type CreateUserParams struct {
 	Email        string `json:"email"`
 	Name         string `json:"name"`
 	PasswordHash string `json:"password_hash"`
+	Role         string `json:"role"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
-	row := q.db.QueryRow(ctx, createUser, arg.Email, arg.Name, arg.PasswordHash)
+	row := q.db.QueryRow(ctx, createUser,
+		arg.Email,
+		arg.Name,
+		arg.PasswordHash,
+		arg.Role,
+	)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -109,9 +115,11 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 }
 
 const listUsers = `-- name: ListUsers :many
-SELECT id, email, name, password_hash, role, disabled, failed_logins, locked_until, last_login_at, created_at, updated_at FROM users ORDER BY lower(email)
+SELECT id, email, name, password_hash, role, disabled, failed_logins, locked_until, last_login_at, created_at, updated_at FROM users WHERE role = 'admin' ORDER BY lower(email)
 `
 
+// Administrators only: candidate and employer accounts are app users, not
+// people with access to the CMS, and are listed through /admin/candidates.
 func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
 	rows, err := q.db.Query(ctx, listUsers)
 	if err != nil {

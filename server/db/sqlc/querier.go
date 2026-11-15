@@ -13,27 +13,47 @@ import (
 
 type Querier interface {
 	CountActiveAdmins(ctx context.Context) (int64, error)
+	CountInquiriesByStatus(ctx context.Context) ([]CountInquiriesByStatusRow, error)
+	CountJobsByStatus(ctx context.Context) ([]CountJobsByStatusRow, error)
 	// How many pages, profiles and settings reference a URL. Used to warn before
 	// deleting a file that is still on the site.
 	CountMediaUsage(ctx context.Context, url string) (int32, error)
 	CountNavItems(ctx context.Context) (int64, error)
+	CountPublishedJobs(ctx context.Context, arg CountPublishedJobsParams) (int64, error)
+	// Crude per-sender throttle for the public form; see also middleware.RateLimit.
+	CountRecentInquiriesFromIP(ctx context.Context, email string) (int64, error)
+	CountResumes(ctx context.Context, userID uuid.UUID) (int64, error)
+	CreateApplication(ctx context.Context, arg CreateApplicationParams) (JobApplication, error)
+	CreateInquiry(ctx context.Context, arg CreateInquiryParams) (Inquiry, error)
+	CreateJob(ctx context.Context, arg CreateJobParams) (Job, error)
 	CreateMedia(ctx context.Context, arg CreateMediaParams) (Medium, error)
 	CreateNavItem(ctx context.Context, arg CreateNavItemParams) (NavItem, error)
 	CreatePage(ctx context.Context, arg CreatePageParams) (Page, error)
 	CreateProfile(ctx context.Context, arg CreateProfileParams) (Profile, error)
+	CreateResume(ctx context.Context, arg CreateResumeParams) (Resume, error)
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteAllNavItems(ctx context.Context) error
 	DeleteExpiredSessions(ctx context.Context) error
+	DeleteJob(ctx context.Context, arg DeleteJobParams) (Job, error)
 	DeleteMedia(ctx context.Context, id int64) error
 	DeletePage(ctx context.Context, id int64) error
 	DeleteProfile(ctx context.Context, id int64) error
+	// Scoped to the owner: another user's id simply matches no row.
+	DeleteResume(ctx context.Context, arg DeleteResumeParams) (Resume, error)
 	DeleteUser(ctx context.Context, id uuid.UUID) error
+	GetApplication(ctx context.Context, id int64) (JobApplication, error)
+	GetCandidateForAdmin(ctx context.Context, userID uuid.UUID) (GetCandidateForAdminRow, error)
+	GetCandidateProfile(ctx context.Context, userID uuid.UUID) (CandidateProfile, error)
+	GetEmployerProfile(ctx context.Context, userID uuid.UUID) (EmployerProfile, error)
+	GetJob(ctx context.Context, id int64) (Job, error)
 	GetMedia(ctx context.Context, id int64) (Medium, error)
 	GetPage(ctx context.Context, id int64) (Page, error)
 	GetPageByLegacyID(ctx context.Context, legacyWpID pgtype.Int4) (Page, error)
 	GetProfile(ctx context.Context, id int64) (Profile, error)
 	GetProfileByLegacyID(ctx context.Context, legacyWpID pgtype.Int4) (Profile, error)
+	GetPublishedJob(ctx context.Context, id int64) (Job, error)
+	GetResume(ctx context.Context, id int64) (Resume, error)
 	// Resolves a live session to its user in one round trip. Revoked, expired and
 	// disabled-user sessions are filtered out here rather than in Go.
 	GetSessionUser(ctx context.Context, tokenHash []byte) (GetSessionUserRow, error)
@@ -41,13 +61,27 @@ type Querier interface {
 	GetUser(ctx context.Context, id uuid.UUID) (User, error)
 	GetUserByEmail(ctx context.Context, email string) (User, error)
 	InsertAudit(ctx context.Context, arg InsertAuditParams) error
+	ListApplicationsForCandidate(ctx context.Context, candidateID uuid.UUID) ([]ListApplicationsForCandidateRow, error)
+	ListApplicationsForJob(ctx context.Context, jobID int64) ([]ListApplicationsForJobRow, error)
 	ListAudit(ctx context.Context, arg ListAuditParams) ([]AuditLog, error)
+	ListCandidatesForAdmin(ctx context.Context, arg ListCandidatesForAdminParams) ([]ListCandidatesForAdminRow, error)
+	ListInquiries(ctx context.Context, arg ListInquiriesParams) ([]ListInquiriesRow, error)
+	ListInquiriesForUser(ctx context.Context, userID uuid.NullUUID) ([]Inquiry, error)
+	ListJobsForAdmin(ctx context.Context, arg ListJobsForAdminParams) ([]ListJobsForAdminRow, error)
+	ListJobsForEmployer(ctx context.Context, employerID uuid.UUID) ([]ListJobsForEmployerRow, error)
 	ListMedia(ctx context.Context) ([]Medium, error)
 	ListNavItems(ctx context.Context) ([]ListNavItemsRow, error)
 	ListPages(ctx context.Context) ([]Page, error)
 	ListProfiles(ctx context.Context) ([]Profile, error)
+	// The public board. Empty filter values mean "no filter", which keeps one
+	// query (and one plan) for every combination the app sends.
+	ListPublishedJobs(ctx context.Context, arg ListPublishedJobsParams) ([]Job, error)
 	ListPublishedPages(ctx context.Context) ([]Page, error)
 	ListPublishedProfiles(ctx context.Context) ([]Profile, error)
+	ListResumes(ctx context.Context, userID uuid.UUID) ([]Resume, error)
+	ListSavedJobs(ctx context.Context, candidateID uuid.UUID) ([]ListSavedJobsRow, error)
+	// Administrators only: candidate and employer accounts are app users, not
+	// people with access to the CMS, and are listed through /admin/candidates.
 	ListUsers(ctx context.Context) ([]User, error)
 	// Increments the failure counter and, once it reaches the threshold, locks the
 	// account until now() + window. Returns the new counter.
@@ -56,15 +90,33 @@ type Querier interface {
 	RevokeOtherUserSessions(ctx context.Context, arg RevokeOtherUserSessionsParams) error
 	RevokeSession(ctx context.Context, id uuid.UUID) error
 	RevokeUserSessions(ctx context.Context, userID uuid.UUID) error
+	SaveJob(ctx context.Context, arg SaveJobParams) error
+	SetApplicationStatus(ctx context.Context, arg SetApplicationStatusParams) (JobApplication, error)
+	SetInquiryStatus(ctx context.Context, arg SetInquiryStatusParams) (Inquiry, error)
+	// A consultant's decision on a posting.
+	SetJobStatus(ctx context.Context, arg SetJobStatusParams) (Job, error)
+	// The employer's own transitions: withdraw to a draft, resubmit for review,
+	// or mark a live position filled or closed. published_at is kept for a
+	// position that was live, so "filled" still shows when it ran.
+	SetJobStatusForEmployer(ctx context.Context, arg SetJobStatusForEmployerParams) (Job, error)
 	SetPageSortOrder(ctx context.Context, arg SetPageSortOrderParams) error
 	SetProfileSortOrder(ctx context.Context, arg SetProfileSortOrderParams) error
 	SetUserPassword(ctx context.Context, arg SetUserPasswordParams) error
+	// Asking us to represent them. submitted_at keeps the first submission date.
+	SubmitCandidateProfile(ctx context.Context, arg SubmitCandidateProfileParams) (CandidateProfile, error)
 	TouchSession(ctx context.Context, id uuid.UUID) error
+	UnsaveJob(ctx context.Context, arg UnsaveJobParams) error
+	// Scoped to the owner. A posting that was already live goes back to review
+	// when it is edited, so a published job cannot be rewritten after approval.
+	UpdateJob(ctx context.Context, arg UpdateJobParams) (Job, error)
 	UpdateMediaAlt(ctx context.Context, arg UpdateMediaAltParams) (Medium, error)
 	UpdatePage(ctx context.Context, arg UpdatePageParams) (Page, error)
 	UpdateProfile(ctx context.Context, arg UpdateProfileParams) (Profile, error)
 	UpdateSettings(ctx context.Context, arg UpdateSettingsParams) (SiteSetting, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
+	UpsertCandidateProfile(ctx context.Context, arg UpsertCandidateProfileParams) (CandidateProfile, error)
+	UpsertEmployerProfile(ctx context.Context, arg UpsertEmployerProfileParams) (EmployerProfile, error)
+	WithdrawApplication(ctx context.Context, arg WithdrawApplicationParams) (JobApplication, error)
 }
 
 var _ Querier = (*Queries)(nil)

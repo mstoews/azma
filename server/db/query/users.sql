@@ -1,6 +1,6 @@
 -- name: CreateUser :one
-INSERT INTO users (email, name, password_hash)
-VALUES (@email, @name, @password_hash)
+INSERT INTO users (email, name, password_hash, role)
+VALUES (@email, @name, @password_hash, @role)
 RETURNING *;
 
 -- name: GetUserByEmail :one
@@ -10,7 +10,9 @@ SELECT * FROM users WHERE lower(email) = lower(@email);
 SELECT * FROM users WHERE id = @id;
 
 -- name: ListUsers :many
-SELECT * FROM users ORDER BY lower(email);
+-- Administrators only: candidate and employer accounts are app users, not
+-- people with access to the CMS, and are listed through /admin/candidates.
+SELECT * FROM users WHERE role = 'admin' ORDER BY lower(email);
 
 -- name: UpdateUser :one
 UPDATE users

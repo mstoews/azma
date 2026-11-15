@@ -72,12 +72,59 @@ func (s *Server) setupRouter() {
 	// Public.
 	v1.GET("/site", s.getPublicSite)
 	v1.POST("/auth/login", s.login)
+	// The mobile app's read-only surface: the job board and the vocabulary
+	// its pickers are built from.
+	v1.GET("/jobs", s.listPublicJobs)
+	v1.GET("/jobs/:id", s.getPublicJob)
+	v1.GET("/options", s.getOptions)
+	// Signing up and asking for a consultation need no account, so both are
+	// rate limited per client IP.
+	v1.POST("/auth/register", md.RateLimit(20, time.Hour), s.register)
+	v1.POST("/inquiries", md.RateLimit(10, time.Hour), md.OptionalSession(s.store), s.createInquiry)
 
-	// Any signed-in user (all users are administrators today).
+	// Any signed-in user, whatever their role.
 	authed := v1.Group("/auth", md.AuthSession(s.store))
 	authed.GET("/me", s.me)
 	authed.POST("/logout", s.logout)
 	authed.PUT("/password", s.changeOwnPassword)
+
+	mine := v1.Group("", md.AuthSession(s.store))
+	mine.GET("/my/inquiries", s.listMyInquiries)
+	// Owner or consultant; the handler decides which.
+	mine.GET("/resumes/:id/file", s.downloadResume)
+
+	// Business professionals looking for a position.
+	candidate := v1.Group("/candidate", md.AuthSession(s.store), md.RequireRole("candidate"))
+	{
+		candidate.GET("/me", s.getCandidateMe)
+		candidate.PUT("/profile", s.putCandidateProfile)
+		candidate.POST("/profile/submit", s.submitCandidateProfile)
+
+		candidate.GET("/resumes", s.listResumes)
+		candidate.POST("/resumes", s.uploadResume)
+		candidate.DELETE("/resumes/:id", s.deleteResume)
+
+		candidate.POST("/applications", s.createApplication)
+		candidate.POST("/applications/:id/withdraw", s.withdrawApplication)
+
+		candidate.PUT("/saved-jobs/:id", s.saveJob)
+		candidate.DELETE("/saved-jobs/:id", s.unsaveJob)
+	}
+
+	// Clients hiring through us.
+	employer := v1.Group("/employer", md.AuthSession(s.store), md.RequireRole("employer"))
+	{
+		employer.GET("/me", s.getEmployerMe)
+		employer.PUT("/profile", s.putEmployerProfile)
+
+		employer.POST("/jobs", s.createJob)
+		employer.PUT("/jobs/:id", s.updateJob)
+		employer.PUT("/jobs/:id/status", s.setEmployerJobStatus)
+		employer.DELETE("/jobs/:id", s.deleteJob)
+
+		employer.GET("/jobs/:id/applications", s.listJobApplicants)
+		employer.PUT("/applications/:id/status", s.setApplicationStatus)
+	}
 
 	// Administrators only.
 	admin := v1.Group("/admin", md.AuthSession(s.store), md.RequireAdmin())
@@ -114,6 +161,20 @@ func (s *Server) setupRouter() {
 		admin.DELETE("/users/:id", s.deleteUser)
 
 		admin.GET("/audit", s.listAudit)
+
+		// The consultant's desk, which the mobile app drives too: postings
+		// waiting for approval, the candidates who asked to be represented,
+		// and the consultation requests that came in.
+		admin.GET("/jobs", s.listJobsForAdmin)
+		admin.PUT("/jobs/:id/status", s.setJobStatus)
+		admin.GET("/jobs/:id/applications", s.listJobApplicants)
+		admin.PUT("/applications/:id/status", s.setApplicationStatus)
+
+		admin.GET("/candidates", s.listCandidatesForAdmin)
+		admin.GET("/candidates/:id", s.getCandidateForAdmin)
+
+		admin.GET("/inquiries", s.listInquiries)
+		admin.PUT("/inquiries/:id/status", s.setInquiryStatus)
 	}
 
 	// Uploaded files, streamed from the media store (local dir or bucket).

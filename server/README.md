@@ -4,6 +4,9 @@ Go API that stores the AZMA & Associates site content in PostgreSQL and lets
 administrators edit it. The Angular app in the repo root reads published
 content from `GET /api/v1/site` and has the admin UI at `/admin`.
 
+It is also the backend for the iOS app in `ios/`: candidate profiles and
+resumes, the positions clients ask us to fill, and consultation requests.
+
 Stack, following `noble-go-server`: Gin, pgx/v5, sqlc, golang-migrate,
 viper (`app.env`) and zerolog. Sessions are opaque bearer tokens, and only
 their SHA-256 hash is stored. Passwords are hashed with bcrypt.
@@ -52,6 +55,8 @@ run them yourself with `go run ./cmd/admin migrate up`.
 
 ## API
 
+### The web site and the CMS
+
 | Method | Path | Who |
 |---|---|---|
 | GET | `/api/v1/site` | public; published content only |
@@ -62,6 +67,28 @@ run them yourself with `go run ./cmd/admin migrate up`.
 | GET/POST/PATCH/DELETE | `/api/v1/admin/media` | admin |
 | CRUD | `/api/v1/admin/users` (+ `PUT …/:id/password`) | admin |
 | GET | `/api/v1/admin/audit` | admin |
+
+### Recruitment (the mobile app)
+
+| Method | Path | Who |
+|---|---|---|
+| GET | `/api/v1/jobs`, `/jobs/:id` | public; published positions only |
+| GET | `/api/v1/options` | public; the values every picker offers |
+| POST | `/api/v1/auth/register` | public; `candidate` or `employer` only, rate limited |
+| POST | `/api/v1/inquiries` | public; consultation requests, rate limited |
+| GET | `/api/v1/my/inquiries` | signed in |
+| GET | `/api/v1/resumes/:id/file` | the owner, or an administrator |
+| GET/PUT | `/api/v1/candidate/me`, `/profile` (+ `POST /profile/submit`) | candidate |
+| GET/POST/DELETE | `/api/v1/candidate/resumes` | candidate |
+| POST | `/api/v1/candidate/applications` (+ `…/:id/withdraw`) | candidate |
+| PUT/DELETE | `/api/v1/candidate/saved-jobs/:id` | candidate |
+| GET/PUT | `/api/v1/employer/me`, `/profile` | employer |
+| CRUD | `/api/v1/employer/jobs` (+ `PUT …/:id/status`) | employer |
+| GET/PUT | `/api/v1/employer/jobs/:id/applications`, `/employer/applications/:id/status` | employer |
+| GET/PUT | `/api/v1/admin/jobs` (+ `…/:id/status`, `…/:id/applications`) | admin |
+| PUT | `/api/v1/admin/applications/:id/status` | admin |
+| GET | `/api/v1/admin/candidates` (+ `/:id`) | admin |
+| GET/PUT | `/api/v1/admin/inquiries` (+ `…/:id/status`) | admin |
 
 Every admin write goes into `audit_log` with before/after snapshots.
 
@@ -108,10 +135,40 @@ Moving uploads between disk and the bucket (neither direction deletes):
 
 Uploads go to `MEDIA_BUCKET` when it is set, otherwise to `MEDIA_DIR`.
 
+## How a search runs
+
+The states a posting and an application move through are the firm's own
+process, not a generic job board:
+
+- A client writes a posting as a **draft**, then submits it. It sits at
+  **pending** until a consultant **publishes** it or sends it back
+  (**rejected**) with a note the client sees. Editing a live posting takes it
+  back to review, so what candidates read is always what a consultant approved.
+- A confidential posting is published without the client's name: candidates see
+  "Confidential client", consultants see the client.
+- A candidate fills in a profile and uploads a resume, then asks to be
+  **represented**, which is what puts them in front of a consultant.
+- An application starts at **submitted**. The client sees the applicant's
+  professional summary but *not* their name, email or resume until a consultant
+  moves it to **shortlisted** — the app's version of presenting a shortlist.
+  Only an administrator can make that move, and only an administrator can
+  download the document. A client records their own decisions from
+  `under_review` onward.
+
 ## Security notes
 
-- Only the `admin` role exists. Every `/api/v1/admin/*` route requires a live,
-  non-revoked session belonging to an enabled admin.
+- Roles are `admin`, `candidate` and `employer`. Every `/api/v1/admin/*` route
+  requires a live, non-revoked session belonging to an enabled admin;
+  `/candidate/*` and `/employer/*` require that role and nothing more.
+- Resumes are **not** media. They live under `resumes/` in the same object
+  store but are never served from a public path: `GET /api/v1/resumes/:id/file`
+  checks the caller owns the document or is an administrator, serves it
+  `private, no-store` as an attachment, and audits a consultant's download.
+- Uploaded resumes are checked by their bytes (PDF header, OLE2 or ZIP
+  container) with the extension only used to tell `.doc` from `.docx`.
+- `/api/v1/admin/users` manages administrators only. Candidate and employer
+  accounts are app users, not people with CMS access, and are listed through
+  `/api/v1/admin/candidates`.
 - Page and profile HTML is rendered on the site as trusted markup, so an
   administrator can put any HTML (including script) on the site. That is
   intended for a single-team CMS. Only give admin access to people you would

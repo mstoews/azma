@@ -75,6 +75,21 @@ func AuthSession(store db.Store) gin.HandlerFunc {
 	}
 }
 
+// OptionalSession records the caller when they present a live session and
+// lets them through either way. It is for public routes that behave slightly
+// differently for someone signed in, such as the consultation form.
+func OptionalSession(store db.Store) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if token := BearerToken(c); token != "" {
+			if row, err := store.GetSessionUser(c.Request.Context(), HashToken(token)); err == nil {
+				c.Set(sessionKey, row.Session)
+				c.Set(userKey, row.User)
+			}
+		}
+		c.Next()
+	}
+}
+
 // RequireAdmin must run after AuthSession.
 func RequireAdmin() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -85,6 +100,30 @@ func RequireAdmin() gin.HandlerFunc {
 		}
 		if u.Role != "admin" {
 			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"error": "administrator access required"})
+			return
+		}
+		c.Next()
+	}
+}
+
+// RequireRole must run after AuthSession. It gates the mobile app's two
+// audiences; administrators are deliberately not included, so a consultant
+// does not also carry a candidate's or an employer's permissions.
+func RequireRole(roles ...string) gin.HandlerFunc {
+	allowed := make(map[string]bool, len(roles))
+	for _, r := range roles {
+		allowed[r] = true
+	}
+	return func(c *gin.Context) {
+		u, ok := CurrentUser(c)
+		if !ok {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "authentication required"})
+			return
+		}
+		if !allowed[u.Role] {
+			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+				"error": "this account is not a " + strings.Join(roles, " or ") + " account",
+			})
 			return
 		}
 		c.Next()
