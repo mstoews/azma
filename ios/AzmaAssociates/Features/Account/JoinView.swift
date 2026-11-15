@@ -86,7 +86,7 @@ struct JoinView: View {
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
                     }
-                    FieldRow(title: "Password", hint: "At least \(session.options.minPasswordLength) characters.") {
+                    FieldRow(title: "Password", hint: Text("At least \(session.options.minPasswordLength) characters.")) {
                         SecureField("Password", text: $password)
                             .textFieldStyle(.brand)
                             .textContentType(.newPassword)
@@ -121,19 +121,19 @@ struct JoinView: View {
 
     private func join() async {
         guard !name.trimmed.isEmpty else {
-            errorMessage = "Your name is required."
+            errorMessage = String(localized: "Your name is required.")
             return
         }
         guard email.isValidEmail else {
-            errorMessage = "A valid email address is required."
+            errorMessage = String(localized: "A valid email address is required.")
             return
         }
         guard password.count >= session.options.minPasswordLength else {
-            errorMessage = "Passwords need at least \(session.options.minPasswordLength) characters."
+            errorMessage = String(localized: "Passwords need at least \(session.options.minPasswordLength) characters.")
             return
         }
         if role == .employer, company.trimmed.isEmpty {
-            errorMessage = "Your company name is required."
+            errorMessage = String(localized: "Your company name is required.")
             return
         }
         do {

@@ -2,10 +2,12 @@ import SwiftUI
 
 /// Pick several values from a fixed list — sectors, mostly.
 struct MultiSelectField: View {
-    let title: String
+    let title: LocalizedStringKey
     let options: [String]
     @Binding var selection: [String]
     var limit: Int = 12
+    /// How an option reads on screen; the stored value stays the server's.
+    var display: (String) -> String = { $0 }
 
     var body: some View {
         NavigationLink {
@@ -16,7 +18,7 @@ struct MultiSelectField: View {
                             toggle(option)
                         } label: {
                             HStack {
-                                Text(option).foregroundStyle(Theme.ink)
+                                Text(display(option)).foregroundStyle(Theme.ink)
                                 Spacer()
                                 if selection.contains(option) {
                                     Image(systemName: "checkmark").foregroundStyle(Theme.navy)
@@ -34,7 +36,7 @@ struct MultiSelectField: View {
             HStack {
                 Text(title)
                 Spacer()
-                Text(selection.isEmpty ? "None" : selection.joined(separator: ", "))
+                Text(selection.isEmpty ? String(localized: "None") : selection.map(display).formatted(.list(type: .and, width: .narrow)))
                     .foregroundStyle(Theme.secondaryInk)
                     .lineLimit(1)
                     .truncationMode(.tail)
@@ -54,8 +56,8 @@ struct MultiSelectField: View {
 /// A short list of free text the person types — the roles they want, the
 /// languages they work in.
 struct TokenListField: View {
-    let title: String
-    var placeholder: String = "Add"
+    let title: LocalizedStringKey
+    var placeholder: LocalizedStringKey = "Add"
     @Binding var items: [String]
     var limit: Int = 12
 

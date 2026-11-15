@@ -27,6 +27,9 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.azmaassociates.mobile
         PRODUCT_MODULE_NAME: AZMA
+        DEVELOPMENT_TEAM: BJMVJFPS92
+        INFOPLIST_KEY_CFBundleDisplayName: AZMA
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.business
         INFOPLIST_FILE: AzmaAssociates/Info.plist
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor

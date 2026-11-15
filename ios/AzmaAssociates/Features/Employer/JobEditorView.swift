@@ -33,7 +33,7 @@ struct JobEditorView: View {
                 }
                 if existing?.isOnBoard == true {
                     Section {
-                        Notice(kind: .warning, message: "This position is live. Submitting changes takes it off the board until a consultant has looked at them.")
+                        Notice(.warning, "This position is live. Submitting changes takes it off the board until a consultant has looked at them.")
                     }
                 }
 
@@ -53,7 +53,7 @@ struct JobEditorView: View {
                     Toggle("Remote possible", isOn: $draft.remote)
                     Picker("Sector", selection: $draft.sector) {
                         Text("Not specified").tag("")
-                        ForEach(session.options.sectors, id: \.self) { Text($0).tag($0) }
+                        ForEach(session.options.sectors, id: \.self) { Text(Format.sector($0)).tag($0) }
                     }
                     Picker("Type", selection: $draft.employmentType) {
                         ForEach(session.options.employmentTypes, id: \.self) {

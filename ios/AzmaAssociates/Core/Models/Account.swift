@@ -9,17 +9,17 @@ enum Role: String, Codable, Sendable, CaseIterable {
 
     var title: String {
         switch self {
-        case .candidate: return "Business professional"
-        case .employer: return "Hiring"
-        case .admin: return "Consultant"
+        case .candidate: return String(localized: "Business professional")
+        case .employer: return String(localized: "Hiring")
+        case .admin: return String(localized: "Consultant")
         }
     }
 
     var blurb: String {
         switch self {
-        case .candidate: return "Leave your resume with us and apply for positions we are retained on."
-        case .employer: return "Tell us the position you are hiring for and work with a consultant on the search."
-        case .admin: return "AZMA & Associates staff."
+        case .candidate: return String(localized: "Leave your resume with us and apply for positions we are retained on.")
+        case .employer: return String(localized: "Tell us the position you are hiring for and work with a consultant on the search.")
+        case .admin: return String(localized: "AZMA & Associates staff.")
         }
     }
 }

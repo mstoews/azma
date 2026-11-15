@@ -13,15 +13,15 @@ enum APIError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .unauthorized:
-            return "Your session has expired. Please sign in again."
+            return String(localized: "Your session has expired. Please sign in again.")
         case let .server(_, message):
             return message
         case .offline:
-            return "You appear to be offline. Check your connection and try again."
+            return String(localized: "You appear to be offline. Check your connection and try again.")
         case let .network(detail):
-            return "The server could not be reached. \(detail)"
+            return String(localized: "The server could not be reached. \(detail)")
         case let .decoding(detail):
-            return "The server sent something unexpected. \(detail)"
+            return String(localized: "The server sent something unexpected. \(detail)")
         }
     }
 

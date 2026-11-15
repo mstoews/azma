@@ -1,0 +1,3567 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+      "shouldTranslate" : false
+    },
+    "%@ · %@" : {
+      "shouldTranslate" : false
+    },
+    "%@ · added %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · added %2$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · 追加: %2$@"
+          }
+        }
+      }
+    },
+    "%lld applicants" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募者 %lld名"
+          }
+        }
+      }
+    },
+    "%lld applications" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募 %lld件"
+          }
+        }
+      }
+    },
+    "%lld documents" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "書類 %lld件"
+          }
+        }
+      }
+    },
+    "%lld live · %lld in total" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld live · %2$lld in total"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掲載中 %1$lld件 · 合計 %2$lld件"
+          }
+        }
+      }
+    },
+    "%lld of %lld sections filled in — the fuller it is, the better we can place you." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld sections filled in — the fuller it is, the better we can place you."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld/%2$lld項目を入力済み — 内容が充実しているほど、より適したポジションをご紹介できます。"
+          }
+        }
+      }
+    },
+    "%lld positions" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld件の求人"
+          }
+        }
+      }
+    },
+    "%lld years of experience" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "経験%lld年"
+          }
+        }
+      }
+    },
+    "%lld yrs" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld年"
+          }
+        }
+      }
+    },
+    "1 applicant" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募者 1名"
+          }
+        }
+      }
+    },
+    "1 application" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募 1件"
+          }
+        }
+      }
+    },
+    "1 document" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "書類 1件"
+          }
+        }
+      }
+    },
+    "1 position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1件の求人"
+          }
+        }
+      }
+    },
+    "1 year of experience" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "経験1年"
+          }
+        }
+      }
+    },
+    "A" : {
+      "shouldTranslate" : false
+    },
+    "A consultant assesses everyone who applies and presents the shortlist. Contact details come with the introduction." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募者は全員コンサルタントが評価し、候補者を絞り込んでご推薦します。連絡先はご紹介の際にお伝えします。"
+          }
+        }
+      }
+    },
+    "A consultant from the %@ office will be in touch." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@オフィスのコンサルタントよりご連絡いたします。"
+          }
+        }
+      }
+    },
+    "A consultant from the nearest office will be in touch." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最寄りのオフィスのコンサルタントよりご連絡いたします。"
+          }
+        }
+      }
+    },
+    "A consultant is assessing this candidate. Their name and resume follow when we present them." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この候補者はコンサルタントが評価中です。ご推薦の際に氏名とレジュメをお送りします。"
+          }
+        }
+      }
+    },
+    "A consultant is reviewing this posting." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタントがこの求人を審査しています。"
+          }
+        }
+      }
+    },
+    "A consultant reviews every application, assesses fit against the brief, and presents a shortlist to the client. Your details are not passed on until we have spoken." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての応募をコンサルタントが確認し、求人要件との適合性を評価したうえで、候補者をクライアントにご推薦します。お話しする前にあなたの情報が先方に渡ることはありません。"
+          }
+        }
+      }
+    },
+    "A consultant sent this back with a note." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタントからコメント付きで差し戻されました。"
+          }
+        }
+      }
+    },
+    "A consultant will read it and come back to you. You can follow it under My career." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタントが確認のうえご連絡いたします。進捗は「マイキャリア」でご確認いただけます。"
+          }
+        }
+      }
+    },
+    "A consultant works from your resume. Add one to apply for positions." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタントはレジュメをもとにご支援します。応募するにはレジュメを追加してください。"
+          }
+        }
+      }
+    },
+    "A contact name is required." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "担当者名を入力してください。"
+          }
+        }
+      }
+    },
+    "A valid email address is required." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効なメールアドレスを入力してください。"
+          }
+        }
+      }
+    },
+    "AZMA & Associates" : {
+      "shouldTranslate" : false
+    },
+    "AZMA & Associates staff." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AZMA & Associates のスタッフ"
+          }
+        }
+      }
+    },
+    "About" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアプリについて"
+          }
+        }
+      }
+    },
+    "About the business" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "企業について"
+          }
+        }
+      }
+    },
+    "About the position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジションについて"
+          }
+        }
+      }
+    },
+    "Account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウント"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加"
+          }
+        }
+      }
+    },
+    "Add your company details — they appear on every posting a consultant reviews." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会社情報を追加してください。コンサルタントが審査するすべての求人に表示されます。"
+          }
+        }
+      }
+    },
+    "Add your resume first" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "先にレジュメを追加してください"
+          }
+        }
+      }
+    },
+    "Already with us? Sign in from the Account tab." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登録済みの方は「アカウント」タブからサインインしてください。"
+          }
+        }
+      }
+    },
+    "Alternative Investment Management" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オルタナティブ投資"
+          }
+        }
+      }
+    },
+    "An offer is on the table." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内定が出ています。"
+          }
+        }
+      }
+    },
+    "Any sector" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての業界"
+          }
+        }
+      }
+    },
+    "Any type" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての雇用形態"
+          }
+        }
+      }
+    },
+    "Applicants" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募者"
+          }
+        }
+      }
+    },
+    "Application sent" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募を送信しました"
+          }
+        }
+      }
+    },
+    "Applications" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募"
+          }
+        }
+      }
+    },
+    "Applications already received are deleted with it." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "受け付け済みの応募もあわせて削除されます。"
+          }
+        }
+      }
+    },
+    "Applications you have already sent keep the copy we received." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "送信済みの応募には、受け付け時のコピーが残ります。"
+          }
+        }
+      }
+    },
+    "Apply" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募"
+          }
+        }
+      }
+    },
+    "Apply for this position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このポジションに応募する"
+          }
+        }
+      }
+    },
+    "Ask AZMA to represent me" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AZMAに転職支援を依頼する"
+          }
+        }
+      }
+    },
+    "Ask a consultant about this position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このポジションについてコンサルタントに相談する"
+          }
+        }
+      }
+    },
+    "Ask us to represent you and a consultant will review your profile against the searches we are running." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "転職支援をご依頼いただくと、コンサルタントが進行中の案件とあなたのプロフィールを照らし合わせて検討します。"
+          }
+        }
+      }
+    },
+    "Asset Management" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "資産運用"
+          }
+        }
+      }
+    },
+    "At least %lld characters." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld文字以上"
+          }
+        }
+      }
+    },
+    "Back to draft" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下書きに戻す"
+          }
+        }
+      }
+    },
+    "Bank" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "銀行"
+          }
+        }
+      }
+    },
+    "Business professional" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ビジネスプロフェッショナル"
+          }
+        }
+      }
+    },
+    "By creating an account you agree that AZMA & Associates may hold the details and documents you provide in order to represent you." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントを作成すると、転職支援のために AZMA & Associates がご提供いただいた情報と書類を保管することに同意したものとみなされます。"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
+          }
+        }
+      }
+    },
+    "Candidate" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "候補者"
+          }
+        }
+      }
+    },
+    "Candidate #%lld" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "候補者 #%lld"
+          }
+        }
+      }
+    },
+    "Candidates" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "候補者"
+          }
+        }
+      }
+    },
+    "Candidates see “Confidential client” instead of your name. Consultants always see it." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "候補者には社名の代わりに「非公開クライアント」と表示されます。コンサルタントには常に表示されます。"
+          }
+        }
+      }
+    },
+    "Candidates, clients and AZMA consultants all sign in here." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "候補者、クライアント、AZMAのコンサルタントは、すべてこちらからサインインします。"
+          }
+        }
+      }
+    },
+    "Change password" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを変更"
+          }
+        }
+      }
+    },
+    "Choose a currency for the salary range." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "給与レンジの通貨を選択してください。"
+          }
+        }
+      }
+    },
+    "Choose a file" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファイルを選択"
+          }
+        }
+      }
+    },
+    "Choose up to %lld." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld件まで選択できます。"
+          }
+        }
+      }
+    },
+    "Clear" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリア"
+          }
+        }
+      }
+    },
+    "Clear filters" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "絞り込みをクリア"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "閉じる"
+          }
+        }
+      }
+    },
+    "Close this search" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この案件を終了する"
+          }
+        }
+      }
+    },
+    "Closed" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了"
+          }
+        }
+      }
+    },
+    "Closed, and no longer taking applications." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了しました。応募は受け付けていません。"
+          }
+        }
+      }
+    },
+    "Company" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会社名"
+          }
+        }
+      }
+    },
+    "Company (optional)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会社名(任意)"
+          }
+        }
+      }
+    },
+    "Company name" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会社名"
+          }
+        }
+      }
+    },
+    "Compensation" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "報酬"
+          }
+        }
+      }
+    },
+    "Compensation expectation" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "希望年収"
+          }
+        }
+      }
+    },
+    "Confidential" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非公開"
+          }
+        }
+      }
+    },
+    "Confidential search" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非公開案件"
+          }
+        }
+      }
+    },
+    "Consultant" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタント"
+          }
+        }
+      }
+    },
+    "Consulting Firms" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルティングファーム"
+          }
+        }
+      }
+    },
+    "Contact" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お問い合わせ"
+          }
+        }
+      }
+    },
+    "Contact name" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "担当者名"
+          }
+        }
+      }
+    },
+    "Context a consultant can use when approaching candidates on your behalf." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタントが貴社に代わって候補者にアプローチする際に役立つ情報です。"
+          }
+        }
+      }
+    },
+    "Contract" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "契約社員"
+          }
+        }
+      }
+    },
+    "Create account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントを作成"
+          }
+        }
+      }
+    },
+    "Create an account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントを作成"
+          }
+        }
+      }
+    },
+    "Create an account to apply" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントを作成して応募する"
+          }
+        }
+      }
+    },
+    "Currency" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通貨"
+          }
+        }
+      }
+    },
+    "Current employer" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在の勤務先"
+          }
+        }
+      }
+    },
+    "Current password" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在のパスワード"
+          }
+        }
+      }
+    },
+    "Current title" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在の役職"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
+          }
+        }
+      }
+    },
+    "Delete this posting?" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この求人を削除しますか?"
+          }
+        }
+      }
+    },
+    "Describe the position in a few sentences before submitting it for review." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "審査に提出する前に、ポジションの内容を数文で記入してください。"
+          }
+        }
+      }
+    },
+    "Describe the role you are hiring for. A consultant reviews it, then it goes on the board." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "募集するポジションについてご記入ください。コンサルタントの審査後、求人一覧に掲載されます。"
+          }
+        }
+      }
+    },
+    "Desk" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デスク"
+          }
+        }
+      }
+    },
+    "Documents" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "書類"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完了"
+          }
+        }
+      }
+    },
+    "Draft" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下書き"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編集"
+          }
+        }
+      }
+    },
+    "Edit position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジションを編集"
+          }
+        }
+      }
+    },
+    "Either" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "どちらでも"
+          }
+        }
+      }
+    },
+    "Either office" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "どちらのオフィスでも"
+          }
+        }
+      }
+    },
+    "Email" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メールアドレス"
+          }
+        }
+      }
+    },
+    "Employment type" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "雇用形態"
+          }
+        }
+      }
+    },
+    "Enter your email address and password." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メールアドレスとパスワードを入力してください。"
+          }
+        }
+      }
+    },
+    "Every posting a client has submitted has been dealt with." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クライアントから提出された求人はすべて対応済みです。"
+          }
+        }
+      }
+    },
+    "Expectation: %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "希望: %@"
+          }
+        }
+      }
+    },
+    "Experience not given" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "経験年数未記入"
+          }
+        }
+      }
+    },
+    "Experience: %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "経験: %@"
+          }
+        }
+      }
+    },
+    "Filled" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用決定"
+          }
+        }
+      }
+    },
+    "Filter positions" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人を絞り込む"
+          }
+        }
+      }
+    },
+    "Filters" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "絞り込み"
+          }
+        }
+      }
+    },
+    "Firm" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会社案内"
+          }
+        }
+      }
+    },
+    "From %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@〜"
+          }
+        }
+      }
+    },
+    "Full name" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "氏名"
+          }
+        }
+      }
+    },
+    "Full-time" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正社員"
+          }
+        }
+      }
+    },
+    "Fund Portfolio Companies" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファンド投資先企業"
+          }
+        }
+      }
+    },
+    "Give the position a title." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジション名を入力してください。"
+          }
+        }
+      }
+    },
+    "Has an account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントあり"
+          }
+        }
+      }
+    },
+    "Headline, e.g. Equity PM, Tokyo" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "見出し(例: 株式PM、東京)"
+          }
+        }
+      }
+    },
+    "Healthcare" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ヘルスケア"
+          }
+        }
+      }
+    },
+    "Hedge Fund" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ヘッジファンド"
+          }
+        }
+      }
+    },
+    "Hiring" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用"
+          }
+        }
+      }
+    },
+    "How can we help?" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "どのようなご用件でしょうか?"
+          }
+        }
+      }
+    },
+    "How this works" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ご利用の流れ"
+          }
+        }
+      }
+    },
+    "I already have an account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すでにアカウントをお持ちの方"
+          }
+        }
+      }
+    },
+    "I am hiring" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用について"
+          }
+        }
+      }
+    },
+    "I would like to know more about %@ (reference %lld)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "I would like to know more about %1$@ (reference %2$lld)."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@(求人番号 %2$lld)について詳しく知りたいです。"
+          }
+        }
+      }
+    },
+    "In progress" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "対応中"
+          }
+        }
+      }
+    },
+    "In review" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "審査中"
+          }
+        }
+      }
+    },
+    "Include accounts not yet submitted" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未提出のアカウントも含める"
+          }
+        }
+      }
+    },
+    "Industrial" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "製造・産業"
+          }
+        }
+      }
+    },
+    "Information Technology" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IT"
+          }
+        }
+      }
+    },
+    "Internship" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "インターンシップ"
+          }
+        }
+      }
+    },
+    "Interviewing" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "面接中"
+          }
+        }
+      }
+    },
+    "Interviews are under way." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "面接が進行中です。"
+          }
+        }
+      }
+    },
+    "Investment Banking" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投資銀行"
+          }
+        }
+      }
+    },
+    "Join" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登録"
+          }
+        }
+      }
+    },
+    "Join AZMA & Associates" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AZMA & Associates に登録"
+          }
+        }
+      }
+    },
+    "Just now" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "たった今"
+          }
+        }
+      }
+    },
+    "Keep" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "残す"
+          }
+        }
+      }
+    },
+    "Languages" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語"
+          }
+        }
+      }
+    },
+    "Last note: %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前回のコメント: %@"
+          }
+        }
+      }
+    },
+    "Leave your resume with us and apply for positions we are retained on." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レジュメをご登録いただき、当社がお預かりしているポジションにご応募いただけます。"
+          }
+        }
+      }
+    },
+    "Leave your resume with us and apply to the searches we are retained on." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レジュメをご登録いただき、当社がお預かりしている案件にご応募いただけます。"
+          }
+        }
+      }
+    },
+    "Licence %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "許可番号 %@"
+          }
+        }
+      }
+    },
+    "LinkedIn URL" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LinkedIn URL"
+          }
+        }
+      }
+    },
+    "Live" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掲載中"
+          }
+        }
+      }
+    },
+    "Live on the board and open to applications." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人一覧に掲載中で、応募を受け付けています。"
+          }
+        }
+      }
+    },
+    "Location" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "勤務地"
+          }
+        }
+      }
+    },
+    "Looking for your next role" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次のキャリアをお探しの方"
+          }
+        }
+      }
+    },
+    "M&A" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "M&A"
+          }
+        }
+      }
+    },
+    "Manage" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理"
+          }
+        }
+      }
+    },
+    "Mark as filled" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用決定にする"
+          }
+        }
+      }
+    },
+    "Marked as filled." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用決定済みです。"
+          }
+        }
+      }
+    },
+    "Market" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "市場"
+          }
+        }
+      }
+    },
+    "Maximum" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上限"
+          }
+        }
+      }
+    },
+    "Message" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メッセージ"
+          }
+        }
+      }
+    },
+    "Minimum" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下限"
+          }
+        }
+      }
+    },
+    "My career" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "マイキャリア"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "氏名"
+          }
+        }
+      }
+    },
+    "Name the hiring company." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用企業名を入力してください。"
+          }
+        }
+      }
+    },
+    "Name, employer or email" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "氏名、勤務先、メールアドレス"
+          }
+        }
+      }
+    },
+    "New" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新規"
+          }
+        }
+      }
+    },
+    "New consultation requests arrive here." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいご相談はこちらに届きます。"
+          }
+        }
+      }
+    },
+    "New password" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいパスワード"
+          }
+        }
+      }
+    },
+    "New position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新規ポジション"
+          }
+        }
+      }
+    },
+    "No applicants yet" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ応募者はいません"
+          }
+        }
+      }
+    },
+    "No applicants yet." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ応募者はいません。"
+          }
+        }
+      }
+    },
+    "No applications yet." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ応募はありません。"
+          }
+        }
+      }
+    },
+    "No candidates" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "候補者はいません"
+          }
+        }
+      }
+    },
+    "No open positions" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "募集中のポジションはありません"
+          }
+        }
+      }
+    },
+    "No positions" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人はありません"
+          }
+        }
+      }
+    },
+    "No positions match" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "該当する求人はありません"
+          }
+        }
+      }
+    },
+    "No positions yet" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ求人はありません"
+          }
+        }
+      }
+    },
+    "No postings with this status." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このステータスの求人はありません。"
+          }
+        }
+      }
+    },
+    "No resume yet" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レジュメ未登録"
+          }
+        }
+      }
+    },
+    "Nobody has applied through the board. Candidates on file can still be presented directly." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人一覧からの応募はまだありません。登録済みの候補者を直接ご推薦することもできます。"
+          }
+        }
+      }
+    },
+    "Nobody has asked to be represented yet. Include registered accounts to see everyone." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "転職支援の依頼はまだありません。登録済みのアカウントを含めると全員を表示できます。"
+          }
+        }
+      }
+    },
+    "Nobody has registered yet." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ登録者はいません。"
+          }
+        }
+      }
+    },
+    "None" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "なし"
+          }
+        }
+      }
+    },
+    "Not approved" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "差し戻し"
+          }
+        }
+      }
+    },
+    "Not in the market right now." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在は転職活動をしていません。"
+          }
+        }
+      }
+    },
+    "Not progressing" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "見送り"
+          }
+        }
+      }
+    },
+    "Not shown" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非表示"
+          }
+        }
+      }
+    },
+    "Not specified" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未指定"
+          }
+        }
+      }
+    },
+    "Note to the client (optional)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クライアントへのコメント(任意)"
+          }
+        }
+      }
+    },
+    "Note to the consultant" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタントへのメッセージ"
+          }
+        }
+      }
+    },
+    "Nothing here" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目がありません"
+          }
+        }
+      }
+    },
+    "Nothing on file." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登録されている情報はありません。"
+          }
+        }
+      }
+    },
+    "Nothing sent yet" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ送信していません"
+          }
+        }
+      }
+    },
+    "Nothing waiting" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "対応待ちはありません"
+          }
+        }
+      }
+    },
+    "Nothing yet. The Contact tab reaches a consultant directly." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだありません。「お問い合わせ」タブからコンサルタントに直接ご連絡いただけます。"
+          }
+        }
+      }
+    },
+    "Now" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今すぐ"
+          }
+        }
+      }
+    },
+    "Offer" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内定"
+          }
+        }
+      }
+    },
+    "Office" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オフィス"
+          }
+        }
+      }
+    },
+    "Offices" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オフィス"
+          }
+        }
+      }
+    },
+    "One account, either side of a search." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "候補者としても、採用企業としても、ひとつのアカウントで。"
+          }
+        }
+      }
+    },
+    "Only you can see this. Submit it when you are ready for a consultant to look." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あなただけが閲覧できます。準備ができたらコンサルタントに提出してください。"
+          }
+        }
+      }
+    },
+    "Open to approaches" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スカウトを受け付ける"
+          }
+        }
+      }
+    },
+    "Or email us directly at %@." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "または %@ まで直接メールでお問い合わせください。"
+          }
+        }
+      }
+    },
+    "Our consultants" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタント紹介"
+          }
+        }
+      }
+    },
+    "Our offices" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オフィス所在地"
+          }
+        }
+      }
+    },
+    "PDF or Word, up to %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PDFまたはWord(%@まで)"
+          }
+        }
+      }
+    },
+    "Part-time" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パートタイム"
+          }
+        }
+      }
+    },
+    "Password" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワード"
+          }
+        }
+      }
+    },
+    "Password changed. Other devices have been signed out." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを変更しました。他の端末からはサインアウトされました。"
+          }
+        }
+      }
+    },
+    "Passwords need at least %lld characters." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードは%lld文字以上で入力してください。"
+          }
+        }
+      }
+    },
+    "Phone" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電話番号"
+          }
+        }
+      }
+    },
+    "Phone (optional)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電話番号(任意)"
+          }
+        }
+      }
+    },
+    "Placed" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "入社決定"
+          }
+        }
+      }
+    },
+    "Placed — congratulations." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "入社が決定しました。おめでとうございます。"
+          }
+        }
+      }
+    },
+    "Please tell us what you would like to discuss." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ご相談内容をご記入ください。"
+          }
+        }
+      }
+    },
+    "Positions" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人"
+          }
+        }
+      }
+    },
+    "Positions you apply for show here, with where each one stands." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募したポジションと、それぞれの選考状況がここに表示されます。"
+          }
+        }
+      }
+    },
+    "Post a position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人を掲載する"
+          }
+        }
+      }
+    },
+    "Postings" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人"
+          }
+        }
+      }
+    },
+    "Practicalities" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "条件"
+          }
+        }
+      }
+    },
+    "Private Equity" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライベート・エクイティ"
+          }
+        }
+      }
+    },
+    "Publish" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掲載"
+          }
+        }
+      }
+    },
+    "Publish position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジションを掲載"
+          }
+        }
+      }
+    },
+    "Publishing puts the position on the board straight away." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掲載すると、すぐに求人一覧に表示されます。"
+          }
+        }
+      }
+    },
+    "Real Estate" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不動産"
+          }
+        }
+      }
+    },
+    "Registered" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登録済み"
+          }
+        }
+      }
+    },
+    "Remote" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リモート"
+          }
+        }
+      }
+    },
+    "Remote only" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リモートのみ"
+          }
+        }
+      }
+    },
+    "Remote possible" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リモート可"
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
+          }
+        }
+      }
+    },
+    "Remove %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@を削除"
+          }
+        }
+      }
+    },
+    "Remove from saved" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存を解除"
+          }
+        }
+      }
+    },
+    "Remove this document?" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この書類を削除しますか?"
+          }
+        }
+      }
+    },
+    "Reopen for review" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "審査に戻す"
+          }
+        }
+      }
+    },
+    "Reply" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返信"
+          }
+        }
+      }
+    },
+    "Representation" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "転職支援"
+          }
+        }
+      }
+    },
+    "Represented" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "支援中"
+          }
+        }
+      }
+    },
+    "Requests" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ご相談"
+          }
+        }
+      }
+    },
+    "Resume" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レジュメ"
+          }
+        }
+      }
+    },
+    "Resume to send" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "送信するレジュメ"
+          }
+        }
+      }
+    },
+    "Role, e.g. Head of HR" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "役職(例: 人事部長)"
+          }
+        }
+      }
+    },
+    "Roles" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "希望職種"
+          }
+        }
+      }
+    },
+    "Roles you are open to" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検討可能な職種"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        }
+      }
+    },
+    "Save as draft" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下書きとして保存"
+          }
+        }
+      }
+    },
+    "Save for later" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あとで見る"
+          }
+        }
+      }
+    },
+    "Save this position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このポジションを保存"
+          }
+        }
+      }
+    },
+    "Saved" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存済み"
+          }
+        }
+      }
+    },
+    "Saved positions" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存した求人"
+          }
+        }
+      }
+    },
+    "Searches are not always advertised. Ask us what we are working on." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての案件を公開しているわけではありません。進行中の案件についてはお気軽にお問い合わせください。"
+          }
+        }
+      }
+    },
+    "Sector" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "業界"
+          }
+        }
+      }
+    },
+    "Sectors" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "業界"
+          }
+        }
+      }
+    },
+    "Securities" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "証券"
+          }
+        }
+      }
+    },
+    "Send another" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "別のメッセージを送る"
+          }
+        }
+      }
+    },
+    "Send application" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募を送信"
+          }
+        }
+      }
+    },
+    "Send back" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "差し戻す"
+          }
+        }
+      }
+    },
+    "Send to AZMA" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AZMAに送信"
+          }
+        }
+      }
+    },
+    "Sent %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "送信: %@"
+          }
+        }
+      }
+    },
+    "Set status" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ステータスを設定"
+          }
+        }
+      }
+    },
+    "Shortlisted" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "推薦済み"
+          }
+        }
+      }
+    },
+    "Show results" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "結果を表示"
+          }
+        }
+      }
+    },
+    "Shown on the board. Leave blank to discuss it with the consultant instead." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人一覧に表示されます。コンサルタントと相談する場合は空欄のままにしてください。"
+          }
+        }
+      }
+    },
+    "Sign in" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインイン"
+          }
+        }
+      }
+    },
+    "Sign in to keep your resume with us, follow your applications, or manage the positions you are hiring for." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインインすると、レジュメの登録、応募状況の確認、募集中のポジションの管理ができます。"
+          }
+        }
+      }
+    },
+    "Sign out" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインアウト"
+          }
+        }
+      }
+    },
+    "Singapore" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シンガポール"
+          }
+        }
+      }
+    },
+    "Something else" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "その他"
+          }
+        }
+      }
+    },
+    "Something went wrong." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "問題が発生しました。"
+          }
+        }
+      }
+    },
+    "Startup" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スタートアップ"
+          }
+        }
+      }
+    },
+    "Subject" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "件名"
+          }
+        }
+      }
+    },
+    "Submit for review" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "審査に提出"
+          }
+        }
+      }
+    },
+    "Submitted" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募済み"
+          }
+        }
+      }
+    },
+    "Summary" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "概要"
+          }
+        }
+      }
+    },
+    "Take off the board" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掲載を停止"
+          }
+        }
+      }
+    },
+    "Talk to a consultant" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタントに相談する"
+          }
+        }
+      }
+    },
+    "Tell us about the position and a consultant will take it from there." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジションについてお聞かせください。あとはコンサルタントが対応いたします。"
+          }
+        }
+      }
+    },
+    "Tell us about the position, the team and when you need someone in the seat." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジション、チーム、着任希望時期についてお聞かせください。"
+          }
+        }
+      }
+    },
+    "Tell us the position you are hiring for and work with a consultant on the search." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "募集中のポジションをお知らせいただき、コンサルタントと一緒に候補者探しを進めます。"
+          }
+        }
+      }
+    },
+    "Tell us what you are looking for next, and what would make a move worthwhile." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次に目指すキャリアと、転職を考える条件についてお聞かせください。"
+          }
+        }
+      }
+    },
+    "Thank you — your message is with us" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ありがとうございます。メッセージを受け付けました"
+          }
+        }
+      }
+    },
+    "That conflicts with something that already exists." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "既存のデータと競合しています。"
+          }
+        }
+      }
+    },
+    "That file is too large." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファイルサイズが大きすぎます。"
+          }
+        }
+      }
+    },
+    "That is no longer available." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この項目は現在ご利用いただけません。"
+          }
+        }
+      }
+    },
+    "The board could not be loaded" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求人一覧を読み込めませんでした"
+          }
+        }
+      }
+    },
+    "The client is not taking this one forward." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クライアントは今回は見送りとなりました。"
+          }
+        }
+      }
+    },
+    "The client is reviewing your application." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クライアントが応募内容を確認しています。"
+          }
+        }
+      }
+    },
+    "The client sees this note on their posting, so say what would make it work." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このコメントはクライアントの求人に表示されます。どうすれば掲載できるかをお書きください。"
+          }
+        }
+      }
+    },
+    "The firm" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会社案内"
+          }
+        }
+      }
+    },
+    "The firm's pages could not be loaded. Pull to refresh once you are back online." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会社案内を読み込めませんでした。オンラインに戻ったら、下に引いて更新してください。"
+          }
+        }
+      }
+    },
+    "The position" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジション"
+          }
+        }
+      }
+    },
+    "The server could not be reached. %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーに接続できませんでした。%@"
+          }
+        }
+      }
+    },
+    "The server returned an error (%lld)." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーでエラーが発生しました(%lld)。"
+          }
+        }
+      }
+    },
+    "The server sent something unexpected. %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーから予期しない応答がありました。%@"
+          }
+        }
+      }
+    },
+    "The team, the mandate, who the role reports to, and why it is open." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "チーム構成、職務内容、レポートライン、募集の背景。"
+          }
+        }
+      }
+    },
+    "The top of the range is below the bottom." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上限が下限を下回っています。"
+          }
+        }
+      }
+    },
+    "This is a confidential search. The client is named once a consultant has spoken with you." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "こちらは非公開案件です。クライアント名はコンサルタントとお話しした後にお伝えします。"
+          }
+        }
+      }
+    },
+    "This position is live. Submitting changes takes it off the board until a consultant has looked at them." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このポジションは掲載中です。変更を提出すると、コンサルタントが確認するまで掲載が停止されます。"
+          }
+        }
+      }
+    },
+    "Title" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジション名"
+          }
+        }
+      }
+    },
+    "Title, company or location" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポジション名、会社名、勤務地"
+          }
+        }
+      }
+    },
+    "Tokyo" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "東京"
+          }
+        }
+      }
+    },
+    "Tokyo and Singapore" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "東京・シンガポール"
+          }
+        }
+      }
+    },
+    "Tokyo · Singapore" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "東京 · シンガポール"
+          }
+        }
+      }
+    },
+    "Too many requests. Please try again shortly." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リクエストが多すぎます。しばらくしてからもう一度お試しください。"
+          }
+        }
+      }
+    },
+    "Trust Bank" : {
+      "comment" : "Industry sector",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信託銀行"
+          }
+        }
+      }
+    },
+    "Try a different sector, or clear the filters." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "別の業界を選ぶか、絞り込みをクリアしてください。"
+          }
+        }
+      }
+    },
+    "Try again" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再試行"
+          }
+        }
+      }
+    },
+    "Type" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "雇用形態"
+          }
+        }
+      }
+    },
+    "Under review" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "書類選考中"
+          }
+        }
+      }
+    },
+    "Up to %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "〜%@"
+          }
+        }
+      }
+    },
+    "Updated %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新: %@"
+          }
+        }
+      }
+    },
+    "Uploading %@…" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@をアップロード中…"
+          }
+        }
+      }
+    },
+    "Version %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン %@"
+          }
+        }
+      }
+    },
+    "We are an APAC professional recruitment firm." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アジア太平洋地域のプロフェッショナル人材紹介会社です。"
+          }
+        }
+      }
+    },
+    "We present candidates with their resume, so there is one on file before an application goes anywhere." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "候補者はレジュメとあわせてご推薦するため、応募の前にレジュメのご登録が必要です。"
+          }
+        }
+      }
+    },
+    "We will let you know as soon as someone applies — and a consultant will present the ones worth your time." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募があり次第お知らせします。コンサルタントが有望な候補者をご推薦します。"
+          }
+        }
+      }
+    },
+    "Website" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウェブサイト"
+          }
+        }
+      }
+    },
+    "What is this about" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ご用件"
+          }
+        }
+      }
+    },
+    "What they are looking for" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "求める人物像"
+          }
+        }
+      }
+    },
+    "What you are looking for" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "希望条件"
+          }
+        }
+      }
+    },
+    "What you have run, what you are known for, and what you are looking for next." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これまでのご経験、強み、次に目指すこと。"
+          }
+        }
+      }
+    },
+    "Where and how" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "勤務地と働き方"
+          }
+        }
+      }
+    },
+    "Whether you are hiring or thinking about your next move, tell us what you need and the right consultant will come back to you." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用をお考えの方も、転職をお考えの方も、ご要望をお聞かせください。最適なコンサルタントよりご連絡いたします。"
+          }
+        }
+      }
+    },
+    "Who we speak to" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ご連絡先"
+          }
+        }
+      }
+    },
+    "Why it is going back" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "差し戻しの理由"
+          }
+        }
+      }
+    },
+    "Why this position, and anything the resume does not say." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このポジションに応募する理由や、レジュメに書かれていないことをお書きください。"
+          }
+        }
+      }
+    },
+    "With the consultant handling this search." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この案件の担当コンサルタントが確認しています。"
+          }
+        }
+      }
+    },
+    "With us since %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登録日: %@"
+          }
+        }
+      }
+    },
+    "Withdraw" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "辞退する"
+          }
+        }
+      }
+    },
+    "Withdraw my profile" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロフィールを取り下げる"
+          }
+        }
+      }
+    },
+    "Withdrawn" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "辞退"
+          }
+        }
+      }
+    },
+    "Work authorisation" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "就労資格"
+          }
+        }
+      }
+    },
+    "Work authorisation: %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "就労資格: %@"
+          }
+        }
+      }
+    },
+    "You" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あなた"
+          }
+        }
+      }
+    },
+    "You appear to be offline. Check your connection and try again." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オフラインのようです。接続を確認してもう一度お試しください。"
+          }
+        }
+      }
+    },
+    "You applied %@. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You applied %1$@. %2$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応募しました(%1$@)。%2$@"
+          }
+        }
+      }
+    },
+    "You are signed in to a consultant account. Applications come from candidate accounts." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンサルタントのアカウントでサインインしています。応募は候補者のアカウントから行います。"
+          }
+        }
+      }
+    },
+    "You are signed in to a hiring account. Applications come from candidate accounts." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採用企業のアカウントでサインインしています。応募は候補者のアカウントから行います。"
+          }
+        }
+      }
+    },
+    "You do not have access to that." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクセス権がありません。"
+          }
+        }
+      }
+    },
+    "You have been presented to the client." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クライアントにご推薦しました。"
+          }
+        }
+      }
+    },
+    "You withdrew this application." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この応募は辞退済みです。"
+          }
+        }
+      }
+    },
+    "Your account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウント"
+          }
+        }
+      }
+    },
+    "Your company" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "貴社"
+          }
+        }
+      }
+    },
+    "Your company name is required." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会社名を入力してください。"
+          }
+        }
+      }
+    },
+    "Your messages to us" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お問い合わせ履歴"
+          }
+        }
+      }
+    },
+    "Your name" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お名前"
+          }
+        }
+      }
+    },
+    "Your name is required." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お名前を入力してください。"
+          }
+        }
+      }
+    },
+    "Your profile" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロフィール"
+          }
+        }
+      }
+    },
+    "Your profile is complete." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロフィールの入力が完了しました。"
+          }
+        }
+      }
+    },
+    "Your profile is with our consultants. We will be in touch when something fits." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロフィールはコンサルタントが確認しています。合うポジションがあればご連絡いたします。"
+          }
+        }
+      }
+    },
+    "Your session has expired. Please sign in again." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セッションの有効期限が切れました。もう一度サインインしてください。"
+          }
+        }
+      }
+    },
+    "e.g. Japanese" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "例: 日本語"
+          }
+        }
+      }
+    },
+    "e.g. Portfolio Manager" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "例: ポートフォリオマネージャー"
+          }
+        }
+      }
+    },
+    "you@example.com" : {
+      "shouldTranslate" : false
+    }
+  },
+  "version" : "1.0"
+}

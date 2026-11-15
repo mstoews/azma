@@ -42,8 +42,8 @@ struct ContactView: View {
             if let page = site.contactPage, !page.hero.isEmpty {
                 HeroHeader(
                     imagePath: page.hero,
-                    title: "Talk to a consultant",
-                    subtitle: "Tokyo · Singapore",
+                    title: String(localized: "Talk to a consultant"),
+                    subtitle: String(localized: "Tokyo · Singapore"),
                     height: 190
                 )
             }
@@ -64,7 +64,13 @@ struct ContactView: View {
                 .font(Theme.cardTitle)
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
-            Text("A consultant from the \(Format.office(draft.office).lowercased() == "either office" ? "nearest" : Format.office(draft.office)) office will be in touch.")
+            Group {
+                if draft.office.isEmpty {
+                    Text("A consultant from the nearest office will be in touch.")
+                } else {
+                    Text("A consultant from the \(Format.office(draft.office)) office will be in touch.")
+                }
+            }
                 .font(.subheadline)
                 .foregroundStyle(Theme.secondaryInk)
                 .multilineTextAlignment(.center)
@@ -132,7 +138,7 @@ struct ContactView: View {
                 .pickerStyle(.segmented)
             }
 
-            FieldRow(title: "Message", hint: InquiryKind(rawValue: draft.kind)?.prompt) {
+            FieldRow(title: "Message", hint: InquiryKind(rawValue: draft.kind).map { Text(verbatim: $0.prompt) }) {
                 LongTextField(text: $draft.message, minHeight: 150)
             }
 

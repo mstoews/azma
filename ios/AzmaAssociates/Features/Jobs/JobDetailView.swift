@@ -23,7 +23,7 @@ struct JobDetailView: View {
                         .padding(.horizontal, Theme.gutter)
                 }
                 if job.confidential {
-                    Notice(kind: .info, message: "This is a confidential search. The client is named once a consultant has spoken with you.")
+                    Notice(.info, "This is a confidential search. The client is named once a consultant has spoken with you.")
                         .padding(.horizontal, Theme.gutter)
                 }
                 details
@@ -72,9 +72,9 @@ struct JobDetailView: View {
                 .foregroundStyle(job.confidential ? Theme.secondaryInk : Theme.navy)
             FlowLayout(spacing: 6) {
                 if !job.location.isEmpty { Chip(text: job.location, systemImage: "mappin.and.ellipse") }
-                if job.remote { Chip(text: "Remote", systemImage: "wifi") }
+                if job.remote { Chip("Remote", systemImage: "wifi") }
                 Chip(text: Format.employmentType(job.employmentType))
-                if !job.sector.isEmpty { Chip(text: job.sector) }
+                if !job.sector.isEmpty { Chip(text: Format.sector(job.sector)) }
             }
         }
         .padding(.horizontal, Theme.gutter)
@@ -98,7 +98,7 @@ struct JobDetailView: View {
         }
     }
 
-    private func section(_ title: String, body text: String) -> some View {
+    private func section(_ title: LocalizedStringKey, body text: String) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             SectionHeader(title: title)
             Text(text)
@@ -116,7 +116,7 @@ struct JobDetailView: View {
             if let application {
                 Notice(
                     kind: application.state.isOpen ? .success : .info,
-                    message: "You applied \(Format.relative(application.createdAt).lowercased()). \(application.state.candidateExplanation)"
+                    message: String(localized: "You applied \(Format.relative(application.createdAt).lowercased()). \(application.state.candidateExplanation)")
                 )
             } else if session.isCandidate {
                 Button("Apply for this position") { showingApply = true }
@@ -126,7 +126,9 @@ struct JobDetailView: View {
                 }
                 .buttonStyle(.brandQuiet)
             } else if session.isEmployer || session.isConsultant {
-                Notice(kind: .info, message: "You are signed in to a \(session.role == .admin ? "consultant" : "hiring") account. Applications come from candidate accounts.")
+                Notice(.info, session.role == .admin
+                    ? "You are signed in to a consultant account. Applications come from candidate accounts."
+                    : "You are signed in to a hiring account. Applications come from candidate accounts.")
             } else {
                 Button("Create an account to apply") { showingJoin = true }
                     .buttonStyle(.brand)
@@ -138,7 +140,7 @@ struct JobDetailView: View {
             NavigationLink {
                 ContactView(prefill: InquiryInput(
                     kind: InquiryKind.career.rawValue,
-                    message: "I would like to know more about \(job.title) (reference \(job.id))."
+                    message: String(localized: "I would like to know more about \(job.title) (reference \(job.id)).")
                 ))
             } label: {
                 Text("Ask a consultant about this position")
@@ -268,7 +270,7 @@ struct ApplySheet: View {
                     )
                 }
 
-                FieldRow(title: "Note to the consultant", hint: "Why this position, and anything the resume does not say.") {
+                FieldRow(title: "Note to the consultant", hint: Text("Why this position, and anything the resume does not say.")) {
                     TextEditor(text: $coverNote)
                         .frame(minHeight: 140)
                         .scrollContentBackground(.hidden)

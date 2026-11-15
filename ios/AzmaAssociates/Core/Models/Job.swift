@@ -35,24 +35,24 @@ enum JobStatus: String, Sendable, CaseIterable {
 
     var label: String {
         switch self {
-        case .draft: return "Draft"
-        case .pending: return "In review"
-        case .published: return "Live"
-        case .filled: return "Filled"
-        case .closed: return "Closed"
-        case .rejected: return "Not approved"
+        case .draft: return String(localized: "Draft")
+        case .pending: return String(localized: "In review")
+        case .published: return String(localized: "Live")
+        case .filled: return String(localized: "Filled")
+        case .closed: return String(localized: "Closed")
+        case .rejected: return String(localized: "Not approved")
         }
     }
 
     /// What the state means to the person looking at it.
     var explanation: String {
         switch self {
-        case .draft: return "Only you can see this. Submit it when you are ready for a consultant to look."
-        case .pending: return "A consultant is reviewing this posting."
-        case .published: return "Live on the board and open to applications."
-        case .filled: return "Marked as filled."
-        case .closed: return "Closed, and no longer taking applications."
-        case .rejected: return "A consultant sent this back with a note."
+        case .draft: return String(localized: "Only you can see this. Submit it when you are ready for a consultant to look.")
+        case .pending: return String(localized: "A consultant is reviewing this posting.")
+        case .published: return String(localized: "Live on the board and open to applications.")
+        case .filled: return String(localized: "Marked as filled.")
+        case .closed: return String(localized: "Closed, and no longer taking applications.")
+        case .rejected: return String(localized: "A consultant sent this back with a note.")
         }
     }
 }
@@ -106,16 +106,16 @@ struct JobInput: Codable, Sendable, Equatable {
     /// Mirrors the server's own checks so the app can explain the problem
     /// before a round trip. The server validates independently.
     var problem: String? {
-        if title.trimmed.isEmpty { return "Give the position a title." }
-        if company.trimmed.isEmpty { return "Name the hiring company." }
+        if title.trimmed.isEmpty { return String(localized: "Give the position a title.") }
+        if company.trimmed.isEmpty { return String(localized: "Name the hiring company.") }
         if let min = salaryMin, let max = salaryMax, max < min {
-            return "The top of the range is below the bottom."
+            return String(localized: "The top of the range is below the bottom.")
         }
         if (salaryMin != nil || salaryMax != nil) && salaryCurrency.isEmpty {
-            return "Choose a currency for the salary range."
+            return String(localized: "Choose a currency for the salary range.")
         }
         if submit && description.trimmed.count < 40 {
-            return "Describe the position in a few sentences before submitting it for review."
+            return String(localized: "Describe the position in a few sentences before submitting it for review.")
         }
         return nil
     }

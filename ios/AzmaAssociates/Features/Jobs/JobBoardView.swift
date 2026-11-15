@@ -17,7 +17,7 @@ struct JobBoardView: View {
                     EmptyStateView(
                         icon: "antenna.radiowaves.left.and.right.slash",
                         title: "The board could not be loaded",
-                        message: message,
+                        detail: message,
                         actionTitle: "Try again",
                         action: { Task { await model.load(reset: true) } }
                     )
@@ -126,8 +126,8 @@ struct JobCard: View {
 
             FlowLayout(spacing: 6) {
                 if !job.location.isEmpty { Chip(text: job.location, systemImage: "mappin.and.ellipse") }
-                if job.remote { Chip(text: "Remote", systemImage: "wifi") }
-                if !job.sector.isEmpty { Chip(text: job.sector) }
+                if job.remote { Chip("Remote", systemImage: "wifi") }
+                if !job.sector.isEmpty { Chip(text: Format.sector(job.sector)) }
                 if let salary = Format.salary(min: job.salaryMin, max: job.salaryMax, currency: job.salaryCurrency) {
                     Chip(text: salary, tint: Theme.successTint)
                 }
@@ -168,7 +168,7 @@ struct JobFiltersSheet: View {
                 Section("Sector") {
                     Picker("Sector", selection: $model.sector) {
                         Text("Any sector").tag("")
-                        ForEach(options.sectors, id: \.self) { Text($0).tag($0) }
+                        ForEach(options.sectors, id: \.self) { Text(Format.sector($0)).tag($0) }
                     }
                     .pickerStyle(.navigationLink)
                 }
@@ -233,9 +233,9 @@ final class JobBoardModel {
 
     var summaryLine: String {
         switch total {
-        case 0: return "No positions"
-        case 1: return "1 position"
-        default: return "\(total) positions"
+        case 0: return String(localized: "No positions")
+        case 1: return String(localized: "1 position")
+        default: return String(localized: "\(total) positions")
         }
     }
 

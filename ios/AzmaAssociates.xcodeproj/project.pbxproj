@@ -43,6 +43,7 @@
 		B547F0AD86CAAC5275E8A129 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F8F88849C99320E1BF9416 /* Components.swift */; };
 		B86152484578A43720820817 /* DocumentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A0F93150389534F1F38F03 /* DocumentPreview.swift */; };
 		BA83B0EB22CF66C92BAE063A /* Employer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4020E1CA913BEF802041ECA5 /* Employer.swift */; };
+		BA9E6670AFF3D72FB6B7783F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8FD336045467BD07754125B6 /* Localizable.xcstrings */; };
 		CBBB193383CEFD0C59A17509 /* SiteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DCF9A14FDD7C0C74D4433E /* SiteStore.swift */; };
 		D2EBD9D5FDC3E9A2804C45E6 /* CandidateDirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D262A5CE30810444390647EE /* CandidateDirectoryView.swift */; };
 		D906200A5C8E4A9DCF991276 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9669D0A9D8FFC97F2ECEFD /* Formatting.swift */; };
@@ -83,7 +84,7 @@
 		387A75CC08F9032003FD1E0B /* ConsultantDeskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultantDeskView.swift; sourceTree = "<group>"; };
 		3DD77D23E89DEE3DA8DDAE1B /* AzmaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzmaUITests.swift; sourceTree = "<group>"; };
 		4020E1CA913BEF802041ECA5 /* Employer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employer.swift; sourceTree = "<group>"; };
-		4A196DF5008F9C6FFEF01FFB /* AzmaAssociates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AzmaAssociates.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A196DF5008F9C6FFEF01FFB /* AzmaAssociates.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AzmaAssociates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9929AE818F4BA1E3132361 /* HTMLContentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContentTests.swift; sourceTree = "<group>"; };
 		5229077AFA50CF36F084915F /* AzmaAssociatesUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AzmaAssociatesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53750D3561B0A57971E50EB4 /* AzmaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzmaApp.swift; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		79957ECFB46B51CBB365AD09 /* JobDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailView.swift; sourceTree = "<group>"; };
 		8B9669D0A9D8FFC97F2ECEFD /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
 		8F0D138DED81D07CD6E91ADB /* CandidateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateStore.swift; sourceTree = "<group>"; };
+		8FD336045467BD07754125B6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		926BAAA5CDD5AE2F1CB27542 /* CandidateProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateProfileEditor.swift; sourceTree = "<group>"; };
 		9C09861ED97B1C0C0CDACE72 /* EmployerHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerHomeView.swift; sourceTree = "<group>"; };
 		9D23F1C77D18A97BF9F8E392 /* JoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinView.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				C11CEE7688EAEDC156F39B9D /* Assets.xcassets */,
+				8FD336045467BD07754125B6 /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 						TestTargetID = B10229582B2192744865A9A9;
 					};
 					B10229582B2192744865A9A9 = {
+						DevelopmentTeam = BJMVJFPS92;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -387,6 +391,7 @@
 			knownRegions = (
 				Base,
 				en,
+				ja,
 			);
 			mainGroup = C2E98F6ADBAF3CC05D8D4B42;
 			minimizedProjectReferenceProxies = 1;
@@ -408,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19F770CA57689B5D79EFD259 /* Assets.xcassets in Resources */,
+				BA9E6670AFF3D72FB6B7783F /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

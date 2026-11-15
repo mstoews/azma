@@ -58,7 +58,7 @@ struct SignInView: View {
 
     private func signIn() async {
         guard email.isValidEmail, !password.isEmpty else {
-            errorMessage = "Enter your email address and password."
+            errorMessage = String(localized: "Enter your email address and password.")
             return
         }
         do {
