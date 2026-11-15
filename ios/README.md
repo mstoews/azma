@@ -29,8 +29,10 @@ surfaced to the app through `Info.plist`:
 
 | Configuration | Server |
 |---|---|
-| Debug | `http://localhost:4200` — `npm start` in the repo root, which proxies `/api` and `/media` to the Go server on :8080 and serves the site's images |
-| Release | the Cloud Run service |
+| Debug | the production Cloud Run service |
+| Release | the production Cloud Run service |
+
+For local development, launch with `-azma.apiBaseURL http://localhost:4200` (`npm start` in the repo root, which proxies `/api` and `/media` to the Go server on :8080 and serves the site's images).
 
 A value in `UserDefaults` under `azma.apiBaseURL` wins over both, so a build can
 be pointed elsewhere without rebuilding:
