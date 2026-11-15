@@ -132,6 +132,12 @@ type NavItem struct {
 	SortOrder int32       `json:"sort_order"`
 }
 
+type NavItemTranslation struct {
+	NavItemID int64  `json:"nav_item_id"`
+	Locale    string `json:"locale"`
+	Label     string `json:"label"`
+}
+
 type Page struct {
 	ID         int64         `json:"id"`
 	Slug       string        `json:"slug"`
@@ -144,6 +150,15 @@ type Page struct {
 	CreatedAt  time.Time     `json:"created_at"`
 	UpdatedAt  time.Time     `json:"updated_at"`
 	UpdatedBy  uuid.NullUUID `json:"updated_by"`
+}
+
+type PageTranslation struct {
+	PageID    int64         `json:"page_id"`
+	Locale    string        `json:"locale"`
+	Title     string        `json:"title"`
+	Content   string        `json:"content"`
+	UpdatedAt time.Time     `json:"updated_at"`
+	UpdatedBy uuid.NullUUID `json:"updated_by"`
 }
 
 type Profile struct {
@@ -160,6 +175,16 @@ type Profile struct {
 	CreatedAt  time.Time     `json:"created_at"`
 	UpdatedAt  time.Time     `json:"updated_at"`
 	UpdatedBy  uuid.NullUUID `json:"updated_by"`
+}
+
+type ProfileTranslation struct {
+	ProfileID int64         `json:"profile_id"`
+	Locale    string        `json:"locale"`
+	Title     string        `json:"title"`
+	Excerpt   []string      `json:"excerpt"`
+	Content   string        `json:"content"`
+	UpdatedAt time.Time     `json:"updated_at"`
+	UpdatedBy uuid.NullUUID `json:"updated_by"`
 }
 
 type Resume struct {
@@ -197,6 +222,15 @@ type SiteSetting struct {
 	HomeDescription string        `json:"home_description"`
 	HomeHeaderImage string        `json:"home_header_image"`
 	Logo            string        `json:"logo"`
+	UpdatedAt       time.Time     `json:"updated_at"`
+	UpdatedBy       uuid.NullUUID `json:"updated_by"`
+}
+
+type SiteSettingsTranslation struct {
+	Locale          string        `json:"locale"`
+	SiteName        string        `json:"site_name"`
+	Tagline         string        `json:"tagline"`
+	HomeDescription string        `json:"home_description"`
 	UpdatedAt       time.Time     `json:"updated_at"`
 	UpdatedBy       uuid.NullUUID `json:"updated_by"`
 }

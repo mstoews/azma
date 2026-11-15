@@ -226,3 +226,9 @@ small.cms-muted { display: block; margin-top: 4px; font-size: .82em; }
   .cms-edit-side, .cms-media-detail { position: static; width: auto; }
   .cms-table { display: block; overflow-x: auto; }
 }
+
+/* Language switch on content, menu and settings editors. */
+.cms-lang-tabs { margin-bottom: 16px; }
+.cms .cms-lang-tabs button { padding: 6px 14px; border: 0; background: var(--cms-surface); color: var(--cms-text); font: inherit; cursor: pointer; }
+.cms-lang-missing { color: var(--cms-danger); margin-left: 4px; }
+.cms-translate-note { margin: -4px 0 16px; }

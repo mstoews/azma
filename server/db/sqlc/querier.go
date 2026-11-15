@@ -28,6 +28,7 @@ type Querier interface {
 	CreateJob(ctx context.Context, arg CreateJobParams) (Job, error)
 	CreateMedia(ctx context.Context, arg CreateMediaParams) (Medium, error)
 	CreateNavItem(ctx context.Context, arg CreateNavItemParams) (NavItem, error)
+	CreateNavItemTranslation(ctx context.Context, arg CreateNavItemTranslationParams) error
 	CreatePage(ctx context.Context, arg CreatePageParams) (Page, error)
 	CreateProfile(ctx context.Context, arg CreateProfileParams) (Profile, error)
 	CreateResume(ctx context.Context, arg CreateResumeParams) (Resume, error)
@@ -38,9 +39,12 @@ type Querier interface {
 	DeleteJob(ctx context.Context, arg DeleteJobParams) (Job, error)
 	DeleteMedia(ctx context.Context, id int64) error
 	DeletePage(ctx context.Context, id int64) error
+	DeletePageTranslation(ctx context.Context, arg DeletePageTranslationParams) error
 	DeleteProfile(ctx context.Context, id int64) error
+	DeleteProfileTranslation(ctx context.Context, arg DeleteProfileTranslationParams) error
 	// Scoped to the owner: another user's id simply matches no row.
 	DeleteResume(ctx context.Context, arg DeleteResumeParams) (Resume, error)
+	DeleteSettingsTranslation(ctx context.Context, locale string) error
 	DeleteUser(ctx context.Context, id uuid.UUID) error
 	GetApplication(ctx context.Context, id int64) (JobApplication, error)
 	GetCandidateForAdmin(ctx context.Context, userID uuid.UUID) (GetCandidateForAdminRow, error)
@@ -70,8 +74,18 @@ type Querier interface {
 	ListJobsForAdmin(ctx context.Context, arg ListJobsForAdminParams) ([]ListJobsForAdminRow, error)
 	ListJobsForEmployer(ctx context.Context, employerID uuid.UUID) ([]ListJobsForEmployerRow, error)
 	ListMedia(ctx context.Context) ([]Medium, error)
+	// ---- navigation -----------------------------------------------------------
+	ListNavItemTranslations(ctx context.Context) ([]NavItemTranslation, error)
 	ListNavItems(ctx context.Context) ([]ListNavItemsRow, error)
+	// ---- pages ----------------------------------------------------------------
+	ListPageTranslations(ctx context.Context) ([]PageTranslation, error)
+	ListPageTranslationsByLocale(ctx context.Context, locale string) ([]PageTranslation, error)
+	ListPageTranslationsForPage(ctx context.Context, pageID int64) ([]PageTranslation, error)
 	ListPages(ctx context.Context) ([]Page, error)
+	// ---- profiles -------------------------------------------------------------
+	ListProfileTranslations(ctx context.Context) ([]ProfileTranslation, error)
+	ListProfileTranslationsByLocale(ctx context.Context, locale string) ([]ProfileTranslation, error)
+	ListProfileTranslationsForProfile(ctx context.Context, profileID int64) ([]ProfileTranslation, error)
 	ListProfiles(ctx context.Context) ([]Profile, error)
 	// The public board. Empty filter values mean "no filter", which keeps one
 	// query (and one plan) for every combination the app sends.
@@ -80,6 +94,8 @@ type Querier interface {
 	ListPublishedProfiles(ctx context.Context) ([]Profile, error)
 	ListResumes(ctx context.Context, userID uuid.UUID) ([]Resume, error)
 	ListSavedJobs(ctx context.Context, candidateID uuid.UUID) ([]ListSavedJobsRow, error)
+	// ---- settings -------------------------------------------------------------
+	ListSettingsTranslations(ctx context.Context) ([]SiteSettingsTranslation, error)
 	// Administrators only: candidate and employer accounts are app users, not
 	// people with access to the CMS, and are listed through /admin/candidates.
 	ListUsers(ctx context.Context) ([]User, error)
@@ -116,6 +132,9 @@ type Querier interface {
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
 	UpsertCandidateProfile(ctx context.Context, arg UpsertCandidateProfileParams) (CandidateProfile, error)
 	UpsertEmployerProfile(ctx context.Context, arg UpsertEmployerProfileParams) (EmployerProfile, error)
+	UpsertPageTranslation(ctx context.Context, arg UpsertPageTranslationParams) error
+	UpsertProfileTranslation(ctx context.Context, arg UpsertProfileTranslationParams) error
+	UpsertSettingsTranslation(ctx context.Context, arg UpsertSettingsTranslationParams) error
 	WithdrawApplication(ctx context.Context, arg WithdrawApplicationParams) (JobApplication, error)
 }
 

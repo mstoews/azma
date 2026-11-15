@@ -33,4 +33,11 @@ enum AppConfig {
     }
 
     static let contactEmail = "company@azma-associates.com"
+
+    /// The language to ask the CMS for: the one the app's own text is shown
+    /// in, so the firm's pages match the buttons around them. The server
+    /// falls back to English for anything not translated.
+    static var contentLanguage: String {
+        Bundle.main.preferredLocalizations.first == "ja" ? "ja" : "en"
+    }
 }

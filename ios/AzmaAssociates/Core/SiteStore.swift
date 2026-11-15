@@ -16,13 +16,17 @@ final class SiteStore {
     private(set) var hasContent = false
 
     private let api: APIClient
+    private let language: String
     private let cacheURL: URL?
 
-    init(api: APIClient = .shared) {
+    init(api: APIClient = .shared, language: String = AppConfig.contentLanguage) {
         self.api = api
+        self.language = language
+        // One cache per language, so switching the app's language never shows
+        // the other language's pages while the new ones load.
         cacheURL = FileManager.default
             .urls(for: .cachesDirectory, in: .userDomainMask).first?
-            .appendingPathComponent("azma-site.json")
+            .appendingPathComponent("azma-site-\(language).json")
     }
 
     func load(force: Bool = false) async {
@@ -31,7 +35,7 @@ final class SiteStore {
         isLoading = true
         defer { isLoading = false }
         do {
-            content = try await api.fetchSite()
+            content = try await api.fetchSite(language: language)
             hasContent = true
             loadFailed = false
             persist(content)
@@ -54,13 +58,13 @@ final class SiteStore {
         content.profiles.first { $0.slug == slug }
     }
 
-    /// The pages the app links to by name, with the web site's own wording as
-    /// the fallback when the CMS has renamed or removed one.
-    var aboutPage: SitePage? { page(titleContains: "Who We Are") }
-    var expertisePage: SitePage? { page(titleContains: "Expertise") }
-    var processPage: SitePage? { page(titleContains: "Search Process") }
-    var visionPage: SitePage? { page(titleContains: "Vision") }
-    var contactPage: SitePage? { page(titleContains: "Contact") }
+    /// The pages the app links to by name. Found by slug, because titles are
+    /// translated; the English title is the fallback if a slug is changed.
+    var aboutPage: SitePage? { page(slug: "who-we-are") ?? page(titleContains: "Who We Are") }
+    var expertisePage: SitePage? { page(slug: "our-expertise") ?? page(titleContains: "Expertise") }
+    var processPage: SitePage? { page(slug: "search-process") ?? page(titleContains: "Search Process") }
+    var visionPage: SitePage? { page(slug: "vision-mission") ?? page(titleContains: "Vision") }
+    var contactPage: SitePage? { page(slug: "contact") ?? page(titleContains: "Contact") }
 
     /// Pages that are not already reachable from a dedicated screen.
     var otherPages: [SitePage] {

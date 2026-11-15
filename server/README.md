@@ -68,6 +68,22 @@ run them yourself with `go run ./cmd/admin migrate up`.
 | CRUD | `/api/v1/admin/users` (+ `PUT …/:id/password`) | admin |
 | GET | `/api/v1/admin/audit` | admin |
 
+### Languages
+
+Content is written in English and can be translated into the languages in
+`api.supportedLocales` (currently `ja`). Translations live in their own tables
+(migration `000003`); images, slugs and the published flag are shared.
+
+- `GET /api/v1/site?lang=ja` returns Japanese wherever it exists and English
+  for anything not translated, field by field. Without `lang` the server uses
+  `Accept-Language`; the response's `locale` says which language was chosen.
+  The web site asks for `lang=en`; the iOS app asks for its own language.
+- A menu item with no translated label takes its page's translated title.
+- Admin pages, profiles and settings carry a `translations` object keyed by
+  locale, and menu items carry `labels`. A request sets the locales it names;
+  a locale with every field blank is removed; locales left out, or a request
+  without the field, are not touched.
+
 ### Recruitment (the mobile app)
 
 | Method | Path | Who |

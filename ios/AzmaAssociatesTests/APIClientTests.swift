@@ -112,6 +112,15 @@ final class APIClientTests: XCTestCase {
         XCTAssertEqual(decoded.office, "tokyo")
     }
 
+    func testSiteRequestNamesTheLanguage() async throws {
+        StubURLProtocol.respond { _ in (500, Data()) }
+        _ = try? await client.fetchSite(language: "ja")
+        let url = try XCTUnwrap(StubURLProtocol.lastRequest?.url)
+        let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
+        XCTAssertEqual(url.path, "/api/v1/site")
+        XCTAssertEqual(items.first { $0.name == "lang" }?.value, "ja")
+    }
+
     func testOfflineIsReportedAsSuch() async {
         StubURLProtocol.fail(with: URLError(.notConnectedToInternet))
         do {

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"net/http"
 	"strconv"
 	"strings"
@@ -25,11 +26,13 @@ type pageDTO struct {
 	LegacyWpID *int32    `json:"legacyWpId"`
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
+	// Keyed by locale; only locales with a translation appear.
+	Translations map[string]pageTranslationDTO `json:"translations"`
 }
 
-func toPageDTO(p db.Page) pageDTO {
+func toPageDTO(p db.Page, tr []db.PageTranslation) pageDTO {
 	return pageDTO{p.ID, p.Slug, p.Title, p.Hero, p.Content, p.Published, p.SortOrder,
-		int4Ptr(p.LegacyWpID), p.CreatedAt, p.UpdatedAt}
+		int4Ptr(p.LegacyWpID), p.CreatedAt, p.UpdatedAt, pageTranslationMap(tr)}
 }
 
 type profileDTO struct {
@@ -45,15 +48,17 @@ type profileDTO struct {
 	LegacyWpID *int32    `json:"legacyWpId"`
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
+	// Keyed by locale; only locales with a translation appear.
+	Translations map[string]profileTranslationDTO `json:"translations"`
 }
 
-func toProfileDTO(p db.Profile) profileDTO {
+func toProfileDTO(p db.Profile, tr []db.ProfileTranslation) profileDTO {
 	ex := p.Excerpt
 	if ex == nil {
 		ex = []string{}
 	}
 	return profileDTO{p.ID, p.Slug, p.Title, ex, p.Thumb, p.Hero, p.Content, p.Published, p.SortOrder,
-		int4Ptr(p.LegacyWpID), p.CreatedAt, p.UpdatedAt}
+		int4Ptr(p.LegacyWpID), p.CreatedAt, p.UpdatedAt, profileTranslationMap(tr)}
 }
 
 // ---- inputs ------------------------------------------------------------
@@ -65,9 +70,31 @@ type pageInput struct {
 	Content   string `json:"content"`
 	Published bool   `json:"published"`
 	SortOrder int32  `json:"sortOrder"`
+	// Optional; see savePageTranslations for what it changes.
+	Translations map[string]pageTranslationDTO `json:"translations"`
 }
 
 func (in *pageInput) normalize() string {
+	if msg := in.normalizeTranslations(); msg != "" {
+		return msg
+	}
+	return in.normalizeBase()
+}
+
+func (in *pageInput) normalizeTranslations() string {
+	if msg := checkLocales(in.Translations); msg != "" {
+		return msg
+	}
+	for l, t := range in.Translations {
+		if msg := t.normalize(); msg != "" {
+			return msg
+		}
+		in.Translations[l] = t
+	}
+	return ""
+}
+
+func (in *pageInput) normalizeBase() string {
 	in.Title = strings.TrimSpace(in.Title)
 	in.Hero = strings.TrimSpace(in.Hero)
 	in.Slug = strings.TrimSpace(in.Slug)
@@ -91,10 +118,21 @@ type profileInput struct {
 	pageInput
 	Excerpt []string `json:"excerpt"`
 	Thumb   string   `json:"thumb"`
+	// Shadows pageInput.Translations: profiles also translate the card text.
+	Translations map[string]profileTranslationDTO `json:"translations"`
 }
 
 func (in *profileInput) normalize() string {
-	if msg := in.pageInput.normalize(); msg != "" && !strings.Contains(msg, "reserved") {
+	if msg := checkLocales(in.Translations); msg != "" {
+		return msg
+	}
+	for l, t := range in.Translations {
+		if msg := t.normalize(); msg != "" {
+			return msg
+		}
+		in.Translations[l] = t
+	}
+	if msg := in.pageInput.normalizeBase(); msg != "" && !strings.Contains(msg, "reserved") {
 		return msg
 	}
 	in.Thumb = strings.TrimSpace(in.Thumb)
@@ -122,16 +160,36 @@ type orderInput struct {
 // ---- pages -------------------------------------------------------------
 
 func (s *Server) listPages(c *gin.Context) {
-	rows, err := s.store.ListPages(c.Request.Context())
+	ctx := c.Request.Context()
+	rows, err := s.store.ListPages(ctx)
 	if err != nil {
 		dbError(c, err)
 		return
 	}
+	tr, err := s.store.ListPageTranslations(ctx)
+	if err != nil {
+		dbError(c, err)
+		return
+	}
+	byPage := groupPageTranslations(tr)
 	out := make([]pageDTO, len(rows))
 	for i, p := range rows {
-		out[i] = toPageDTO(p)
+		out[i] = toPageDTO(p, byPage[p.ID])
 	}
 	c.JSON(http.StatusOK, out)
+}
+
+// loadPage reads a page with its translations.
+func loadPage(ctx context.Context, q db.Querier, id int64) (pageDTO, error) {
+	p, err := q.GetPage(ctx, id)
+	if err != nil {
+		return pageDTO{}, err
+	}
+	tr, err := q.ListPageTranslationsForPage(ctx, id)
+	if err != nil {
+		return pageDTO{}, err
+	}
+	return toPageDTO(p, tr), nil
 }
 
 func (s *Server) getPage(c *gin.Context) {
@@ -139,12 +197,12 @@ func (s *Server) getPage(c *gin.Context) {
 	if !ok {
 		return
 	}
-	p, err := s.store.GetPage(c.Request.Context(), id)
+	p, err := loadPage(c.Request.Context(), s.store, id)
 	if err != nil {
 		dbError(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, toPageDTO(p))
+	c.JSON(http.StatusOK, p)
 }
 
 func (s *Server) createPage(c *gin.Context) {
@@ -157,16 +215,29 @@ func (s *Server) createPage(c *gin.Context) {
 		badRequest(c, msg)
 		return
 	}
-	p, err := s.store.CreatePage(c.Request.Context(), db.CreatePageParams{
-		Slug: in.Slug, Title: in.Title, Hero: in.Hero, Content: in.Content,
-		Published: in.Published, SortOrder: in.SortOrder, UpdatedBy: currentUserID(c),
+	ctx := c.Request.Context()
+	by := currentUserID(c)
+	var out pageDTO
+	err := s.store.ExecTx(ctx, func(q db.Querier) error {
+		p, err := q.CreatePage(ctx, db.CreatePageParams{
+			Slug: in.Slug, Title: in.Title, Hero: in.Hero, Content: in.Content,
+			Published: in.Published, SortOrder: in.SortOrder, UpdatedBy: by,
+		})
+		if err != nil {
+			return err
+		}
+		if err := savePageTranslations(ctx, q, p.ID, by, in.Translations); err != nil {
+			return err
+		}
+		out, err = loadPage(ctx, q, p.ID)
+		return err
 	})
 	if err != nil {
 		dbError(c, err)
 		return
 	}
-	s.audit(c, "create", "page", strconv.FormatInt(p.ID, 10), gin.H{"after": toPageDTO(p)})
-	c.JSON(http.StatusCreated, toPageDTO(p))
+	s.audit(c, "create", "page", strconv.FormatInt(out.ID, 10), gin.H{"after": out})
+	c.JSON(http.StatusCreated, out)
 }
 
 func (s *Server) updatePage(c *gin.Context) {
@@ -184,21 +255,31 @@ func (s *Server) updatePage(c *gin.Context) {
 		return
 	}
 	ctx := c.Request.Context()
-	before, err := s.store.GetPage(ctx, id)
-	if err != nil {
-		dbError(c, err)
-		return
-	}
-	p, err := s.store.UpdatePage(ctx, db.UpdatePageParams{
-		ID: id, Slug: in.Slug, Title: in.Title, Hero: in.Hero, Content: in.Content,
-		Published: in.Published, SortOrder: in.SortOrder, UpdatedBy: currentUserID(c),
+	by := currentUserID(c)
+	var before, after pageDTO
+	err := s.store.ExecTx(ctx, func(q db.Querier) error {
+		var err error
+		if before, err = loadPage(ctx, q, id); err != nil {
+			return err
+		}
+		if _, err = q.UpdatePage(ctx, db.UpdatePageParams{
+			ID: id, Slug: in.Slug, Title: in.Title, Hero: in.Hero, Content: in.Content,
+			Published: in.Published, SortOrder: in.SortOrder, UpdatedBy: by,
+		}); err != nil {
+			return err
+		}
+		if err = savePageTranslations(ctx, q, id, by, in.Translations); err != nil {
+			return err
+		}
+		after, err = loadPage(ctx, q, id)
+		return err
 	})
 	if err != nil {
 		dbError(c, err)
 		return
 	}
-	s.audit(c, "update", "page", strconv.FormatInt(id, 10), gin.H{"before": toPageDTO(before), "after": toPageDTO(p)})
-	c.JSON(http.StatusOK, toPageDTO(p))
+	s.audit(c, "update", "page", strconv.FormatInt(id, 10), gin.H{"before": before, "after": after})
+	c.JSON(http.StatusOK, after)
 }
 
 func (s *Server) deletePage(c *gin.Context) {
@@ -207,7 +288,7 @@ func (s *Server) deletePage(c *gin.Context) {
 		return
 	}
 	ctx := c.Request.Context()
-	before, err := s.store.GetPage(ctx, id)
+	before, err := loadPage(ctx, s.store, id)
 	if err != nil {
 		dbError(c, err)
 		return
@@ -216,7 +297,7 @@ func (s *Server) deletePage(c *gin.Context) {
 		dbError(c, err)
 		return
 	}
-	s.audit(c, "delete", "page", strconv.FormatInt(id, 10), gin.H{"before": toPageDTO(before)})
+	s.audit(c, "delete", "page", strconv.FormatInt(id, 10), gin.H{"before": before})
 	c.Status(http.StatusNoContent)
 }
 
@@ -229,16 +310,36 @@ func (s *Server) reorderPages(c *gin.Context) {
 // ---- profiles ----------------------------------------------------------
 
 func (s *Server) listProfiles(c *gin.Context) {
-	rows, err := s.store.ListProfiles(c.Request.Context())
+	ctx := c.Request.Context()
+	rows, err := s.store.ListProfiles(ctx)
 	if err != nil {
 		dbError(c, err)
 		return
 	}
+	tr, err := s.store.ListProfileTranslations(ctx)
+	if err != nil {
+		dbError(c, err)
+		return
+	}
+	byProfile := groupProfileTranslations(tr)
 	out := make([]profileDTO, len(rows))
 	for i, p := range rows {
-		out[i] = toProfileDTO(p)
+		out[i] = toProfileDTO(p, byProfile[p.ID])
 	}
 	c.JSON(http.StatusOK, out)
+}
+
+// loadProfile reads a profile with its translations.
+func loadProfile(ctx context.Context, q db.Querier, id int64) (profileDTO, error) {
+	p, err := q.GetProfile(ctx, id)
+	if err != nil {
+		return profileDTO{}, err
+	}
+	tr, err := q.ListProfileTranslationsForProfile(ctx, id)
+	if err != nil {
+		return profileDTO{}, err
+	}
+	return toProfileDTO(p, tr), nil
 }
 
 func (s *Server) getProfile(c *gin.Context) {
@@ -246,12 +347,12 @@ func (s *Server) getProfile(c *gin.Context) {
 	if !ok {
 		return
 	}
-	p, err := s.store.GetProfile(c.Request.Context(), id)
+	p, err := loadProfile(c.Request.Context(), s.store, id)
 	if err != nil {
 		dbError(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, toProfileDTO(p))
+	c.JSON(http.StatusOK, p)
 }
 
 func (s *Server) createProfile(c *gin.Context) {
@@ -264,16 +365,29 @@ func (s *Server) createProfile(c *gin.Context) {
 		badRequest(c, msg)
 		return
 	}
-	p, err := s.store.CreateProfile(c.Request.Context(), db.CreateProfileParams{
-		Slug: in.Slug, Title: in.Title, Excerpt: in.Excerpt, Thumb: in.Thumb, Hero: in.Hero,
-		Content: in.Content, Published: in.Published, SortOrder: in.SortOrder, UpdatedBy: currentUserID(c),
+	ctx := c.Request.Context()
+	by := currentUserID(c)
+	var out profileDTO
+	err := s.store.ExecTx(ctx, func(q db.Querier) error {
+		p, err := q.CreateProfile(ctx, db.CreateProfileParams{
+			Slug: in.Slug, Title: in.Title, Excerpt: in.Excerpt, Thumb: in.Thumb, Hero: in.Hero,
+			Content: in.Content, Published: in.Published, SortOrder: in.SortOrder, UpdatedBy: by,
+		})
+		if err != nil {
+			return err
+		}
+		if err := saveProfileTranslations(ctx, q, p.ID, by, in.Translations); err != nil {
+			return err
+		}
+		out, err = loadProfile(ctx, q, p.ID)
+		return err
 	})
 	if err != nil {
 		dbError(c, err)
 		return
 	}
-	s.audit(c, "create", "profile", strconv.FormatInt(p.ID, 10), gin.H{"after": toProfileDTO(p)})
-	c.JSON(http.StatusCreated, toProfileDTO(p))
+	s.audit(c, "create", "profile", strconv.FormatInt(out.ID, 10), gin.H{"after": out})
+	c.JSON(http.StatusCreated, out)
 }
 
 func (s *Server) updateProfile(c *gin.Context) {
@@ -291,21 +405,31 @@ func (s *Server) updateProfile(c *gin.Context) {
 		return
 	}
 	ctx := c.Request.Context()
-	before, err := s.store.GetProfile(ctx, id)
-	if err != nil {
-		dbError(c, err)
-		return
-	}
-	p, err := s.store.UpdateProfile(ctx, db.UpdateProfileParams{
-		ID: id, Slug: in.Slug, Title: in.Title, Excerpt: in.Excerpt, Thumb: in.Thumb, Hero: in.Hero,
-		Content: in.Content, Published: in.Published, SortOrder: in.SortOrder, UpdatedBy: currentUserID(c),
+	by := currentUserID(c)
+	var before, after profileDTO
+	err := s.store.ExecTx(ctx, func(q db.Querier) error {
+		var err error
+		if before, err = loadProfile(ctx, q, id); err != nil {
+			return err
+		}
+		if _, err = q.UpdateProfile(ctx, db.UpdateProfileParams{
+			ID: id, Slug: in.Slug, Title: in.Title, Excerpt: in.Excerpt, Thumb: in.Thumb, Hero: in.Hero,
+			Content: in.Content, Published: in.Published, SortOrder: in.SortOrder, UpdatedBy: by,
+		}); err != nil {
+			return err
+		}
+		if err = saveProfileTranslations(ctx, q, id, by, in.Translations); err != nil {
+			return err
+		}
+		after, err = loadProfile(ctx, q, id)
+		return err
 	})
 	if err != nil {
 		dbError(c, err)
 		return
 	}
-	s.audit(c, "update", "profile", strconv.FormatInt(id, 10), gin.H{"before": toProfileDTO(before), "after": toProfileDTO(p)})
-	c.JSON(http.StatusOK, toProfileDTO(p))
+	s.audit(c, "update", "profile", strconv.FormatInt(id, 10), gin.H{"before": before, "after": after})
+	c.JSON(http.StatusOK, after)
 }
 
 func (s *Server) deleteProfile(c *gin.Context) {
@@ -314,7 +438,7 @@ func (s *Server) deleteProfile(c *gin.Context) {
 		return
 	}
 	ctx := c.Request.Context()
-	before, err := s.store.GetProfile(ctx, id)
+	before, err := loadProfile(ctx, s.store, id)
 	if err != nil {
 		dbError(c, err)
 		return
@@ -323,7 +447,7 @@ func (s *Server) deleteProfile(c *gin.Context) {
 		dbError(c, err)
 		return
 	}
-	s.audit(c, "delete", "profile", strconv.FormatInt(id, 10), gin.H{"before": toProfileDTO(before)})
+	s.audit(c, "delete", "profile", strconv.FormatInt(id, 10), gin.H{"before": before})
 	c.Status(http.StatusNoContent)
 }
 
