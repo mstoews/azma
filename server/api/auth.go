@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -17,7 +18,7 @@ import (
 )
 
 const (
-	MinPasswordLength = 12
+	MinPasswordLength = 6
 	bcryptCost        = 12
 )
 
@@ -37,7 +38,7 @@ func HashPassword(pw string) (string, error) {
 // PasswordProblem returns a user-facing reason a password is unacceptable, or "".
 func PasswordProblem(pw string) string {
 	if len(pw) < MinPasswordLength {
-		return "password must be at least 12 characters"
+		return "password must be at least " + strconv.Itoa(MinPasswordLength) + " characters"
 	}
 	if len(pw) > 72 { // bcrypt ignores bytes past 72
 		return "password must be at most 72 bytes"
@@ -111,23 +112,15 @@ func (s *Server) login(c *gin.Context) {
 		return
 	}
 	// Checked after the password so a disabled account is not discoverable
-	// by guessing.
-	if user.Disabled || user.Role != "admin" {
+	// by guessing. Every role signs in here: candidates and employers use the
+	// mobile app, administrators the CMS, and md.RequireRole gates the rest.
+	if user.Disabled {
 		invalid()
 		return
 	}
 
-	token, err := newToken()
-	if err != nil {
-		dbError(c, err)
-		return
-	}
-	expires := s.now().Add(s.config.SessionDuration)
-	if _, err := s.store.CreateSession(ctx, db.CreateSessionParams{
-		UserID: user.ID, TokenHash: md.HashToken(token), ExpiresAt: expires,
-		UserAgent: truncate(c.Request.UserAgent(), 300), Ip: c.ClientIP(),
-	}); err != nil {
-		dbError(c, err)
+	token, expires, ok := s.issueSession(c, user)
+	if !ok {
 		return
 	}
 	if err := s.store.RecordLoginSuccess(ctx, user.ID); err != nil {
@@ -136,6 +129,25 @@ func (s *Server) login(c *gin.Context) {
 	md.SetUser(c, user) // so the audit row names who logged in
 	s.audit(c, "login", "user", user.ID.String(), gin.H{"ip": c.ClientIP()})
 	c.JSON(http.StatusOK, gin.H{"token": token, "expiresAt": expires, "user": toUserDTO(user)})
+}
+
+// issueSession creates a bearer session for a user who has just proved who
+// they are. It writes its own error response and reports ok = false.
+func (s *Server) issueSession(c *gin.Context, user db.User) (token string, expires time.Time, ok bool) {
+	token, err := newToken()
+	if err != nil {
+		dbError(c, err)
+		return "", time.Time{}, false
+	}
+	expires = s.now().Add(s.config.SessionDuration)
+	if _, err := s.store.CreateSession(c.Request.Context(), db.CreateSessionParams{
+		UserID: user.ID, TokenHash: md.HashToken(token), ExpiresAt: expires,
+		UserAgent: truncate(c.Request.UserAgent(), 300), Ip: c.ClientIP(),
+	}); err != nil {
+		dbError(c, err)
+		return "", time.Time{}, false
+	}
+	return token, expires, true
 }
 
 func (s *Server) logout(c *gin.Context) {

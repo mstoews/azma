@@ -22,6 +22,93 @@ type AuditLog struct {
 	CreatedAt time.Time     `json:"created_at"`
 }
 
+type CandidateProfile struct {
+	UserID            uuid.UUID  `json:"user_id"`
+	FullName          string     `json:"full_name"`
+	Headline          string     `json:"headline"`
+	Summary           string     `json:"summary"`
+	Location          string     `json:"location"`
+	Phone             string     `json:"phone"`
+	LinkedinUrl       string     `json:"linkedin_url"`
+	CurrentEmployer   string     `json:"current_employer"`
+	CurrentTitle      string     `json:"current_title"`
+	YearsExperience   int32      `json:"years_experience"`
+	Sectors           []string   `json:"sectors"`
+	DesiredRoles      []string   `json:"desired_roles"`
+	Languages         []string   `json:"languages"`
+	WorkAuthorization string     `json:"work_authorization"`
+	SalaryExpectation string     `json:"salary_expectation"`
+	OpenToOffers      bool       `json:"open_to_offers"`
+	Submitted         bool       `json:"submitted"`
+	SubmittedAt       *time.Time `json:"submitted_at"`
+	CreatedAt         time.Time  `json:"created_at"`
+	UpdatedAt         time.Time  `json:"updated_at"`
+}
+
+type EmployerProfile struct {
+	UserID      uuid.UUID `json:"user_id"`
+	Company     string    `json:"company"`
+	ContactName string    `json:"contact_name"`
+	ContactRole string    `json:"contact_role"`
+	Phone       string    `json:"phone"`
+	Website     string    `json:"website"`
+	Location    string    `json:"location"`
+	About       string    `json:"about"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+}
+
+type Inquiry struct {
+	ID        int64         `json:"id"`
+	UserID    uuid.NullUUID `json:"user_id"`
+	Kind      string        `json:"kind"`
+	Name      string        `json:"name"`
+	Email     string        `json:"email"`
+	Phone     string        `json:"phone"`
+	Company   string        `json:"company"`
+	Office    string        `json:"office"`
+	Message   string        `json:"message"`
+	Status    string        `json:"status"`
+	HandledBy uuid.NullUUID `json:"handled_by"`
+	HandledAt *time.Time    `json:"handled_at"`
+	CreatedAt time.Time     `json:"created_at"`
+}
+
+type Job struct {
+	ID             int64         `json:"id"`
+	EmployerID     uuid.UUID     `json:"employer_id"`
+	Title          string        `json:"title"`
+	Company        string        `json:"company"`
+	Confidential   bool          `json:"confidential"`
+	Location       string        `json:"location"`
+	Remote         bool          `json:"remote"`
+	Sector         string        `json:"sector"`
+	EmploymentType string        `json:"employment_type"`
+	Description    string        `json:"description"`
+	Requirements   string        `json:"requirements"`
+	SalaryMin      pgtype.Int4   `json:"salary_min"`
+	SalaryMax      pgtype.Int4   `json:"salary_max"`
+	SalaryCurrency string        `json:"salary_currency"`
+	Status         string        `json:"status"`
+	ReviewNote     string        `json:"review_note"`
+	ReviewedBy     uuid.NullUUID `json:"reviewed_by"`
+	ReviewedAt     *time.Time    `json:"reviewed_at"`
+	PublishedAt    *time.Time    `json:"published_at"`
+	CreatedAt      time.Time     `json:"created_at"`
+	UpdatedAt      time.Time     `json:"updated_at"`
+}
+
+type JobApplication struct {
+	ID          int64       `json:"id"`
+	JobID       int64       `json:"job_id"`
+	CandidateID uuid.UUID   `json:"candidate_id"`
+	ResumeID    pgtype.Int8 `json:"resume_id"`
+	CoverNote   string      `json:"cover_note"`
+	Status      string      `json:"status"`
+	CreatedAt   time.Time   `json:"created_at"`
+	UpdatedAt   time.Time   `json:"updated_at"`
+}
+
 type Medium struct {
 	ID          int64         `json:"id"`
 	Url         string        `json:"url"`
@@ -73,6 +160,22 @@ type Profile struct {
 	CreatedAt  time.Time     `json:"created_at"`
 	UpdatedAt  time.Time     `json:"updated_at"`
 	UpdatedBy  uuid.NullUUID `json:"updated_by"`
+}
+
+type Resume struct {
+	ID          int64     `json:"id"`
+	UserID      uuid.UUID `json:"user_id"`
+	Filename    string    `json:"filename"`
+	StoragePath string    `json:"storage_path"`
+	MimeType    string    `json:"mime_type"`
+	SizeBytes   int64     `json:"size_bytes"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
+type SavedJob struct {
+	CandidateID uuid.UUID `json:"candidate_id"`
+	JobID       int64     `json:"job_id"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 type Session struct {

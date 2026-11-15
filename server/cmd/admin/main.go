@@ -61,7 +61,7 @@ func main() {
 		need(*email)
 		hash, err := api.HashPassword(readPassword())
 		fatal(err)
-		u, err := store.CreateUser(ctx, db.CreateUserParams{Email: *email, Name: *name, PasswordHash: hash})
+		u, err := store.CreateUser(ctx, db.CreateUserParams{Email: *email, Name: *name, PasswordHash: hash, Role: "admin"})
 		fatal(err)
 		fmt.Printf("created administrator %s (%s)\n", u.Email, u.ID)
 	case "reset-password":

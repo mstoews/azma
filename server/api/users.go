@@ -48,7 +48,7 @@ func (s *Server) createUser(c *gin.Context) {
 		return
 	}
 	u, err := s.store.CreateUser(c.Request.Context(), db.CreateUserParams{
-		Email: in.Email, Name: strings.TrimSpace(in.Name), PasswordHash: hash,
+		Email: in.Email, Name: strings.TrimSpace(in.Name), PasswordHash: hash, Role: "admin",
 	})
 	if err != nil {
 		dbError(c, err)
@@ -60,8 +60,8 @@ func (s *Server) createUser(c *gin.Context) {
 
 // guardLastAdmin refuses changes that would leave nobody able to sign in.
 func (s *Server) guardLastAdmin(c *gin.Context, target db.User) bool {
-	if target.Disabled {
-		return true // already not counted
+	if target.Disabled || target.Role != "admin" {
+		return true // already not counted, or not an administrator at all
 	}
 	n, err := s.store.CountActiveAdmins(c.Request.Context())
 	if err != nil {

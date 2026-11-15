@@ -69,6 +69,13 @@ func dbError(c *gin.Context, err error) {
 	c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "internal error"})
 }
 
+// isUniqueViolation reports whether err is a duplicate-key error, for the
+// cases where a handler has a better message than dbError's generic one.
+func isUniqueViolation(err error) bool {
+	var pgErr *pgconn.PgError
+	return errors.As(err, &pgErr) && pgErr.Code == "23505"
+}
+
 func parseInt64Param(c *gin.Context, name string) (int64, bool) {
 	id, err := strconv.ParseInt(c.Param(name), 10, 64)
 	if err != nil || id <= 0 {

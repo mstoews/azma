@@ -42,7 +42,7 @@ import { NoticeService } from './shared/notice.service';
     @if (resetFor(); as u) {
       <form class="cms-card cms-inline-form" (ngSubmit)="reset(u)">
         <h2>New password for {{ u.email }}</h2>
-        <input type="password" name="pw" autocomplete="new-password" placeholder="At least 12 characters" [(ngModel)]="resetPw" />
+        <input type="password" name="pw" autocomplete="new-password" placeholder="At least 6 characters" [(ngModel)]="resetPw" />
         <div class="cms-row">
           <button class="cms-btn cms-btn-primary" type="submit">Set password</button>
           <button class="cms-btn cms-btn-ghost" type="button" (click)="resetFor.set(null)">Cancel</button>
