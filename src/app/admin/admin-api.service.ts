@@ -33,9 +33,13 @@ export class AdminApi {
   reorderProfiles(ids: number[]) { return this.put<void>('/profiles/order', { ids }); }
 
   nav() { return this.get<AdminNavItem[]>('/nav'); }
-  saveNav(items: Pick<AdminNavItem, 'label' | 'pageId' | 'href'>[]) {
+  saveNav(items: Pick<AdminNavItem, 'label' | 'pageId' | 'href' | 'labels'>[]) {
     return this.put<AdminNavItem[]>('/nav', {
-      items: items.map((i) => (i.pageId ? { label: i.label, pageId: i.pageId } : { label: i.label, href: i.href })),
+      items: items.map((i) => ({
+        label: i.label,
+        ...(i.pageId ? { pageId: i.pageId } : { href: i.href }),
+        labels: i.labels ?? {},
+      })),
     });
   }
 

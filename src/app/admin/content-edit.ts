@@ -7,23 +7,40 @@ import { slugify } from '../site-data';
 import { AdminApi } from './admin-api.service';
 import { errorMessage } from './auth.interceptor';
 import { ContentKind } from './content-list';
-import { AdminProfile, ProfileInput } from './models';
+import { AdminProfile, CONTENT_LOCALES, ContentLocale, EditLocale, ProfileInput, ProfileTranslation } from './models';
 import { HtmlEditor } from './shared/html-editor';
 import { ImageField } from './shared/image-field';
+import { LanguageTabs } from './shared/language-tabs';
 import { NoticeService } from './shared/notice.service';
 
-interface Draft extends ProfileInput {
+/** The translated text of one locale, as edited. */
+interface TranslationDraft {
+  title: string;
+  content: string;
   excerptText: string;
 }
 
+interface Draft extends Omit<ProfileInput, 'translations'> {
+  excerptText: string;
+  tr: Record<ContentLocale, TranslationDraft>;
+}
+
+const emptyTranslation = (): TranslationDraft => ({ title: '', content: '', excerptText: '' });
+
+const emptyTranslations = (): Record<ContentLocale, TranslationDraft> =>
+  Object.fromEntries(CONTENT_LOCALES.map((l) => [l.code, emptyTranslation()])) as Record<ContentLocale, TranslationDraft>;
+
 const empty = (): Draft => ({
   slug: '', title: '', hero: '', content: '', published: false, sortOrder: 0, excerpt: [], thumb: '', excerptText: '',
+  tr: emptyTranslations(),
 });
+
+const hasText = (t: TranslationDraft) => !!(t.title.trim() || t.content.trim() || t.excerptText.trim());
 
 /** Editor for one page or team profile (route data `kind`; `:id` or `new`). */
 @Component({
   selector: 'cms-content-edit',
-  imports: [FormsModule, RouterLink, HtmlEditor, ImageField],
+  imports: [FormsModule, RouterLink, HtmlEditor, ImageField, LanguageTabs],
   template: `
     <header class="cms-head">
       <div>
@@ -43,8 +60,10 @@ const empty = (): Draft => ({
     @if (error()) { <p class="cms-error" role="alert">{{ error() }}</p> }
 
     @if (loaded()) {
+      <cms-language-tabs [(value)]="lang" [translated]="translatedLocales()" />
       <div class="cms-edit-grid">
         <div class="cms-edit-main">
+          @if (lang() === 'en') {
           <label class="cms-field">
             <span class="cms-label">{{ kind === 'page' ? 'Title' : 'Name' }}</span>
             <input type="text" [ngModel]="draft().title" (ngModelChange)="setTitle($event)" required />
@@ -66,6 +85,27 @@ const empty = (): Draft => ({
             <span class="cms-label">Content</span>
             <cms-html-editor [value]="draft().content" (valueChange)="patch({ content: $event })" />
           </div>
+          } @else {
+            @let t = currentTr();
+            <p class="cms-muted cms-translate-note">
+              Fields left blank show the English text. The URL, images and published state are shared with English.
+            </p>
+            <label class="cms-field">
+              <span class="cms-label">{{ kind === 'page' ? 'Title' : 'Name' }}</span>
+              <input type="text" [ngModel]="t.title" (ngModelChange)="patchTr({ title: $event })" [placeholder]="draft().title" />
+            </label>
+            @if (kind === 'profile') {
+              <label class="cms-field">
+                <span class="cms-label">Card text (one line each: name, role, office)</span>
+                <textarea rows="3" [ngModel]="t.excerptText" (ngModelChange)="patchTr({ excerptText: $event })"
+                          [placeholder]="draft().excerptText"></textarea>
+              </label>
+            }
+            <div class="cms-field">
+              <span class="cms-label">Content</span>
+              <cms-html-editor [value]="t.content" (valueChange)="patchTr({ content: $event })" />
+            </div>
+          }
         </div>
         <aside class="cms-edit-side">
           <div class="cms-card">
@@ -111,6 +151,15 @@ export class ContentEdit {
   protected id = Number(this.route.snapshot.paramMap.get('id')) || 0;
 
   protected readonly draft = signal<Draft>(empty());
+  protected readonly lang = signal<EditLocale>('en');
+  /** The translation in the current tab (blank while on English). */
+  protected readonly currentTr = computed(() => {
+    const l = this.lang();
+    return l === 'en' ? emptyTranslation() : this.draft().tr[l];
+  });
+  protected readonly translatedLocales = computed(() =>
+    CONTENT_LOCALES.map((l) => l.code).filter((c) => hasText(this.draft().tr[c])),
+  );
   protected readonly saved = signal<AdminProfile | null>(null);
   private readonly baseline = signal(JSON.stringify(empty()));
   private slugTouched = false;
@@ -150,7 +199,12 @@ export class ContentEdit {
       slug: row.slug, title: row.title, hero: row.hero, content: row.content, published: row.published,
       sortOrder: row.sortOrder, excerpt: row.excerpt ?? [], thumb: row.thumb ?? '',
       excerptText: (row.excerpt ?? []).join('\n'),
+      tr: emptyTranslations(),
     };
+    for (const { code } of CONTENT_LOCALES) {
+      const t = row.translations?.[code] as Partial<ProfileTranslation> | undefined;
+      if (t) d.tr[code] = { title: t.title ?? '', content: t.content ?? '', excerptText: (t.excerpt ?? []).join('\n') };
+    }
     this.saved.set(row);
     this.draft.set(d);
     this.baseline.set(JSON.stringify(d));
@@ -158,6 +212,13 @@ export class ContentEdit {
 
   protected patch(p: Partial<Draft>): void {
     this.draft.update((d) => ({ ...d, ...p }));
+  }
+
+  /** Edits the translation shown in the current tab. */
+  protected patchTr(p: Partial<TranslationDraft>): void {
+    const l = this.lang();
+    if (l === 'en') return;
+    this.draft.update((d) => ({ ...d, tr: { ...d.tr, [l]: { ...d.tr[l], ...p } } }));
   }
 
   protected setTitle(title: string): void {
@@ -174,6 +235,12 @@ export class ContentEdit {
     const input: ProfileInput = {
       slug: d.slug, title: d.title, hero: d.hero, content: d.content, published: d.published, sortOrder: d.sortOrder,
       excerpt: d.excerptText.split('\n'), thumb: d.thumb,
+      // Every locale is sent, so clearing a translation removes it.
+      translations: Object.fromEntries(
+        CONTENT_LOCALES.map(({ code }) => [code, {
+          title: d.tr[code].title, content: d.tr[code].content, excerpt: d.tr[code].excerptText.split('\n'),
+        }]),
+      ),
     };
     this.busy.set(true);
     this.error.set('');

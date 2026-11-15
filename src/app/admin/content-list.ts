@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SiteContentService } from '../content.service';
 import { AdminApi } from './admin-api.service';
 import { errorMessage } from './auth.interceptor';
-import { AdminPage, AdminProfile } from './models';
+import { AdminPage, AdminProfile, CONTENT_LOCALES } from './models';
 import { NoticeService } from './shared/notice.service';
 
 export type ContentKind = 'page' | 'profile';
@@ -39,7 +39,12 @@ export type ContentKind = 'page' | 'profile';
               @if (excerptOf(item); as ex) { <div class="cms-muted">{{ ex }}</div> }
             </td>
             <td class="cms-muted">{{ prefix }}{{ item.slug }}</td>
-            <td><span class="cms-badge" [class.cms-badge-draft]="!item.published">{{ item.published ? 'Published' : 'Draft' }}</span></td>
+            <td>
+              <span class="cms-badge" [class.cms-badge-draft]="!item.published">{{ item.published ? 'Published' : 'Draft' }}</span>
+              @for (l of locales; track l.code) {
+                @if (item.translations?.[l.code]) { <span class="cms-badge" [title]="'Translated into ' + l.label">{{ l.label }}</span> }
+              }
+            </td>
             <td class="cms-muted">{{ item.updatedAt | date: 'MMM d, y' }}</td>
           </tr>
         } @empty {
@@ -61,6 +66,7 @@ export class ContentList {
   private readonly site = inject(SiteContentService);
   protected readonly kind: ContentKind = inject(ActivatedRoute).snapshot.data['kind'];
   protected readonly prefix = this.kind === 'page' ? '/' : '/profile/';
+  protected readonly locales = CONTENT_LOCALES;
 
   protected readonly items = signal<(AdminPage | AdminProfile)[]>([]);
   private readonly original = signal<number[]>([]);

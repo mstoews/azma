@@ -4,8 +4,8 @@ import Foundation
 extension APIClient {
     // MARK: Public
 
-    func fetchSite() async throws -> SiteContent {
-        try await get("/api/v1/site")
+    func fetchSite(language: String = AppConfig.contentLanguage) async throws -> SiteContent {
+        try await get("/api/v1/site", query: ["lang": language])
     }
 
     func fetchOptions() async throws -> ServerOptions {

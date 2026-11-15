@@ -34,7 +34,7 @@ describe('App', () => {
       profiles: [],
       nav: [{ label: 'New Page', link: '/new-page', pageId: 9 }],
     };
-    http.expectOne('/api/v1/site').flush(body);
+    http.expectOne('/api/v1/site?lang=en').flush(body);
     await done;
     expect(svc.source()).toBe('api');
     expect(svc.pages().map((p) => p.slug)).toEqual(['new-page']);
@@ -44,7 +44,7 @@ describe('App', () => {
     const svc = TestBed.inject(SiteContentService);
     const http = TestBed.inject(HttpTestingController);
     const done = svc.load();
-    http.expectOne('/api/v1/site').error(new ProgressEvent('error'));
+    http.expectOne('/api/v1/site?lang=en').error(new ProgressEvent('error'));
     await done;
     expect(svc.source()).toBe('bundled');
     expect(svc.profiles().length).toBe(11);

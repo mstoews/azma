@@ -19,7 +19,9 @@ export class SiteContentService {
 
   async load(): Promise<void> {
     try {
-      const c = await firstValueFrom(this.http.get<SiteContent>('/api/v1/site').pipe(timeout(8000)));
+      // This site is the English one (Japanese readers have azma-associates.jp),
+      // so ask for English rather than whatever the browser prefers.
+      const c = await firstValueFrom(this.http.get<SiteContent>('/api/v1/site?lang=en').pipe(timeout(8000)));
       this.content.set(c);
       this.source.set('api');
     } catch (err) {
