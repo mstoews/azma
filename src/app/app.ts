@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, HostListener, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { ConsentService } from './consent.service';
 import { SiteContentService } from './content.service';
 import { PageStateService } from './page-state';
 import { Icon, IconName } from './shared/icon';
@@ -23,6 +24,7 @@ export class App {
   private readonly content = inject(SiteContentService);
   private readonly router = inject(Router);
   protected readonly theme = inject(ThemeService);
+  protected readonly consent = inject(ConsentService);
 
   protected readonly settings = this.content.settings;
   protected readonly nav = this.content.nav;
@@ -55,6 +57,11 @@ export class App {
     effect(() => {
       body.className = this.isAdmin() ? 'cms-admin-body' : 'site-body';
       body.classList.toggle('site-scroll-locked', this.menuOpen());
+    });
+
+    // Analytics runs on the public site only, and only with consent.
+    effect(() => {
+      if (!this.isAdmin()) this.consent.init();
     });
 
     this.router.events
@@ -113,5 +120,6 @@ export class App {
   @HostListener('document:keyup.escape')
   protected onEscape(): void {
     this.closeMenu();
+    this.consent.dismiss();
   }
 }

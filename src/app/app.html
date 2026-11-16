@@ -76,7 +76,28 @@
     </div>
     <div class="site-container site-footer-bottom">
       <span>© {{ year }} {{ settings().siteName }}</span>
+      <button type="button" class="site-linkbtn" (click)="consent.reopen()" aria-controls="site-consent">Cookie settings</button>
     </div>
   </footer>
+
+  @if (consent.bannerOpen()) {
+    <section id="site-consent" class="site-consent" role="region" aria-labelledby="site-consent-title">
+      <div>
+        <h2 id="site-consent-title">Analytics cookies</h2>
+        <p>
+          We'd like to use Google Analytics to understand how visitors use this site. It sets cookies and sends usage
+          data to Google, so it only runs if you accept. You can change your mind any time under “Cookie settings” at
+          the bottom of the page.
+        </p>
+        @if (consent.choice(); as c) {
+          <p class="site-consent-now">Currently: <strong>{{ c === 'granted' ? 'accepted' : 'declined' }}</strong></p>
+        }
+      </div>
+      <div class="site-consent-actions">
+        <button type="button" class="site-btn" (click)="consent.decline()">Decline</button>
+        <button type="button" class="site-btn site-btn-primary" (click)="consent.accept()">Accept analytics</button>
+      </div>
+    </section>
+  }
 </div>
 }

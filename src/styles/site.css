@@ -333,7 +333,27 @@ body.site-scroll-locked { overflow: hidden; }
 .site-footer nav h2 { font-size: .78rem; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; color: var(--cms-muted); margin-bottom: 4px; }
 .site-footer nav a { font-size: .95rem; color: var(--cms-text); width: fit-content; }
 .site-footer nav a:hover { color: var(--cms-accent); }
-.site-footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding-top: 20px; padding-bottom: 28px; border-top: 1px solid var(--cms-border); color: var(--cms-muted); font-size: .88rem; }
+.site-footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding-top: 20px; padding-bottom: 28px; border-top: 1px solid var(--cms-border); color: var(--cms-muted); font-size: .88rem; }
+
+/* --------------------------------------------------------------- consent */
+
+.site-linkbtn { all: unset; cursor: pointer; color: var(--cms-muted); text-decoration: underline; text-underline-offset: 3px; }
+.site-linkbtn:hover { color: var(--cms-text); }
+.site-linkbtn:focus-visible { outline: 2px solid var(--cms-accent); outline-offset: 3px; border-radius: 4px; }
+.site-consent {
+  position: fixed; left: 24px; right: 24px; bottom: 24px; z-index: 45; margin: 0 auto; max-width: 760px;
+  display: flex; align-items: flex-end; gap: 20px 28px; padding: 20px 22px; border-radius: 20px;
+  background: color-mix(in srgb, var(--cms-surface) 94%, transparent); border: 1px solid var(--cms-border);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: var(--cms-shadow-lg);
+  animation: site-consent-in .3s ease-out;
+}
+.site-consent h2 { font-size: 1rem; letter-spacing: -0.01em; margin-bottom: 6px; }
+.site-consent p { color: var(--cms-muted); font-size: .9rem; line-height: 1.55; }
+.site-consent-now { margin-top: 8px !important; }
+.site-consent-now strong { color: var(--cms-text); }
+.site-consent-actions { display: flex; gap: 10px; flex: none; }
+.site-consent .site-btn { min-height: 42px; }
+@keyframes site-consent-in { from { opacity: 0; transform: translateY(12px); } }
 
 /* ---------------------------------------------------------------- mobile */
 
@@ -371,6 +391,8 @@ body.site-scroll-locked { overflow: hidden; }
   .site-pager { grid-template-columns: 1fr; padding-bottom: 64px; }
   .site-footer-grid { grid-template-columns: 1fr 1fr; }
   .site-footer-brand { grid-column: 1 / -1; }
+  .site-consent { left: 12px; right: 12px; bottom: 12px; flex-direction: column; align-items: stretch; padding: 18px; }
+  .site-consent-actions .site-btn { flex: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
