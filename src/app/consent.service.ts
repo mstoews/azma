@@ -10,30 +10,50 @@ const KEY = 'azma.consent.analytics';
 
 type GtagWindow = Window & { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void } & Record<string, unknown>;
 
+/** Global Privacy Control (https://globalprivacycontrol.org): not yet in the DOM typings. */
+type GpcNavigator = Navigator & { globalPrivacyControl?: boolean };
+
 /**
  * Visitor consent for analytics. Google Analytics is not loaded, and sets no
  * cookies, until the visitor accepts. The choice is remembered in
  * localStorage and can be changed from the footer ("Cookie settings").
+ *
+ * A browser sending Global Privacy Control counts as a decline: no banner,
+ * Analytics never loads, and that overrides an earlier "accept" (which is
+ * kept, so it applies again if the visitor turns GPC off).
  */
 @Injectable({ providedIn: 'root' })
 export class ConsentService {
   private readonly doc = inject(DOCUMENT);
   private readonly win = this.doc.defaultView as GtagWindow | null;
 
+  /** True when the browser sends Global Privacy Control. */
+  readonly gpc = signal((this.win?.navigator as GpcNavigator | undefined)?.globalPrivacyControl === true);
+
   /** The stored choice, or null when the visitor has not answered yet. */
   readonly choice = signal<ConsentChoice | null>(this.read());
-  /** True while the banner should be shown: no answer yet, or reopened from the footer. */
+
+  /** What applies on this page: GPC turns any stored choice into a decline. */
+  readonly effective = computed<ConsentChoice | null>(() => (this.gpc() ? 'denied' : this.choice()));
+
+  /** True while the banner should be shown: no answer yet (and no GPC), or reopened from the footer. */
   private readonly reopened = signal(false);
-  readonly bannerOpen = computed(() => this.choice() === null || this.reopened());
+  readonly bannerOpen = computed(() => this.effective() === null || this.reopened());
 
   private loaded = false;
 
-  /** Loads Analytics if the visitor already accepted on an earlier visit. */
+  /** Loads Analytics if the visitor already accepted on an earlier visit (and GPC is off). */
   init(): void {
+    if (this.gpc()) {
+      // Analytics may have run on an earlier visit, before GPC was turned on.
+      this.deleteAnalyticsCookies();
+      return;
+    }
     if (this.choice() === 'granted') this.loadAnalytics();
   }
 
   accept(): void {
+    if (this.gpc()) return; // GPC is an opt-out the page can't override.
     this.save('granted');
     this.reopened.set(false);
     this.loadAnalytics();
@@ -53,12 +73,12 @@ export class ConsentService {
 
   /** Closes a reopened banner without changing the stored choice. */
   dismiss(): void {
-    if (this.choice() !== null) this.reopened.set(false);
+    if (this.effective() !== null) this.reopened.set(false);
   }
 
   private loadAnalytics(): void {
     const w = this.win;
-    if (this.loaded || !w) return;
+    if (this.loaded || !w || this.gpc()) return;
     this.loaded = true;
     delete w[`ga-disable-${GA_MEASUREMENT_ID}`];
     w.dataLayer = w.dataLayer ?? [];
@@ -84,6 +104,14 @@ export class ConsentService {
     const w = this.win;
     if (!w) return;
     w[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
+    this.deleteAnalyticsCookies();
+    w.location.reload();
+  }
+
+  /** Removes Google Analytics cookies (_ga, _ga_<id>, _gid) on this host and its parent domain. */
+  private deleteAnalyticsCookies(): void {
+    const w = this.win;
+    if (!w) return;
     const host = w.location.hostname;
     const domains = ['', host, '.' + host, '.' + host.split('.').slice(-2).join('.')];
     for (const name of this.doc.cookie.split(';').map((c) => c.split('=')[0].trim())) {
@@ -92,7 +120,6 @@ export class ConsentService {
         this.doc.cookie = `${name}=; Max-Age=0; path=/${d ? '; domain=' + d : ''}`;
       }
     }
-    w.location.reload();
   }
 
   private read(): ConsentChoice | null {

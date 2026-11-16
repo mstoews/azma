@@ -5,8 +5,14 @@ const gaScripts = () => document.head.querySelectorAll('script[src*="googletagma
 type W = Window & { dataLayer?: unknown[]; gtag?: unknown };
 
 describe('ConsentService', () => {
+  const setGpc = (on: boolean | undefined) =>
+    Object.defineProperty(navigator, 'globalPrivacyControl', { value: on, configurable: true });
+
+  afterEach(() => setGpc(undefined));
+
   beforeEach(() => {
     localStorage.clear();
+    document.cookie.split(';').forEach((c) => (document.cookie = `${c.split('=')[0].trim()}=; Max-Age=0; path=/`));
     gaScripts().forEach((s) => s.remove());
     delete (window as W).dataLayer;
     delete (window as W).gtag;
@@ -61,5 +67,58 @@ describe('ConsentService', () => {
     c.dismiss();
     expect(c.bannerOpen()).toBe(false);
     expect(c.choice()).toBe('denied');
+  });
+
+  describe('with Global Privacy Control', () => {
+    beforeEach(() => setGpc(true));
+
+    it('declines automatically: no banner, nothing loaded', () => {
+      const c = create();
+      c.init();
+      expect(c.gpc()).toBe(true);
+      expect(c.effective()).toBe('denied');
+      expect(c.bannerOpen()).toBe(false);
+      expect(gaScripts().length).toBe(0);
+    });
+
+    it('overrides an earlier accept without forgetting it', () => {
+      localStorage.setItem('azma.consent.analytics', 'granted');
+      const c = create();
+      c.init();
+      expect(gaScripts().length).toBe(0);
+      expect(c.effective()).toBe('denied');
+      expect(localStorage.getItem('azma.consent.analytics')).toBe('granted');
+    });
+
+    it('ignores accept', () => {
+      const c = create();
+      c.accept();
+      expect(gaScripts().length).toBe(0);
+      expect(c.choice()).toBeNull();
+    });
+
+    it('clears Analytics cookies left from an earlier visit', () => {
+      document.cookie = '_ga=GA1.1.1; path=/';
+      document.cookie = '_ga_ABC=GS1.1; path=/';
+      document.cookie = 'other=1; path=/';
+      create().init();
+      expect(document.cookie).not.toMatch(/_ga/);
+      expect(document.cookie).toContain('other=1');
+    });
+
+    it('lets the settings banner be opened and closed', () => {
+      const c = create();
+      c.reopen();
+      expect(c.bannerOpen()).toBe(true);
+      c.dismiss();
+      expect(c.bannerOpen()).toBe(false);
+    });
+  });
+
+  it('is unaffected when GPC is explicitly off', () => {
+    setGpc(false);
+    const c = create();
+    expect(c.gpc()).toBe(false);
+    expect(c.bannerOpen()).toBe(true);
   });
 });
