@@ -739,7 +739,7 @@
     }
 }
 
-@media screen and(max-width: 575px) {
+@media screen and (max-width: 575px) {
     .twp-reactions-icons .twp-reacts-wrap {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
