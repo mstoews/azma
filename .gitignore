@@ -149,3 +149,6 @@ vite.config.ts.timestamp-*
 .turbo
 # Angular CLI build cache
 /.angular/
+
+# macOS Finder metadata
+.DS_Store
