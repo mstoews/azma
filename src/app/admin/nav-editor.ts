@@ -6,7 +6,7 @@ import { SiteContentService } from '../content.service';
 import { AdminApi } from './admin-api.service';
 import { errorMessage } from './auth.interceptor';
 import { AdminNavItem, AdminPage, CONTENT_LOCALES, ContentLocale } from './models';
-import { Icon } from './shared/icon';
+import { Icon } from '../shared/icon';
 import { keepRowWidths } from './shared/table-drag';
 import { NoticeService } from './shared/notice.service';
 

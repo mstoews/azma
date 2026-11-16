@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { errorMessage } from './auth.interceptor';
-import { ThemeService } from './shared/theme.service';
+import { ThemeService } from '../shared/theme.service';
 
 @Component({
   selector: 'cms-login',

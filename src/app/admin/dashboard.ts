@@ -6,7 +6,7 @@ import { AdminApi } from './admin-api.service';
 import { AuthService } from './auth.service';
 import { errorMessage } from './auth.interceptor';
 import { AuditEntry } from './models';
-import { Icon } from './shared/icon';
+import { Icon } from '../shared/icon';
 
 @Component({
   selector: 'cms-dashboard',

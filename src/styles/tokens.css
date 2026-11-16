@@ -1,0 +1,102 @@
+/* Design tokens shared by the CMS admin (.cms) and the public site (.site).
+
+   Light by default, dark from prefers-color-scheme, and either can be forced
+   with <html data-cms-theme="light|dark"> (ThemeService). */
+
+.cms, .site, body.cms-admin-body, body.site-body {
+  --cms-bg: #f6f7f9;
+  --cms-surface: #ffffff;
+  --cms-surface-2: #f1f3f6;
+  --cms-text: #151a23;
+  --cms-muted: #636b7a;
+  --cms-border: #e4e7ec;
+  --cms-border-strong: #d0d5dd;
+  --cms-accent: #4f46e5;
+  --cms-accent-hover: #4338ca;
+  --cms-accent-soft: #eef0ff;
+  --cms-accent-text: #ffffff;
+  --cms-danger: #c4320a;
+  --cms-danger-soft: #fef0eb;
+  --cms-ok-bg: #e9f8ef;
+  --cms-ok-text: #146c3a;
+  --cms-err-bg: #fdeeec;
+  --cms-sidebar: #ffffff;
+  --cms-sidebar-text: #4a5262;
+  --cms-sidebar-hover: #f2f4f7;
+  --cms-topbar: rgba(246, 247, 249, .8);
+  --cms-shadow-sm: 0 1px 2px rgba(16, 24, 40, .05);
+  --cms-shadow: 0 1px 3px rgba(16, 24, 40, .06), 0 4px 12px rgba(16, 24, 40, .05);
+  --cms-shadow-lg: 0 12px 32px rgba(16, 24, 40, .14);
+  --cms-ring: 0 0 0 3px rgba(79, 70, 229, .22);
+  --tone-blue: #2563eb;  --tone-blue-bg: #e8f0fe;
+  --tone-violet: #7c3aed; --tone-violet-bg: #f1eafe;
+  --tone-green: #059669; --tone-green-bg: #e3f7ef;
+  --tone-amber: #b45309; --tone-amber-bg: #fdf3e2;
+  --cms-radius: 10px;
+  --cms-radius-lg: 14px;
+  --cms-sidebar-w: 248px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-cms-theme='light']) :is(.cms, .site, body.cms-admin-body, body.site-body) {
+    --cms-bg: #0d1015;
+    --cms-surface: #151a21;
+    --cms-surface-2: #1b212a;
+    --cms-text: #e8ebf0;
+    --cms-muted: #959eae;
+    --cms-border: #262d38;
+    --cms-border-strong: #343c49;
+    --cms-accent: #818cf8;
+    --cms-accent-hover: #a5b4fc;
+    --cms-accent-soft: #1f2245;
+    --cms-accent-text: #0d1015;
+    --cms-danger: #fb8a6e;
+    --cms-danger-soft: #3a1a13;
+    --cms-ok-bg: #11301f;
+    --cms-ok-text: #7fdca4;
+    --cms-err-bg: #3a1714;
+    --cms-sidebar: #11151b;
+    --cms-sidebar-text: #aab2c0;
+    --cms-sidebar-hover: #1a2029;
+    --cms-topbar: rgba(13, 16, 21, .75);
+    --cms-shadow-sm: none;
+    --cms-shadow: 0 1px 0 rgba(255, 255, 255, .02), 0 4px 16px rgba(0, 0, 0, .3);
+    --cms-shadow-lg: 0 16px 40px rgba(0, 0, 0, .55);
+    --cms-ring: 0 0 0 3px rgba(129, 140, 248, .3);
+    --tone-blue: #7aa7ff;  --tone-blue-bg: #17243d;
+    --tone-violet: #b794ff; --tone-violet-bg: #251a3d;
+    --tone-green: #4ad1a1; --tone-green-bg: #0f2c23;
+    --tone-amber: #f5b55a; --tone-amber-bg: #33240f;
+  }
+}
+:root[data-cms-theme='dark'] :is(.cms, .site, body.cms-admin-body, body.site-body) {
+  --cms-bg: #0d1015;
+  --cms-surface: #151a21;
+  --cms-surface-2: #1b212a;
+  --cms-text: #e8ebf0;
+  --cms-muted: #959eae;
+  --cms-border: #262d38;
+  --cms-border-strong: #343c49;
+  --cms-accent: #818cf8;
+  --cms-accent-hover: #a5b4fc;
+  --cms-accent-soft: #1f2245;
+  --cms-accent-text: #0d1015;
+  --cms-danger: #fb8a6e;
+  --cms-danger-soft: #3a1a13;
+  --cms-ok-bg: #11301f;
+  --cms-ok-text: #7fdca4;
+  --cms-err-bg: #3a1714;
+  --cms-sidebar: #11151b;
+  --cms-sidebar-text: #aab2c0;
+  --cms-sidebar-hover: #1a2029;
+  --cms-topbar: rgba(13, 16, 21, .75);
+  --cms-shadow-sm: none;
+  --cms-shadow: 0 1px 0 rgba(255, 255, 255, .02), 0 4px 16px rgba(0, 0, 0, .3);
+  --cms-shadow-lg: 0 16px 40px rgba(0, 0, 0, .55);
+  --cms-ring: 0 0 0 3px rgba(129, 140, 248, .3);
+  --tone-blue: #7aa7ff;  --tone-blue-bg: #17243d;
+  --tone-violet: #b794ff; --tone-violet-bg: #251a3d;
+  --tone-green: #4ad1a1; --tone-green-bg: #0f2c23;
+  --tone-amber: #f5b55a; --tone-amber-bg: #33240f;
+}
+

@@ -3,9 +3,9 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { AuthService } from './auth.service';
-import { Icon, IconName } from './shared/icon';
+import { Icon, IconName } from '../shared/icon';
 import { NoticeService } from './shared/notice.service';
-import { ThemeService } from './shared/theme.service';
+import { ThemeService } from '../shared/theme.service';
 
 interface NavItem { path: string; label: string; icon: IconName; exact?: boolean }
 

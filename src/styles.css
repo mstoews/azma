@@ -1,8 +1,6 @@
-/* Global styles — ported verbatim from the original WordPress (Cobber Pro) theme. */
-@import './styles/fonts.css';
-@import './styles/wp-inline.css';
-@import './styles/theme.css';
-@import './styles/booster.css';
+/* Global styles: shared tokens, then the public site and the CMS admin. */
+@import './styles/tokens.css';
+@import './styles/site.css';
 @import './styles/admin.css';
 
 app-root { display: contents; }

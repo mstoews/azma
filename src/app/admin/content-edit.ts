@@ -116,7 +116,8 @@ const hasText = (t: TranslationDraft) => !!(t.title.trim() || t.content.trim() |
             <small class="cms-muted">Drafts are hidden from the public site.</small>
           </div>
           <div class="cms-card">
-            <cms-image-field label="Side image" hint="Shown in the left panel of the page."
+            <cms-image-field [label]="kind === 'page' ? 'Banner image' : 'Profile photo'"
+                             [hint]="kind === 'page' ? 'Shown wide under the page title, and on its card on the home page.' : 'Shown large on the profile page. Portrait works best.'"
                              [value]="draft().hero" (valueChange)="patch({ hero: $event })" />
           </div>
           @if (kind === 'profile') {

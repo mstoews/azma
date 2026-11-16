@@ -1,31 +1,42 @@
 @if (profile(); as p) {
-  <div class="singular-main-block">
-    <div class="wrapper">
-      <div class="theme-row">
-        <div id="primary" class="content-area">
-          <main id="site-content" class="cobber-no-comment" role="main">
-            <div class="article-wraper">
-              <article id="post-{{ cssId(p) }}"
-                       class="post-{{ cssId(p) }} post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
-                <header class="entry-header">
-                  <div class="entry-meta"></div>
-                  <h1 class="entry-title entry-title-large">{{ p.title }}</h1>
-                </header>
-                <div class="entry-meta"></div>
-                <div class="post-content-wrap">
-                  <div class="post-content">
-                    <div class="entry-content" [innerHTML]="'<div class=&quot;booster-block booster-read-block&quot;></div>' + p.content | trustedHtml"></div>
-                    <div class="entry-footer">
-                      <div class="entry-meta"></div>
-                      <div class="entry-meta"></div>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </main>
+  @let l = lines()!;
+  <div class="site-container">
+    <nav class="site-crumbs site-crumbs-top" aria-label="Breadcrumb">
+      <a routerLink="/">Home</a><span aria-hidden="true">/</span>
+      <a routerLink="/" fragment="team">Our team</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{{ p.title }}</span>
+    </nav>
+
+    <div class="site-profile">
+      <aside class="site-profile-card">
+        <div class="site-profile-photo">
+          @if (p.hero || p.thumb) { <img [src]="p.hero || p.thumb" [alt]="p.title" decoding="async" fetchpriority="high" /> }
         </div>
-      </div>
+        <div class="site-profile-meta">
+          @if (l.office) { <span class="site-badge"><cms-icon name="pin" />{{ l.office }}</span> }
+          <h1>{{ p.title }}</h1>
+          @if (l.nativeName) { <p class="site-person-native" lang="ja">{{ l.nativeName }}</p> }
+          @if (l.role) { <p class="site-profile-role"><cms-icon name="briefcase" />{{ l.role }}</p> }
+          @if (mailto(); as m) {
+            <a class="site-btn site-btn-primary site-btn-block" [href]="m">
+              <cms-icon name="mail" />Get in touch
+            </a>
+          }
+        </div>
+      </aside>
+
+      <article class="site-prose site-profile-bio" [innerHTML]="body() | trustedHtml"></article>
     </div>
+
+    @if (prev() && next()) {
+      <nav class="site-pager" aria-label="Team members">
+        <a [routerLink]="['/profile', prev()!.slug]" class="site-pager-link">
+          <small><cms-icon name="back" />Previous</small><strong>{{ prev()!.title }}</strong><span>{{ prev()!.role }}</span>
+        </a>
+        <a [routerLink]="['/profile', next()!.slug]" class="site-pager-link site-pager-next">
+          <small>Next<cms-icon name="arrow" /></small><strong>{{ next()!.title }}</strong><span>{{ next()!.role }}</span>
+        </a>
+      </nav>
+    }
   </div>
 }
