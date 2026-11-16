@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -6,6 +7,8 @@ import { SiteContentService } from '../content.service';
 import { AdminApi } from './admin-api.service';
 import { errorMessage } from './auth.interceptor';
 import { AdminPage, AdminProfile, CONTENT_LOCALES } from './models';
+import { Icon } from './shared/icon';
+import { keepRowWidths } from './shared/table-drag';
 import { NoticeService } from './shared/notice.service';
 
 export type ContentKind = 'page' | 'profile';
@@ -13,7 +16,7 @@ export type ContentKind = 'page' | 'profile';
 /** List of pages or team profiles (route data `kind`), with ordering. */
 @Component({
   selector: 'cms-content-list',
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, CdkDropList, CdkDrag, CdkDragHandle, Icon],
   template: `
     <header class="cms-head">
       <h1>{{ kind === 'page' ? 'Pages' : 'Team profiles' }}</h1>
@@ -22,15 +25,16 @@ export type ContentKind = 'page' | 'profile';
     <p class="cms-muted">
       @if (kind === 'page') { Each page lives at its own URL; add it to the Menu to link it. }
       @else { Profiles are listed on the home page in this order. }
-      Use the arrows to reorder, then save the order.
+      Drag rows by the handle (or use the arrows) to reorder, then save the order.
     </p>
     @if (error()) { <p class="cms-error">{{ error() }}</p> }
     <table class="cms-table">
       <thead><tr><th></th><th>Title</th><th>URL</th><th>Status</th><th>Updated</th></tr></thead>
-      <tbody>
+      <tbody cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="drop($event)">
         @for (item of items(); track item.id; let i = $index, first = $first, last = $last) {
-          <tr>
+          <tr cdkDrag cdkDragPreviewContainer="parent" (cdkDragStarted)="keepRowWidths($event)">
             <td class="cms-order">
+              <span class="cms-drag-handle" cdkDragHandle title="Drag to reorder"><cms-icon name="grip" /></span>
               <button type="button" (click)="move(i, -1)" [disabled]="first" aria-label="Move up">↑</button>
               <button type="button" (click)="move(i, 1)" [disabled]="last" aria-label="Move down">↓</button>
             </td>
@@ -95,6 +99,17 @@ export class ContentList {
 
   protected excerptOf(item: AdminPage | AdminProfile): string {
     return 'excerpt' in item ? item.excerpt.slice(1).join(' · ') : '';
+  }
+
+  protected readonly keepRowWidths = keepRowWidths;
+
+  protected drop(e: CdkDragDrop<unknown>): void {
+    if (e.previousIndex === e.currentIndex) return;
+    this.items.update((xs) => {
+      const next = [...xs];
+      moveItemInArray(next, e.previousIndex, e.currentIndex);
+      return next;
+    });
   }
 
   protected move(i: number, d: number): void {

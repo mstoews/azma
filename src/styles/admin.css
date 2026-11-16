@@ -370,6 +370,27 @@ small.cms-muted { display: block; margin-top: 6px; font-size: .82em; }
 .cms .cms-order button:hover:not(:disabled) { background: var(--cms-surface-2); color: var(--cms-text); }
 .cms .cms-order button:disabled { opacity: .25; cursor: default; }
 
+.cms-order { width: 96px; }
+.cms-drag-handle {
+  display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 2px; border-radius: 6px; vertical-align: middle;
+  color: var(--cms-muted); cursor: grab; touch-action: none;
+}
+.cms-drag-handle:hover { background: var(--cms-surface-2); color: var(--cms-text); }
+.cms-drag-handle .cms-icon { width: 16px; height: 16px; }
+.cms-drag-handle svg { stroke-width: 3.2; }
+/* Row being dragged (preview stays in the table so columns keep their widths). */
+.cms-table tr.cdk-drag-preview {
+  display: table; table-layout: fixed; background: var(--cms-surface); box-shadow: var(--cms-shadow-lg); outline: 2px solid var(--cms-accent);
+  outline-offset: -2px; border-radius: 10px; cursor: grabbing;
+}
+.cms-table tr.cdk-drag-preview td { border-bottom-color: transparent; box-sizing: border-box; }
+/* The slot the row will land in. */
+.cms-table tr.cdk-drag-placeholder { background: var(--cms-accent-soft); }
+.cms-table tr.cdk-drag-placeholder > td { opacity: 0; }
+.cms-table tbody.cdk-drop-list-dragging tr:not(.cdk-drag-placeholder) { transition: transform .2s cubic-bezier(0, 0, .2, 1); }
+.cms-table tr.cdk-drag-animating { transition: transform .2s cubic-bezier(0, 0, .2, 1); }
+body:has(.cdk-drag-preview) { cursor: grabbing; user-select: none; }
+
 /* ------------------------------------------------------------- dashboard */
 
 .cms-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
