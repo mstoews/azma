@@ -18,6 +18,20 @@
     <article class="site-prose" [innerHTML]="p.content | trustedHtml"></article>
 
     <aside class="site-aside">
+      @if (isPrivacy()) {
+        <div class="site-aside-card">
+          <span class="site-aside-icon"><cms-icon name="shield" /></span>
+          <h2>Your analytics choice</h2>
+          <p>
+            @switch (consent.effective()) {
+              @case ('granted') { Accepted: Google Analytics is on. }
+              @case ('denied') { Declined{{ consent.gpc() ? ' (Global Privacy Control)' : '' }}: Google Analytics is off. }
+              @default { Not chosen yet: Google Analytics is off. }
+            }
+          </p>
+          <button type="button" class="site-btn site-btn-block" (click)="consent.reopen()">Change cookie settings</button>
+        </div>
+      }
       @if (email(); as e) {
         <div class="site-aside-card site-aside-contact">
           <span class="site-aside-icon"><cms-icon name="mail" /></span>

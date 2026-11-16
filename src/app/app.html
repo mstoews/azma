@@ -76,7 +76,10 @@
     </div>
     <div class="site-container site-footer-bottom">
       <span>© {{ year }} {{ settings().siteName }}</span>
-      <button type="button" class="site-linkbtn" (click)="consent.reopen()" aria-controls="site-consent">Cookie settings</button>
+      <span class="site-footer-links">
+        <a routerLink="/privacy-policy">Privacy policy</a>
+        <button type="button" class="site-linkbtn" (click)="consent.reopen()" aria-controls="site-consent">Cookie settings</button>
+      </span>
     </div>
   </footer>
 
@@ -88,12 +91,13 @@
           <p>
             Your browser sends a Global Privacy Control signal, so we treat it as a “no”: Google Analytics stays off and
             sets no cookies. To allow analytics, turn Global Privacy Control off in your browser.
+            <a routerLink="/privacy-policy">Read our privacy policy</a>.
           </p>
         } @else {
           <p>
             We'd like to use Google Analytics to understand how visitors use this site. It sets cookies and sends usage
             data to Google, so it only runs if you accept. You can change your mind any time under “Cookie settings” at
-            the bottom of the page.
+            the bottom of the page. <a routerLink="/privacy-policy">Read our privacy policy</a>.
           </p>
         }
         @if (consent.effective(); as c) {

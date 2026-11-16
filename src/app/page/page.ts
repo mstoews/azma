@@ -1,9 +1,11 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
+import { ConsentService } from '../consent.service';
 import { SiteContentService } from '../content.service';
 import { PageStateService } from '../page-state';
 import { Icon } from '../shared/icon';
+import { PRIVACY_SLUG, resolvePage } from '../privacy-policy';
 import { excerpt, firstEmail } from '../site-helpers';
 import { TrustedHtmlPipe } from '../trusted-html';
 
@@ -16,7 +18,9 @@ export class PageDetail {
   /** Bound from the `:slug` route parameter. */
   readonly slug = input.required<string>();
   private readonly content = inject(SiteContentService);
-  protected readonly page = computed(() => this.content.pages().find((p) => p.slug === this.slug()));
+  protected readonly page = computed(() => resolvePage(this.content.pages(), this.slug()));
+  protected readonly consent = inject(ConsentService);
+  protected readonly isPrivacy = computed(() => this.slug() === PRIVACY_SLUG);
 
   /** The other menu pages, for the "More about us" list. */
   protected readonly others = computed(() => {

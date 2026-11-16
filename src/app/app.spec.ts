@@ -30,6 +30,15 @@ describe('App', () => {
     expect(texts(el, '#site-menu nav a')).toEqual(['Home', ...pages, '日本語']);
   });
 
+  it('links the privacy policy from the footer and the consent banner', async () => {
+    localStorage.removeItem('azma.consent.analytics');
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+    expect(el.querySelector('.site-footer a[href="/privacy-policy"]')).not.toBeNull();
+    expect(el.querySelector('.site-consent a[href="/privacy-policy"]')).not.toBeNull();
+  });
+
   it('replaces bundled content with the CMS response', async () => {
     const svc = TestBed.inject(SiteContentService);
     const http = TestBed.inject(HttpTestingController);

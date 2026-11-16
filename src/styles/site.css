@@ -350,6 +350,11 @@ body.site-scroll-locked { overflow: hidden; }
 .site-consent h2 { font-size: 1rem; letter-spacing: -0.01em; margin-bottom: 6px; }
 .site-consent p { color: var(--cms-muted); font-size: .9rem; line-height: 1.55; }
 .site-consent-now { margin-top: 8px !important; }
+.site-consent p a { color: var(--cms-accent); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.site-footer-links { display: inline-flex; flex-wrap: wrap; gap: 20px; }
+.site-footer-links a { text-decoration: underline; text-underline-offset: 3px; }
+.site-footer-links a:hover { color: var(--cms-text); }
+.site-prose code { font: .9em ui-monospace, SFMono-Regular, Menlo, monospace; padding: 1px 6px; border-radius: 6px; background: var(--cms-surface-2); }
 .site-consent-now strong { color: var(--cms-text); }
 .site-consent-actions { display: flex; gap: 10px; flex: none; }
 .site-consent .site-btn { min-height: 42px; }
