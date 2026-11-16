@@ -1,4 +1,7 @@
-/* Global styles: shared tokens, then the public site and the CMS admin. */
+/* Global styles: the Inter font (self-hosted from @fontsource-variable/inter;
+   the build copies the .woff2 files into dist), shared tokens, then the
+   public site and the CMS admin. */
+@import '@fontsource-variable/inter/opsz.css';
 @import './styles/tokens.css';
 @import './styles/site.css';
 @import './styles/admin.css';
