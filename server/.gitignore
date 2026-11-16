@@ -3,3 +3,4 @@ app.env
 /.devdb/
 /bin/
 /backup/
+.env.neon
