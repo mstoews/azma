@@ -25,10 +25,21 @@ db/query     SQL → `sqlc generate` → db/sqlc
 
 ## Local development
 
+The usual way is from the repo root, against Neon (UAT/test data):
+`make secrets`, then `make api` and `make web`. See the root README.
+
+To use a local database instead, the simplest is the Docker container:
+`make db-up`, `make migrate DB=local`, `make db-seed`, then `make dev DB=local`
+(see the root README; the container is defined in `docker-compose.yaml`).
+
+Without Docker, the embedded PostgreSQL also works (it cannot run as root, so
+not in root-only containers):
+
 ```sh
 cd server
-cp app.env.example app.env        # set DB_SOURCE (Neon, or the devdb DSN)
+cp app.env.example app.env        # DB_SOURCE defaults to the devdb DSN
 make devdb                         # terminal 1, only if not using Neon
+make migrate                       # create the schema (AUTO_MIGRATE is off)
 make seed                          # import pages, profiles, menu, settings, media
 make admin EMAIL=you@example.com NAME="Your Name"   # prompts for a password
 make run                           # terminal 2: API on :8080
@@ -50,8 +61,11 @@ drops and recreates the schema, so never point it at a real database.
 
 Set `DB_SOURCE` to the Neon connection string with `sslmode=require`. Use
 either the direct or the pooled endpoint: nothing here relies on
-session-level state. Migrations run on startup while `AUTO_MIGRATE=true`, or
-run them yourself with `go run ./cmd/admin migrate up`.
+session-level state. Migrations are not run on startup (`AUTO_MIGRATE=false`,
+the default): run `make migrate` from the repo root, or
+`go run ./cmd/admin migrate up` here. With it off, the server logs a warning
+at startup if the schema is behind or dirty. Set `AUTO_MIGRATE=true` to have
+it migrate on start instead.
 
 ## API
 
@@ -122,16 +136,26 @@ ending in `z`, so `/healthz` only works locally.
 | Database | Neon, DSN in Secret Manager `azma-db-source` |
 | Runtime identity | `azma-cms-run@web-azma.iam.gserviceaccount.com` (bucket objects + that secret only) |
 
-Release, from the repo root:
+Release, from the repo root (needs `gcloud auth login`):
 
 ```sh
-gcloud builds submit --config server/cloudbuild.yaml --project web-azma --region asia-northeast1 .
-server/deploy.sh                 # deploys :latest
-server/deploy.sh <build-id>      # roll back to an earlier build
+make release                     # build in Cloud Build, then deploy that build
+make cloud-build                 # build only (image tagged <build-id> and latest)
+make deploy                      # deploy :latest
+make deploy TAG=<build-id>       # roll back to an earlier build
 ```
 
-Schema migrations run when the server starts. Against Neon they go to the
-direct endpoint, not the pooler (see `dbutil.DirectDSN`).
+Deploying asks for confirmation (`YES=1` skips it). Building refuses
+uncommitted changes, since Cloud Build uploads the working tree
+(`ALLOW_DIRTY=1` overrides). `.gcloudignore` keeps `app.env` and other local
+files out of the upload. The targets wrap `scripts/cloud-run.sh`, which runs
+`gcloud builds submit --config server/cloudbuild.yaml` and `server/deploy.sh`.
+
+Schema migrations do not run when the server starts (`AUTO_MIGRATE=false` in
+`deploy.sh`). Before deploying a build that adds migrations, run
+`make migrate` from the repo root; it uses the same Neon database. Against
+Neon they go to the direct endpoint, not the pooler (see `dbutil.DirectDSN`).
+If the schema is behind, Cloud Run's log shows a warning at startup.
 
 Commands against production, with the DSN taken from the secret so it never
 lands in a file:

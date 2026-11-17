@@ -2,13 +2,73 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.4.
 
-## Development server
+## Running locally
 
-To start a local development server, run:
+Everything you need day to day is in the `Makefile`; run `make` to list it.
+Locally, the API and the website run on your machine against the **Neon**
+database, which holds UAT/test data (it is not the live site's data). Its
+connection string is a secret in Google Secret Manager (project `web-azma`).
+
+First time:
 
 ```bash
-ng serve
+gcloud auth login      # an account that can read the project's secrets
+make install           # npm + Go dependencies
+make secrets           # copies the secrets into server/app.env (git-ignored)
 ```
+
+Then, in two terminals:
+
+```bash
+make api               # API on http://localhost:8080
+```
+
+```bash
+make web               # website on http://localhost:4200, admin at /admin
+```
+
+or `make dev` to run both in one terminal. Run `make secrets` again whenever
+the secret changes; it only replaces the secret lines in `server/app.env`, so
+your other local settings stay.
+
+Other commands: `make admin EMAIL=… NAME="…"` (create or reset a CMS
+administrator), `make media` (copy uploaded images from the bucket to
+`server/media`, so they show locally), `make test`, `make build`.
+
+To release to Cloud Run: if the release adds migrations, run `make migrate`
+first (local and Cloud Run share the Neon database), then `make release`, which
+builds the image in Cloud Build and deploys that build after asking you to
+confirm. `make deploy TAG=<build-id>`
+rolls back to an earlier build. See `server/README.md` → Deploying.
+
+### Local database instead of Neon
+
+With Docker running, you can work against a PostgreSQL container instead of
+Neon. Set it up once:
+
+```bash
+make db-up                 # PostgreSQL 16 on localhost:55440
+make migrate DB=local      # create the schema
+make db-seed               # load the original site content
+make admin DB=local EMAIL=you@example.com NAME="Your Name"
+```
+
+Then add `DB=local` to the usual commands, e.g. `make dev DB=local`. It
+overrides `DB_SOURCE` without changing `server/app.env`, so leaving it off
+goes back to Neon. `make db-down` stops the container (the data is kept),
+`make db-reset` deletes the data, `make db-psql` opens a SQL shell, and
+`make test-integration` runs the API integration tests against a scratch
+`cms_test` database in the container.
+
+Database migrations are not applied automatically (`AUTO_MIGRATE=false`,
+locally and on Cloud Run). When a change adds a migration in
+`server/db/migration`, run `make migrate`; `make migrate-status` shows the
+current schema version. If the schema is behind, the API logs a warning at
+startup.
+
+## Development server
+
+`make web` runs `ng serve`; `npm start` does the same.
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 

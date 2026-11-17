@@ -1,7 +1,17 @@
-# Local stack: postgres + CMS (site and API on http://localhost:8080).
-#   docker compose -f server/docker-compose.yaml up -d --build
+# Local PostgreSQL for development, and optionally the whole CMS in a container.
+#
+# Database only (what `make db-up` runs; the API then runs on your machine
+# with `make api DB=local`):
+#   docker compose -f server/docker-compose.yaml up -d --wait db
+#
+# Whole stack, site and API on http://localhost:8080 (the "app" profile):
+#   docker compose -f server/docker-compose.yaml --profile app up -d --build
 #   docker compose -f server/docker-compose.yaml exec cms ./seed -data seed-data/site-data.json -uploads seed-data/uploads
 #   docker compose -f server/docker-compose.yaml exec cms ./admin create -email you@example.com
+#
+# The database listens on localhost:55440 (user, password and database "cms"),
+# the DSN in app.env.example. Data lives in the cms-pgdata volume; `make db-reset`
+# deletes it.
 services:
   db:
     image: postgres:16-alpine
@@ -9,17 +19,20 @@ services:
       POSTGRES_USER: cms
       POSTGRES_PASSWORD: cms
       POSTGRES_DB: cms
-    ports: ["55440:5432"]
+    ports: ["127.0.0.1:55440:5432"]
     volumes: [cms-pgdata:/var/lib/postgresql/data]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U cms -d cms"]
       interval: 2s
       retries: 30
   cms:
+    profiles: [app]
     build: { context: .., dockerfile: server/Dockerfile }
     environment:
       DB_SOURCE: postgresql://cms:cms@db:5432/cms?sslmode=disable
       ENVIRONMENT: development
+      # A throwaway local stack: migrate on start (the default is off).
+      AUTO_MIGRATE: "true"
     ports: ["8080:8080"]
     volumes: [cms-media:/app/media]
     depends_on: { db: { condition: service_healthy } }

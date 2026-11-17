@@ -5,7 +5,7 @@
 devdb:          ## local PostgreSQL without Docker (prints DB_SOURCE)
 	go run ./cmd/devdb
 
-run:            ## API on :8080 (applies migrations when AUTO_MIGRATE=true)
+run:            ## API on :8080 (applies migrations only when AUTO_MIGRATE=true)
 	go run ./cmd/server
 
 migrate:
