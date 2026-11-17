@@ -111,6 +111,7 @@ func (in *pageInput) normalizeBase() string {
 	case !validAssetURL(in.Hero):
 		return "hero must be a site path (/...) or an http(s) URL"
 	}
+	in.Content = SanitizeContent(in.Content)
 	return validSlug(in.Slug, true)
 }
 

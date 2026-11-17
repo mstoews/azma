@@ -184,6 +184,22 @@ func (q *Queries) ListPublishedPages(ctx context.Context) ([]Page, error) {
 	return items, nil
 }
 
+const setPageContent = `-- name: SetPageContent :exec
+UPDATE pages SET content = $1 WHERE id = $2
+`
+
+type SetPageContentParams struct {
+	Content string `json:"content"`
+	ID      int64  `json:"id"`
+}
+
+// Rewrites the body only (used by `admin sanitize-content`); leaves
+// updated_at/updated_by alone since no one edited the page.
+func (q *Queries) SetPageContent(ctx context.Context, arg SetPageContentParams) error {
+	_, err := q.db.Exec(ctx, setPageContent, arg.Content, arg.ID)
+	return err
+}
+
 const setPageSortOrder = `-- name: SetPageSortOrder :exec
 UPDATE pages SET sort_order = $1 WHERE id = $2
 `

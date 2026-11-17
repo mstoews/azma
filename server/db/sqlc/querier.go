@@ -115,8 +115,14 @@ type Querier interface {
 	// or mark a live position filled or closed. published_at is kept for a
 	// position that was live, so "filled" still shows when it ran.
 	SetJobStatusForEmployer(ctx context.Context, arg SetJobStatusForEmployerParams) (Job, error)
+	// Rewrites the body only (used by `admin sanitize-content`); leaves
+	// updated_at/updated_by alone since no one edited the page.
+	SetPageContent(ctx context.Context, arg SetPageContentParams) error
 	SetPageSortOrder(ctx context.Context, arg SetPageSortOrderParams) error
+	SetPageTranslationContent(ctx context.Context, arg SetPageTranslationContentParams) error
+	SetProfileContent(ctx context.Context, arg SetProfileContentParams) error
 	SetProfileSortOrder(ctx context.Context, arg SetProfileSortOrderParams) error
+	SetProfileTranslationContent(ctx context.Context, arg SetProfileTranslationContentParams) error
 	SetUserPassword(ctx context.Context, arg SetUserPasswordParams) error
 	// Asking us to represent them. submitted_at keeps the first submission date.
 	SubmitCandidateProfile(ctx context.Context, arg SubmitCandidateProfileParams) (CandidateProfile, error)

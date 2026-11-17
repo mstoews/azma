@@ -315,6 +315,36 @@ func (q *Queries) ListSettingsTranslations(ctx context.Context) ([]SiteSettingsT
 	return items, nil
 }
 
+const setPageTranslationContent = `-- name: SetPageTranslationContent :exec
+UPDATE page_translations SET content = $1 WHERE page_id = $2 AND locale = $3
+`
+
+type SetPageTranslationContentParams struct {
+	Content string `json:"content"`
+	PageID  int64  `json:"page_id"`
+	Locale  string `json:"locale"`
+}
+
+func (q *Queries) SetPageTranslationContent(ctx context.Context, arg SetPageTranslationContentParams) error {
+	_, err := q.db.Exec(ctx, setPageTranslationContent, arg.Content, arg.PageID, arg.Locale)
+	return err
+}
+
+const setProfileTranslationContent = `-- name: SetProfileTranslationContent :exec
+UPDATE profile_translations SET content = $1 WHERE profile_id = $2 AND locale = $3
+`
+
+type SetProfileTranslationContentParams struct {
+	Content   string `json:"content"`
+	ProfileID int64  `json:"profile_id"`
+	Locale    string `json:"locale"`
+}
+
+func (q *Queries) SetProfileTranslationContent(ctx context.Context, arg SetProfileTranslationContentParams) error {
+	_, err := q.db.Exec(ctx, setProfileTranslationContent, arg.Content, arg.ProfileID, arg.Locale)
+	return err
+}
+
 const upsertPageTranslation = `-- name: UpsertPageTranslation :exec
 INSERT INTO page_translations (page_id, locale, title, content, updated_by)
 VALUES ($1, $2, $3, $4, $5)

@@ -206,12 +206,21 @@ func TestAPIFlow(t *testing.T) {
 	}
 
 	h.expect(http.StatusOK, "PUT", "/api/v1/admin/pages/"+itoa(pid), map[string]any{
-		"title": "Our Team", "slug": "team", "content": "<p>Hello</p>", "published": true,
+		"title": "Our Team", "slug": "team", "content": `<p>Hello</p><script>alert(1)</script>`, "published": true,
+		"translations": map[string]any{"ja": map[string]any{"title": "チーム", "content": `<p onclick="alert(1)">こんにちは</p>`}},
 	})
 	site = h.expect(http.StatusOK, "GET", "/api/v1/site", nil)
 	pages := site["pages"].([]any)
 	if len(pages) != 1 || pages[0].(map[string]any)["slug"] != "team" {
 		t.Fatalf("published page missing: %v", pages)
+	}
+	// Page HTML is rendered unsanitized on the site, so the API must clean it.
+	if c := pages[0].(map[string]any)["content"]; c != "<p>Hello</p>" {
+		t.Fatalf("content not sanitized on save: %q", c)
+	}
+	jaSite := h.expect(http.StatusOK, "GET", "/api/v1/site?lang=ja", nil)
+	if c := jaSite["pages"].([]any)[0].(map[string]any)["content"]; c != "<p>こんにちは</p>" {
+		t.Fatalf("translated content not sanitized on save: %q", c)
 	}
 	if nav := site["nav"].([]any); len(nav) != 2 || nav[0].(map[string]any)["link"] != "/team" {
 		t.Fatalf("nav = %v", nav)

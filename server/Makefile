@@ -1,6 +1,6 @@
 # AZMA CMS server. Run targets from server/.
 
-.PHONY: devdb run migrate migrate-down seed admin sqlc test build docker
+.PHONY: devdb run migrate migrate-down seed admin sanitize-content sqlc test build docker
 
 devdb:          ## local PostgreSQL without Docker (prints DB_SOURCE)
 	go run ./cmd/devdb
@@ -19,6 +19,9 @@ seed:           ## import the current static site content
 
 admin:          ## make admin EMAIL=you@example.com NAME="Your Name"
 	go run ./cmd/admin create -email "$(EMAIL)" -name "$(NAME)"
+
+sanitize-content: ## clean stored page/profile HTML (DRY=1 to preview)
+	go run ./cmd/admin sanitize-content $(if $(DRY),-dry-run)
 
 sqlc:           ## regenerate db/sqlc from db/query + db/migration
 	sqlc generate

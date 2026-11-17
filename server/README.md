@@ -15,7 +15,7 @@ their SHA-256 hash is stored. Passwords are hashed with bcrypt.
 
 ```
 cmd/server   API (and, optionally, the built site)
-cmd/admin    create/reset/disable administrators; run migrations
+cmd/admin    create/reset/disable administrators; run migrations; sanitize stored HTML
 cmd/seed     import the original WordPress content into the database
 cmd/devdb    local PostgreSQL without Docker (embedded-postgres)
 api/         HTTP handlers           middleware/  session auth, admin gate
@@ -164,6 +164,7 @@ lands in a file:
 export DB_SOURCE="$(gcloud secrets versions access latest --secret azma-db-source --project web-azma)"
 go run ./cmd/admin create -email you@example.com -name "Your Name"
 go run ./cmd/admin list
+go run ./cmd/admin sanitize-content -dry-run   # then without -dry-run
 ```
 
 Moving uploads between disk and the bucket (neither direction deletes):
@@ -209,10 +210,14 @@ process, not a generic job board:
 - `/api/v1/admin/users` manages administrators only. Candidate and employer
   accounts are app users, not people with CMS access, and are listed through
   `/api/v1/admin/candidates`.
-- Page and profile HTML is rendered on the site as trusted markup, so an
-  administrator can put any HTML (including script) on the site. That is
-  intended for a single-team CMS. Only give admin access to people you would
-  trust with the site's code.
+- Page and profile HTML (and its translations) is rendered on the site as
+  trusted markup, so the API sanitizes it on save against an allowlist
+  (`api/sanitize.go`): headings, lists, links, images, tables and `class`
+  survive; script, iframes, forms, event handlers, inline styles and
+  `javascript:`/`data:` URLs are removed. External links get
+  `rel="noreferrer"`. To clean HTML saved before this check, run
+  `go run ./cmd/admin sanitize-content -dry-run` to preview, then without
+  `-dry-run` (or `make sanitize-content [DRY=1]`). It is safe to re-run.
 - Uploads are type-checked from their bytes (JPEG/PNG/GIF/WebP/PDF), never
   from the filename. SVG is refused.
 - The last active administrator cannot be disabled or deleted.

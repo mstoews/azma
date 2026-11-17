@@ -128,6 +128,7 @@ func (t *pageTranslationDTO) normalize() string {
 	case len(t.Content) > maxContentBytes:
 		return "translated content is too large"
 	}
+	t.Content = SanitizeContent(t.Content)
 	return ""
 }
 
@@ -140,7 +141,7 @@ func (t *profileTranslationDTO) normalize() string {
 	if msg := p.normalize(); msg != "" {
 		return msg
 	}
-	t.Title = p.Title
+	t.Title, t.Content = p.Title, p.Content
 	if len(t.Excerpt) > 10 {
 		return "translated card text has too many lines"
 	}
