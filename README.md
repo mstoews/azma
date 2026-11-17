@@ -41,6 +41,25 @@ builds the image in Cloud Build and deploys that build after asking you to
 confirm. `make deploy TAG=<build-id>`
 rolls back to an earlier build. See `server/README.md` → Deploying.
 
+### Local database instead of Neon
+
+With Docker running, you can work against a PostgreSQL container instead of
+Neon. Set it up once:
+
+```bash
+make db-up                 # PostgreSQL 16 on localhost:55440
+make migrate DB=local      # create the schema
+make db-seed               # load the original site content
+make admin DB=local EMAIL=you@example.com NAME="Your Name"
+```
+
+Then add `DB=local` to the usual commands, e.g. `make dev DB=local`. It
+overrides `DB_SOURCE` without changing `server/app.env`, so leaving it off
+goes back to Neon. `make db-down` stops the container (the data is kept),
+`make db-reset` deletes the data, `make db-psql` opens a SQL shell, and
+`make test-integration` runs the API integration tests against a scratch
+`cms_test` database in the container.
+
 Database migrations are not applied automatically (`AUTO_MIGRATE=false`,
 locally and on Cloud Run). When a change adds a migration in
 `server/db/migration`, run `make migrate`; `make migrate-status` shows the

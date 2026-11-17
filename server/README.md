@@ -28,8 +28,12 @@ db/query     SQL → `sqlc generate` → db/sqlc
 The usual way is from the repo root, against Neon (UAT/test data):
 `make secrets`, then `make api` and `make web`. See the root README.
 
-To use a local database instead (embedded PostgreSQL; it cannot run as
-root, so not in root-only containers):
+To use a local database instead, the simplest is the Docker container:
+`make db-up`, `make migrate DB=local`, `make db-seed`, then `make dev DB=local`
+(see the root README; the container is defined in `docker-compose.yaml`).
+
+Without Docker, the embedded PostgreSQL also works (it cannot run as root, so
+not in root-only containers):
 
 ```sh
 cd server
