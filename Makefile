@@ -11,16 +11,21 @@
 # Then, in two terminals (or `make dev` for both in one):
 #   make api      # API on http://localhost:8080
 #   make web      # website on http://localhost:4200 (admin at /admin)
+#
+# Releasing to Cloud Run (production, project web-azma):
+#   make release  # build the image in Cloud Build, then deploy that build
 
 PROJECT  ?= web-azma
+REGION   ?= asia-northeast1
 WEB_PORT ?= 4200
+TAG      ?= latest
 ENV_FILE := server/app.env
 
 .DEFAULT_GOAL := help
-.PHONY: help install secrets api web dev check-env admin media test build
+.PHONY: help install secrets api web dev check-env admin media test build cloud-build deploy release
 
 help: ## List the commands
-	@awk 'BEGIN { FS = ":.*## " } /^[a-z-]+:.*## / { printf "  make %-9s %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@awk 'BEGIN { FS = ":.*## " } /^[a-z-]+:.*## / { printf "  make %-12s %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
 install: ## Install website (npm) and API (Go) dependencies
 	npm ci
@@ -56,3 +61,12 @@ test: ## Run the website and API tests
 build: ## Build the website (dist/) and the API binaries (server/bin/)
 	npx ng build
 	$(MAKE) -C server build
+
+cloud-build: ## Build the site + API image in Cloud Build (tags: build id and latest)
+	PROJECT=$(PROJECT) REGION=$(REGION) ./scripts/cloud-run.sh build
+
+deploy: ## Deploy an image to Cloud Run: make deploy [TAG=<build-id>] (asks first; YES=1 skips)
+	PROJECT=$(PROJECT) REGION=$(REGION) ./scripts/cloud-run.sh deploy $(TAG)
+
+release: ## Build in Cloud Build, then deploy that exact build to Cloud Run (asks first)
+	PROJECT=$(PROJECT) REGION=$(REGION) ./scripts/cloud-run.sh release

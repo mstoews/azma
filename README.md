@@ -35,6 +35,10 @@ Other commands: `make admin EMAIL=… NAME="…"` (create or reset a CMS
 administrator), `make media` (copy uploaded images from the bucket to
 `server/media`, so they show locally), `make test`, `make build`.
 
+To release to Cloud Run: `make release` builds the image in Cloud Build and
+deploys that build, after asking you to confirm. `make deploy TAG=<build-id>`
+rolls back to an earlier build. See `server/README.md` → Deploying.
+
 The API applies database migrations when it starts (`AUTO_MIGRATE=true`),
 so `make api` runs any new migrations against Neon.
 

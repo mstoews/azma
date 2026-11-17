@@ -128,13 +128,20 @@ ending in `z`, so `/healthz` only works locally.
 | Database | Neon, DSN in Secret Manager `azma-db-source` |
 | Runtime identity | `azma-cms-run@web-azma.iam.gserviceaccount.com` (bucket objects + that secret only) |
 
-Release, from the repo root:
+Release, from the repo root (needs `gcloud auth login`):
 
 ```sh
-gcloud builds submit --config server/cloudbuild.yaml --project web-azma --region asia-northeast1 .
-server/deploy.sh                 # deploys :latest
-server/deploy.sh <build-id>      # roll back to an earlier build
+make release                     # build in Cloud Build, then deploy that build
+make cloud-build                 # build only (image tagged <build-id> and latest)
+make deploy                      # deploy :latest
+make deploy TAG=<build-id>       # roll back to an earlier build
 ```
+
+Deploying asks for confirmation (`YES=1` skips it). Building refuses
+uncommitted changes, since Cloud Build uploads the working tree
+(`ALLOW_DIRTY=1` overrides). `.gcloudignore` keeps `app.env` and other local
+files out of the upload. The targets wrap `scripts/cloud-run.sh`, which runs
+`gcloud builds submit --config server/cloudbuild.yaml` and `server/deploy.sh`.
 
 Schema migrations run when the server starts. Against Neon they go to the
 direct endpoint, not the pooler (see `dbutil.DirectDSN`).
