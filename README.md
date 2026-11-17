@@ -2,13 +2,45 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.4.
 
-## Development server
+## Running locally
 
-To start a local development server, run:
+Everything you need day to day is in the `Makefile`; run `make` to list it.
+Locally, the API and the website run on your machine against the **Neon**
+database, which holds UAT/test data (it is not the live site's data). Its
+connection string is a secret in Google Secret Manager (project `web-azma`).
+
+First time:
 
 ```bash
-ng serve
+gcloud auth login      # an account that can read the project's secrets
+make install           # npm + Go dependencies
+make secrets           # copies the secrets into server/app.env (git-ignored)
 ```
+
+Then, in two terminals:
+
+```bash
+make api               # API on http://localhost:8080
+```
+
+```bash
+make web               # website on http://localhost:4200, admin at /admin
+```
+
+or `make dev` to run both in one terminal. Run `make secrets` again whenever
+the secret changes; it only replaces the secret lines in `server/app.env`, so
+your other local settings stay.
+
+Other commands: `make admin EMAIL=… NAME="…"` (create or reset a CMS
+administrator), `make media` (copy uploaded images from the bucket to
+`server/media`, so they show locally), `make test`, `make build`.
+
+The API applies database migrations when it starts (`AUTO_MIGRATE=true`),
+so `make api` runs any new migrations against Neon.
+
+## Development server
+
+`make web` runs `ng serve`; `npm start` does the same.
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 

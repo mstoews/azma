@@ -25,9 +25,15 @@ db/query     SQL → `sqlc generate` → db/sqlc
 
 ## Local development
 
+The usual way is from the repo root, against Neon (UAT/test data):
+`make secrets`, then `make api` and `make web`. See the root README.
+
+To use a local database instead (embedded PostgreSQL; it cannot run as
+root, so not in root-only containers):
+
 ```sh
 cd server
-cp app.env.example app.env        # set DB_SOURCE (Neon, or the devdb DSN)
+cp app.env.example app.env        # DB_SOURCE defaults to the devdb DSN
 make devdb                         # terminal 1, only if not using Neon
 make seed                          # import pages, profiles, menu, settings, media
 make admin EMAIL=you@example.com NAME="Your Name"   # prompts for a password
