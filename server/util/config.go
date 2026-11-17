@@ -42,7 +42,7 @@ var defaults = map[string]any{
 	"DB_SOURCE":               "",
 	"HTTP_SERVER_ADDRESS":     "0.0.0.0:8080",
 	"ALLOWED_ORIGINS":         "",
-	"AUTO_MIGRATE":            true,
+	"AUTO_MIGRATE":            false, // migrations run explicitly: make migrate
 	"SESSION_DURATION":        "12h",
 	"LOGIN_LOCKOUT_THRESHOLD": 5,
 	"LOGIN_LOCKOUT_WINDOW":    "15m",

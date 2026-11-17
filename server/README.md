@@ -35,6 +35,7 @@ root, so not in root-only containers):
 cd server
 cp app.env.example app.env        # DB_SOURCE defaults to the devdb DSN
 make devdb                         # terminal 1, only if not using Neon
+make migrate                       # create the schema (AUTO_MIGRATE is off)
 make seed                          # import pages, profiles, menu, settings, media
 make admin EMAIL=you@example.com NAME="Your Name"   # prompts for a password
 make run                           # terminal 2: API on :8080
@@ -56,8 +57,11 @@ drops and recreates the schema, so never point it at a real database.
 
 Set `DB_SOURCE` to the Neon connection string with `sslmode=require`. Use
 either the direct or the pooled endpoint: nothing here relies on
-session-level state. Migrations run on startup while `AUTO_MIGRATE=true`, or
-run them yourself with `go run ./cmd/admin migrate up`.
+session-level state. Migrations are not run on startup (`AUTO_MIGRATE=false`,
+the default): run `make migrate` from the repo root, or
+`go run ./cmd/admin migrate up` here. With it off, the server logs a warning
+at startup if the schema is behind or dirty. Set `AUTO_MIGRATE=true` to have
+it migrate on start instead.
 
 ## API
 
@@ -143,8 +147,11 @@ uncommitted changes, since Cloud Build uploads the working tree
 files out of the upload. The targets wrap `scripts/cloud-run.sh`, which runs
 `gcloud builds submit --config server/cloudbuild.yaml` and `server/deploy.sh`.
 
-Schema migrations run when the server starts. Against Neon they go to the
-direct endpoint, not the pooler (see `dbutil.DirectDSN`).
+Schema migrations do not run when the server starts (`AUTO_MIGRATE=false` in
+`deploy.sh`). Before deploying a build that adds migrations, run
+`make migrate` from the repo root; it uses the same Neon database. Against
+Neon they go to the direct endpoint, not the pooler (see `dbutil.DirectDSN`).
+If the schema is behind, Cloud Run's log shows a warning at startup.
 
 Commands against production, with the DSN taken from the secret so it never
 lands in a file:

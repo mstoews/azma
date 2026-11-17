@@ -35,12 +35,17 @@ Other commands: `make admin EMAIL=… NAME="…"` (create or reset a CMS
 administrator), `make media` (copy uploaded images from the bucket to
 `server/media`, so they show locally), `make test`, `make build`.
 
-To release to Cloud Run: `make release` builds the image in Cloud Build and
-deploys that build, after asking you to confirm. `make deploy TAG=<build-id>`
+To release to Cloud Run: if the release adds migrations, run `make migrate`
+first (local and Cloud Run share the Neon database), then `make release`, which
+builds the image in Cloud Build and deploys that build after asking you to
+confirm. `make deploy TAG=<build-id>`
 rolls back to an earlier build. See `server/README.md` → Deploying.
 
-The API applies database migrations when it starts (`AUTO_MIGRATE=true`),
-so `make api` runs any new migrations against Neon.
+Database migrations are not applied automatically (`AUTO_MIGRATE=false`,
+locally and on Cloud Run). When a change adds a migration in
+`server/db/migration`, run `make migrate`; `make migrate-status` shows the
+current schema version. If the schema is behind, the API logs a warning at
+startup.
 
 ## Development server
 

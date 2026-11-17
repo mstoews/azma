@@ -13,7 +13,11 @@
 #   make web      # website on http://localhost:4200 (admin at /admin)
 #
 # Releasing to Cloud Run (production, project web-azma):
+#   make migrate  # only when the release adds database migrations
 #   make release  # build the image in Cloud Build, then deploy that build
+#
+# The server never migrates the database on its own (AUTO_MIGRATE=false);
+# server/app.env and Cloud Run use the same Neon database.
 
 PROJECT  ?= web-azma
 REGION   ?= asia-northeast1
@@ -22,10 +26,10 @@ TAG      ?= latest
 ENV_FILE := server/app.env
 
 .DEFAULT_GOAL := help
-.PHONY: help install secrets api web dev check-env admin media test build cloud-build deploy release
+.PHONY: help install secrets api web dev check-env migrate migrate-status admin media test build cloud-build deploy release
 
 help: ## List the commands
-	@awk 'BEGIN { FS = ":.*## " } /^[a-z-]+:.*## / { printf "  make %-12s %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@awk 'BEGIN { FS = ":.*## " } /^[a-z-]+:.*## / { printf "  make %-15s %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
 install: ## Install website (npm) and API (Go) dependencies
 	npm ci
@@ -46,6 +50,13 @@ dev: check-env ## Start the API and the website together (Ctrl-C stops both)
 check-env:
 	@test -f $(ENV_FILE) || { echo "$(ENV_FILE) is missing. Run: make secrets"; exit 1; }
 	@grep -Eq '^DB_SOURCE=.+' $(ENV_FILE) || { echo "DB_SOURCE is not set in $(ENV_FILE). Run: make secrets"; exit 1; }
+	@! grep -Eqi '^AUTO_MIGRATE=(true|1)' $(ENV_FILE) || echo "Note: $(ENV_FILE) has AUTO_MIGRATE=true, so the API migrates the database on start. Set it to false to use make migrate instead."
+
+migrate: check-env ## Apply pending database migrations to the DB in server/app.env (Neon)
+	cd server && go run ./cmd/admin migrate up
+
+migrate-status: check-env ## Show the database's schema version
+	cd server && go run ./cmd/admin migrate version
 
 admin: check-env ## Create or reset a CMS administrator: make admin EMAIL=you@example.com NAME="Your Name"
 	@test -n "$(EMAIL)" || { echo 'Usage: make admin EMAIL=you@example.com NAME="Your Name"'; exit 1; }

@@ -29,6 +29,12 @@ func main() {
 			log.Fatal().Err(err).Msg("migrations failed")
 		}
 		log.Info().Msg("schema up to date")
+	} else if problem, err := dbutil.SchemaStatus(config.DBSource); err != nil {
+		log.Warn().Err(err).Msg("cannot check schema version (AUTO_MIGRATE=false)")
+	} else if problem != "" {
+		log.Warn().Msg(problem)
+	} else {
+		log.Info().Msg("schema up to date (AUTO_MIGRATE=false)")
 	}
 
 	ctx := context.Background()

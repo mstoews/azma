@@ -4,7 +4,9 @@ package dbutil
 import (
 	"errors"
 	"fmt"
+	"io/fs"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -74,6 +76,59 @@ func Version(dsn string) (uint, bool, error) {
 		return 0, false, nil
 	}
 	return v, dirty, err
+}
+
+// LatestVersion is the highest migration version embedded in the binary,
+// i.e. the schema version this build of the server expects.
+func LatestVersion() (uint, error) {
+	entries, err := fs.ReadDir(migration.FS, ".")
+	if err != nil {
+		return 0, err
+	}
+	var latest uint
+	for _, e := range entries {
+		name := e.Name()
+		if !strings.HasSuffix(name, ".up.sql") {
+			continue
+		}
+		digits, _, ok := strings.Cut(name, "_")
+		if !ok {
+			continue
+		}
+		v, err := strconv.ParseUint(digits, 10, 64)
+		if err != nil {
+			continue
+		}
+		if uint(v) > latest {
+			latest = uint(v)
+		}
+	}
+	if latest == 0 {
+		return 0, errors.New("no embedded migrations found")
+	}
+	return latest, nil
+}
+
+// SchemaStatus compares the database's schema version with LatestVersion.
+// It returns a description of the problem, or "" when the schema is current.
+func SchemaStatus(dsn string) (string, error) {
+	want, err := LatestVersion()
+	if err != nil {
+		return "", err
+	}
+	have, dirty, err := Version(dsn)
+	if err != nil {
+		return "", err
+	}
+	switch {
+	case dirty:
+		return fmt.Sprintf("schema version %d is dirty (a migration failed part-way); fix it, then run migrations", have), nil
+	case have < want:
+		return fmt.Sprintf("schema version %d is behind this build (%d); run migrations (make migrate)", have, want), nil
+	case have > want:
+		return fmt.Sprintf("schema version %d is ahead of this build (%d); this server may be older than the database", have, want), nil
+	}
+	return "", nil
 }
 
 // DirectDSN rewrites a Neon pooled endpoint (ep-x-pooler.region.aws.neon.tech)
