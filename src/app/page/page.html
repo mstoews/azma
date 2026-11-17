@@ -1,25 +1,55 @@
 @if (page(); as p) {
-<div class="singular-main-block">
-  <div class="wrapper">
-    <div class="theme-row">
-      <div id="primary" class="content-area">
-        <main id="site-content" class="" role="main">
-          <div class="article-wraper">
-            <article id="post-{{ cssId(p) }}" class="post-{{ cssId(p) }} page type-page status-publish has-post-thumbnail hentry">
-              <header class="entry-header">
-                <h1 class="entry-title entry-title-large">{{ p.title }}</h1>
-              </header>
-              <div class="post-content-wrap">
-                <div class="post-content">
-                  <div class="entry-content" [innerHTML]="p.content | trustedHtml"></div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </main>
-      </div>
+  <header class="site-page-head">
+    <div class="site-container">
+      <nav class="site-crumbs" aria-label="Breadcrumb">
+        <a routerLink="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">{{ p.title }}</span>
+      </nav>
+      <h1>{{ p.title }}</h1>
     </div>
-  </div>
-</div>
-}
+  </header>
 
+  @if (p.hero) {
+    <div class="site-container">
+      <img class="site-banner" [src]="p.hero" alt="" decoding="async" fetchpriority="high" />
+    </div>
+  }
+
+  <div class="site-container site-article-grid">
+    <article class="site-prose" [innerHTML]="p.content | trustedHtml"></article>
+
+    <aside class="site-aside">
+      @if (isPrivacy()) {
+        <div class="site-aside-card">
+          <span class="site-aside-icon"><cms-icon name="shield" /></span>
+          <h2>Your analytics choice</h2>
+          <p>
+            @switch (consent.effective()) {
+              @case ('granted') { Accepted: Google Analytics is on. }
+              @case ('denied') { Declined{{ consent.gpc() ? ' (Global Privacy Control)' : '' }}: Google Analytics is off. }
+              @default { Not chosen yet: Google Analytics is off. }
+            }
+          </p>
+          <button type="button" class="site-btn site-btn-block" (click)="consent.reopen()">Change cookie settings</button>
+        </div>
+      }
+      @if (email(); as e) {
+        <div class="site-aside-card site-aside-contact">
+          <span class="site-aside-icon"><cms-icon name="mail" /></span>
+          <h2>{{ isContact() ? 'Email us' : 'Talk to us' }}</h2>
+          <p>About a position, a career change or market information.</p>
+          <a class="site-btn site-btn-primary site-btn-block" [href]="'mailto:' + e">{{ e }}</a>
+        </div>
+      }
+      @if (others().length) {
+        <nav class="site-aside-card" aria-label="More about us">
+          <h2>More about us</h2>
+          <ul role="list">
+            @for (o of others(); track o.slug) {
+              <li><a [routerLink]="['/', o.slug]"><strong>{{ o.label }}</strong><small>{{ o.summary }}</small></a></li>
+            }
+          </ul>
+        </nav>
+      }
+    </aside>
+  </div>
+}

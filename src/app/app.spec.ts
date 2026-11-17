@@ -15,13 +15,28 @@ describe('App', () => {
     }).compileComponents();
   });
 
-  it('renders the off-canvas navigation from bundled content', async () => {
+  const texts = (root: HTMLElement, sel: string) =>
+    Array.from(root.querySelectorAll<HTMLElement>(sel)).map((a) => a.textContent?.trim());
+
+  it('renders the header and menu navigation from bundled content', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
-    const links = Array.from(fixture.nativeElement.querySelectorAll('#primary-nav-offcanvas a') as NodeListOf<HTMLElement>);
-    expect(links.map((a) => a.textContent?.trim())).toEqual([
-      'Who We Are', 'Our Expertise', 'Search Process', 'Vision &  Mission', 'Contact', '日本語',
-    ]);
+    const el = fixture.nativeElement as HTMLElement;
+    const pages = ['Who We Are', 'Our Expertise', 'Search Process', 'Vision &  Mission', 'Contact'];
+    // Header: site pages inline; the external Japanese-site link sits apart, marked as Japanese.
+    expect(texts(el, '.site-nav a')).toEqual(pages);
+    expect(el.querySelector('.site-header-actions a[lang="ja"]')?.textContent?.trim()).toBe('日本語');
+    // Mobile menu: Home, the pages, then the Japanese site.
+    expect(texts(el, '#site-menu nav a')).toEqual(['Home', ...pages, '日本語']);
+  });
+
+  it('links the privacy policy from the footer and the consent banner', async () => {
+    localStorage.removeItem('azma.consent.analytics');
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+    expect(el.querySelector('.site-footer a[href="/privacy-policy"]')).not.toBeNull();
+    expect(el.querySelector('.site-consent a[href="/privacy-policy"]')).not.toBeNull();
   });
 
   it('replaces bundled content with the CMS response', async () => {

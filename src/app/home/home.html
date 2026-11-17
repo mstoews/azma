@@ -1,41 +1,99 @@
-<div class="archive-main-block">
-  <div id="primary" class="content-area">
-    <main id="site-content" role="main">
-      <div class="article-wraper archive-layout-default">
-        @for (p of profiles(); track p.id) {
-          <article id="post-{{ cssId(p) }}"
-                   class="theme-article theme-article-loaded post-{{ cssId(p) }} post type-post status-publish format-standard has-post-thumbnail sticky hentry category-uncategorized">
-            <div class="post-thumbnail">
-              <div class="post-thumbnail-effects">
-                <a [routerLink]="['/profile', p.slug]">
-                  <span class="data-bg data-bg-archive" [style.background-image]="'url(&quot;' + p.thumb + '&quot;)'"></span>
-                </a>
-              </div>
+<section class="site-hero">
+  <div class="site-container site-hero-grid">
+    <div class="site-hero-text">
+      @if (offices().length) {
+        <p class="site-eyebrow"><cms-icon name="pin" />{{ officeNames() }}</p>
+      }
+      <h1>{{ settings().homeDescription }}</h1>
+      <p class="site-lead">{{ settings().tagline }}</p>
+      <div class="site-actions">
+        <a routerLink="/" fragment="team" class="site-btn site-btn-primary">Meet our team <cms-icon name="arrow" /></a>
+        @if (contactLink(); as c) { <a [routerLink]="c" class="site-btn">Get in touch</a> }
+      </div>
+    </div>
+    <figure class="site-hero-media">
+      <img [src]="settings().homeHeaderImage" alt="" fetchpriority="high" decoding="async" />
+      <figcaption class="site-hero-card">
+        <span class="site-hero-card-icon"><cms-icon name="users" /></span>
+        <span><strong>{{ team().length }} specialists</strong><small>across {{ offices().length }} {{ offices().length === 1 ? 'office' : 'offices' }} in Asia Pacific</small></span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+@if (sections().length) {
+  <section class="site-section" aria-labelledby="about-heading">
+    <div class="site-container">
+      <header class="site-section-head">
+        <p class="site-eyebrow">About us</p>
+        <h2 id="about-heading">How we work</h2>
+      </header>
+      <div class="site-cards">
+        @for (s of sections(); track s.id) {
+          <a class="site-card" [routerLink]="['/', s.slug]">
+            @if (s.hero) { <img class="site-card-img" [src]="s.hero" alt="" loading="lazy" decoding="async" /> }
+            <div class="site-card-body">
+              <h3>{{ s.label }}</h3>
+              <p>{{ s.summary }}</p>
+              <span class="site-card-more">Read more <cms-icon name="arrow" /></span>
             </div>
-            <div class="post-content">
-              <div class="entry-meta entry-meta-top"></div>
-              <header class="entry-header">
-                <h2 class="entry-title entry-title-medium">
-                  <a [routerLink]="['/profile', p.slug]" rel="bookmark">{{ p.title }}</a>
-                </h2>
-              </header>
-              <div class="entry-excerpt entry-excerpt-muted">
-                <p>
-                  @for (line of p.excerpt; track $index; let last = $last) {
-                    {{ line }}@if (!last) {<br />}
-                  }
-                </p>
-              </div>
-              <div class="entry-footer">
-                <div class="entry-meta"></div>
-                <div class="entry-read-more">
-                  <a [routerLink]="['/profile', p.slug]" class="theme-button theme-button-border theme-button-small">Read More</a>
-                </div>
-              </div>
-            </div>
-          </article>
+          </a>
         }
       </div>
-    </main>
+    </div>
+  </section>
+}
+
+<section id="team" class="site-section site-section-alt" aria-labelledby="team-heading">
+  <div class="site-container">
+    <header class="site-section-head site-section-head-row">
+      <div>
+        <p class="site-eyebrow">Our team</p>
+        <h2 id="team-heading">The people you will work with</h2>
+      </div>
+      @if (offices().length > 1) {
+        <div class="site-seg" role="group" aria-label="Filter by office">
+          <button type="button" [class.active]="office() === null" [attr.aria-pressed]="office() === null" (click)="office.set(null)">
+            All <span class="site-count">{{ team().length }}</span>
+          </button>
+          @for (o of offices(); track o.name) {
+            <button type="button" [class.active]="office() === o.name" [attr.aria-pressed]="office() === o.name" (click)="office.set(o.name)">
+              {{ o.name }} <span class="site-count">{{ o.count }}</span>
+            </button>
+          }
+        </div>
+      }
+    </header>
+    <ul class="site-team" role="list">
+      @for (m of visibleTeam(); track m.id) {
+        <li>
+          <a class="site-person" [routerLink]="['/profile', m.slug]">
+            <span class="site-person-photo">
+              @if (m.thumb) { <img [src]="m.thumb" [alt]="m.title" loading="lazy" decoding="async" /> }
+            </span>
+            <span class="site-person-body">
+              <strong>{{ m.title }}</strong>
+              @if (m.nativeName) { <span class="site-person-native" lang="ja">{{ m.nativeName }}</span> }
+              @if (m.role) { <span class="site-person-role">{{ m.role }}</span> }
+              @if (m.office) { <span class="site-badge"><cms-icon name="pin" />{{ m.office }}</span> }
+            </span>
+          </a>
+        </li>
+      }
+    </ul>
   </div>
-</div>
+</section>
+
+@if (contactLink(); as c) {
+  <section class="site-section">
+    <div class="site-container">
+      <div class="site-cta">
+        <div>
+          <h2>Hiring, or thinking about your next move?</h2>
+          <p>Talk to a consultant about a position, a career change or the market.</p>
+        </div>
+        <a [routerLink]="c" class="site-btn site-btn-light">Contact us <cms-icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+}

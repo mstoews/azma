@@ -1,3 +1,4 @@
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -5,6 +6,8 @@ import { SiteContentService } from '../content.service';
 import { AdminApi } from './admin-api.service';
 import { errorMessage } from './auth.interceptor';
 import { AdminNavItem, AdminPage, CONTENT_LOCALES, ContentLocale } from './models';
+import { Icon } from '../shared/icon';
+import { keepRowWidths } from './shared/table-drag';
 import { NoticeService } from './shared/notice.service';
 
 interface Row {
@@ -21,7 +24,7 @@ const toRow = (n: AdminNavItem): Row => ({
 
 @Component({
   selector: 'cms-nav-editor',
-  imports: [FormsModule],
+  imports: [FormsModule, CdkDropList, CdkDrag, CdkDragHandle, Icon],
   template: `
     <header class="cms-head">
       <h1>Menu</h1>
@@ -34,10 +37,11 @@ const toRow = (n: AdminNavItem): Row => ({
     @if (error()) { <p class="cms-error">{{ error() }}</p> }
     <table class="cms-table cms-nav-table">
       <thead><tr><th></th><th>Label</th>@for (l of locales; track l.code) { <th>{{ l.label }}</th> }<th>Links to</th><th></th></tr></thead>
-      <tbody>
+      <tbody cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="drop($event)">
         @for (r of rows(); track $index; let i = $index, first = $first, last = $last) {
-          <tr>
+          <tr cdkDrag cdkDragPreviewContainer="parent" (cdkDragStarted)="keepRowWidths($event)">
             <td class="cms-order">
+              <span class="cms-drag-handle" cdkDragHandle title="Drag to reorder"><cms-icon name="grip" /></span>
               <button type="button" (click)="move(i, -1)" [disabled]="first" aria-label="Move up">↑</button>
               <button type="button" (click)="move(i, 1)" [disabled]="last" aria-label="Move down">↓</button>
             </td>
@@ -111,6 +115,17 @@ export class NavEditor {
 
   protected setLabel(i: number, locale: ContentLocale, label: string): void {
     this.rows.update((rs) => rs.map((r, j) => (j === i ? { ...r, labels: { ...r.labels, [locale]: label } } : r)));
+  }
+
+  protected readonly keepRowWidths = keepRowWidths;
+
+  protected drop(e: CdkDragDrop<unknown>): void {
+    if (e.previousIndex === e.currentIndex) return;
+    this.rows.update((xs) => {
+      const next = [...xs];
+      moveItemInArray(next, e.previousIndex, e.currentIndex);
+      return next;
+    });
   }
 
   protected move(i: number, d: number): void {

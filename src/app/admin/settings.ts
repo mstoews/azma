@@ -25,9 +25,9 @@ import { NoticeService } from './shared/notice.service';
           @if (lang() === 'en') {
           <label class="cms-field"><span class="cms-label">Site name</span>
             <input type="text" [ngModel]="v.siteName" (ngModelChange)="patch({ siteName: $event })" /></label>
-          <label class="cms-field"><span class="cms-label">Tagline (under the logo, and in the browser title)</span>
+          <label class="cms-field"><span class="cms-label">Tagline (under the home page headline, in the footer and the browser title)</span>
             <input type="text" [ngModel]="v.tagline" (ngModelChange)="patch({ tagline: $event })" /></label>
-          <label class="cms-field"><span class="cms-label">Home page description</span>
+          <label class="cms-field"><span class="cms-label">Home page headline</span>
             <textarea rows="2" [ngModel]="v.homeDescription" (ngModelChange)="patch({ homeDescription: $event })"></textarea></label>
           } @else {
             @let t = currentTr();
@@ -36,14 +36,14 @@ import { NoticeService } from './shared/notice.service';
               <input type="text" [ngModel]="t.siteName" (ngModelChange)="patchTr({ siteName: $event })" [placeholder]="v.siteName" /></label>
             <label class="cms-field"><span class="cms-label">Tagline</span>
               <input type="text" [ngModel]="t.tagline" (ngModelChange)="patchTr({ tagline: $event })" [placeholder]="v.tagline" /></label>
-            <label class="cms-field"><span class="cms-label">Home page description</span>
+            <label class="cms-field"><span class="cms-label">Home page headline</span>
               <textarea rows="2" [ngModel]="t.homeDescription" (ngModelChange)="patchTr({ homeDescription: $event })"
                         [placeholder]="v.homeDescription"></textarea></label>
           }
         </div>
         <aside class="cms-edit-side">
-          <div class="cms-card"><cms-image-field label="Logo" [value]="v.logo" (valueChange)="patch({ logo: $event })" /></div>
-          <div class="cms-card"><cms-image-field label="Home page side image" [value]="v.homeHeaderImage" (valueChange)="patch({ homeHeaderImage: $event })" /></div>
+          <div class="cms-card"><cms-image-field label="Logo" hint="Not shown by the current site design." [value]="v.logo" (valueChange)="patch({ logo: $event })" /></div>
+          <div class="cms-card"><cms-image-field label="Home page hero image" [value]="v.homeHeaderImage" (valueChange)="patch({ homeHeaderImage: $event })" /></div>
         </aside>
       </div>
     }
