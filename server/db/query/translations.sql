@@ -61,3 +61,9 @@ SET site_name = EXCLUDED.site_name, tagline = EXCLUDED.tagline, home_description
 
 -- name: DeleteSettingsTranslation :exec
 DELETE FROM site_settings_translations WHERE locale = @locale;
+
+-- name: SetPageTranslationContent :exec
+UPDATE page_translations SET content = @content WHERE page_id = @page_id AND locale = @locale;
+
+-- name: SetProfileTranslationContent :exec
+UPDATE profile_translations SET content = @content WHERE profile_id = @profile_id AND locale = @locale;

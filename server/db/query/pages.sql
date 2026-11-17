@@ -28,3 +28,8 @@ UPDATE pages SET sort_order = @sort_order WHERE id = @id;
 
 -- name: GetPageByLegacyID :one
 SELECT * FROM pages WHERE legacy_wp_id = @legacy_wp_id;
+
+-- name: SetPageContent :exec
+-- Rewrites the body only (used by `admin sanitize-content`); leaves
+-- updated_at/updated_by alone since no one edited the page.
+UPDATE pages SET content = @content WHERE id = @id;

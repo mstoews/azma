@@ -5,6 +5,7 @@
 //	go run ./cmd/admin reset-password -email you@example.com
 //	go run ./cmd/admin list
 //	go run ./cmd/admin migrate [up|down|version]
+//	go run ./cmd/admin sanitize-content [-dry-run]
 //
 // Passwords are read from the terminal without echo, or from the
 // ADMIN_PASSWORD environment variable for scripted use.
@@ -28,7 +29,7 @@ import (
 )
 
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: admin <create|reset-password|enable|disable|list|migrate> [flags]")
+	fmt.Fprintln(os.Stderr, "usage: admin <create|reset-password|enable|disable|list|migrate|sanitize-content> [flags]")
 	os.Exit(2)
 }
 
@@ -54,6 +55,7 @@ func main() {
 	fs := flag.NewFlagSet(cmd, flag.ExitOnError)
 	email := fs.String("email", "", "administrator email")
 	name := fs.String("name", "", "display name")
+	dryRun := fs.Bool("dry-run", false, "sanitize-content: report what would change without writing")
 	_ = fs.Parse(args)
 
 	switch cmd {
@@ -91,6 +93,8 @@ func main() {
 			}
 			fmt.Printf("%-36s  %-30s  %-20s  %s\n", u.ID, u.Email, u.Name, state)
 		}
+	case "sanitize-content":
+		fatal(sanitizeContent(ctx, store, *dryRun))
 	default:
 		usage()
 	}
@@ -157,4 +161,78 @@ func fatal(err error) {
 		fmt.Fprintln(os.Stderr, "error:", err)
 		os.Exit(1)
 	}
+}
+
+// sanitizeContent runs every stored page, profile and translation body through
+// api.SanitizeContent, the same allowlist the API now applies on save, so HTML
+// saved before that check existed cannot reach the public site. It is
+// idempotent: rows that are already clean are left untouched.
+func sanitizeContent(ctx context.Context, store db.Store, dryRun bool) error {
+	changed := 0
+	check := func(what, content string, write func(string) error) error {
+		clean := api.SanitizeContent(content)
+		if clean == content {
+			return nil
+		}
+		changed++
+		fmt.Printf("%-40s %6d -> %6d bytes\n", what, len(content), len(clean))
+		if dryRun {
+			return nil
+		}
+		return write(clean)
+	}
+
+	pages, err := store.ListPages(ctx)
+	if err != nil {
+		return err
+	}
+	for _, p := range pages {
+		if err := check("page "+p.Slug, p.Content, func(c string) error {
+			return store.SetPageContent(ctx, db.SetPageContentParams{ID: p.ID, Content: c})
+		}); err != nil {
+			return err
+		}
+	}
+	profiles, err := store.ListProfiles(ctx)
+	if err != nil {
+		return err
+	}
+	for _, p := range profiles {
+		if err := check("profile "+p.Slug, p.Content, func(c string) error {
+			return store.SetProfileContent(ctx, db.SetProfileContentParams{ID: p.ID, Content: c})
+		}); err != nil {
+			return err
+		}
+	}
+	pageTr, err := store.ListPageTranslations(ctx)
+	if err != nil {
+		return err
+	}
+	for _, t := range pageTr {
+		what := fmt.Sprintf("page #%d [%s]", t.PageID, t.Locale)
+		if err := check(what, t.Content, func(c string) error {
+			return store.SetPageTranslationContent(ctx, db.SetPageTranslationContentParams{PageID: t.PageID, Locale: t.Locale, Content: c})
+		}); err != nil {
+			return err
+		}
+	}
+	profileTr, err := store.ListProfileTranslations(ctx)
+	if err != nil {
+		return err
+	}
+	for _, t := range profileTr {
+		what := fmt.Sprintf("profile #%d [%s]", t.ProfileID, t.Locale)
+		if err := check(what, t.Content, func(c string) error {
+			return store.SetProfileTranslationContent(ctx, db.SetProfileTranslationContentParams{ProfileID: t.ProfileID, Locale: t.Locale, Content: c})
+		}); err != nil {
+			return err
+		}
+	}
+
+	verb := "sanitized"
+	if dryRun {
+		verb = "would sanitize"
+	}
+	fmt.Printf("%s %d of %d bodies\n", verb, changed, len(pages)+len(profiles)+len(pageTr)+len(profileTr))
+	return nil
 }

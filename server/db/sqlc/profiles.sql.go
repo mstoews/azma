@@ -198,6 +198,20 @@ func (q *Queries) ListPublishedProfiles(ctx context.Context) ([]Profile, error) 
 	return items, nil
 }
 
+const setProfileContent = `-- name: SetProfileContent :exec
+UPDATE profiles SET content = $1 WHERE id = $2
+`
+
+type SetProfileContentParams struct {
+	Content string `json:"content"`
+	ID      int64  `json:"id"`
+}
+
+func (q *Queries) SetProfileContent(ctx context.Context, arg SetProfileContentParams) error {
+	_, err := q.db.Exec(ctx, setProfileContent, arg.Content, arg.ID)
+	return err
+}
+
 const setProfileSortOrder = `-- name: SetProfileSortOrder :exec
 UPDATE profiles SET sort_order = $1 WHERE id = $2
 `

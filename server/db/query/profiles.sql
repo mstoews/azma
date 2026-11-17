@@ -28,3 +28,6 @@ UPDATE profiles SET sort_order = @sort_order WHERE id = @id;
 
 -- name: GetProfileByLegacyID :one
 SELECT * FROM profiles WHERE legacy_wp_id = @legacy_wp_id;
+
+-- name: SetProfileContent :exec
+UPDATE profiles SET content = @content WHERE id = @id;
